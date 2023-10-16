@@ -5,7 +5,7 @@ services:
       context: ./
       target: dever
       ssh: [default]
-    image: tirrex:devel
+    image: hackathon_fira:devel
     volumes:
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro

@@ -1,6 +1,6 @@
 ARG FROM_IMAGE=osrf/ros:humble-desktop-full
 ARG WORKSPACE=/opt/tirrex_ws
-ARG REPOS_FILE=./tirrex.repos
+ARG REPOS_FILE=./hackathon.repos
 
 # multi-stage for caching
 FROM $FROM_IMAGE AS cacher
@@ -67,26 +67,5 @@ cd -- "\$WORKSPACE"
 [[ -z "\$USER" ]] && echo >&2 "Missing environment variable 'USER'" && false
 CMD="\$@"
 sudo -snu \$USER bash -c \
-  "source devel/setup.bash &>/dev/null || source '/opt/ros/\$ROS_DISTRO/setup.bash' ; exec \$CMD"
+  "source install/setup.bash &>/dev/null || source '/opt/ros/\$ROS_DISTRO/setup.bash' ; exec \$CMD"
 EOF
-
-
-# # multi-stage for building the packages inside the image
-# FROM installer AS builder
-#
-# ARG WORKSPACE
-# ARG CCACHE_DIR=$WORKSPACE/.ccache
-# ENV CCACHE_DIR=$CCACHE_DIR
-# WORKDIR $WORKSPACE
-#
-# # compile workspace
-# COPY --from=cacher $WORKSPACE ./
-# RUN --mount=type=cache,target=$CCACHE_DIR \
-#     . /opt/ros/$ROS_DISTRO/setup.sh && \
-#     catkin build \
-#         --cmake-args \
-#             -DCMAKE_C_COMPILER_LAUNCHER=ccache \
-#             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
-#
-# # source workspace from entrypoint
-# RUN sed -i "s!^source .*!source '$WORKSPACE/devel/setup.bash'!" /ros_entrypoint.sh
