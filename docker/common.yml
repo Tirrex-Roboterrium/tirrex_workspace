@@ -11,7 +11,7 @@ services:
       - /etc/group:/etc/group:ro
       - $HOME:$HOME
     environment:
-      - WORKSPACE
+      - WORKSPACE=$PWD
       - USER
       - ROS_IP
       - ROS_MASTER_URI
@@ -22,7 +22,6 @@ services:
       service: base
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ~/.Xauthority:/root/.Xauthority
       - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
     environment:
       - DISPLAY
