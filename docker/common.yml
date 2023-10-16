@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  base:
+    build:
+      context: ./
+      target: dever
+      ssh: [default]
+    image: tirrex:devel
+    volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - $HOME:$HOME
+    environment:
+      - WORKSPACE
+      - USER
+      - ROS_IP
+      - ROS_MASTER_URI
+    network_mode: host
+
+  x11_base:
+    extends:
+      service: base
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
+    environment:
+      - DISPLAY
+      - GAZEBO_RESOURCE_PATH
+      - GAZEBO_MODEL_PATH
+      - XDG_RUNTIME_DIR
+    privileged: true
+

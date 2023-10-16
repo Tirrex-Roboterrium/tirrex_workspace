@@ -1,0 +1,34 @@
+version: '3.4'
+services:
+  compile:
+    extends:
+      file: common.yml
+      service: base
+    command: 'colcon build --symlink-install'
+
+  demo:
+    extends:
+      file: common.yml
+      service: x11_base
+    depends_on:
+      compile:
+        condition: service_completed_successfully
+
+  demo_gpu:  # currently, gazebo does not use the GPU in docker (I don't know why)
+    extends:
+      file: common.yml
+      service: x11_base
+    environment:
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    depends_on:
+      compile:
+        condition: service_completed_successfully
+    profiles: [gpu]
