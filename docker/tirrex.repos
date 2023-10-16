@@ -207,15 +207,8 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/serial.git
     version: romea
-  src/third_party/sick_ldmrs:
-    type: git
-    url: https://github.com/SICKAG/libsick_ldmrs.git
-    version: master
-  src/third_party/sick_scan:
-    type: git
-    url: https://github.com/SICKAG/sick_scan_xd
-    version: master
   src/third_party/xsens_driver:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/xsens_driver.git
     version: romea
+
