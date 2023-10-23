@@ -66,6 +66,6 @@ set -e
 cd -- "\$WORKSPACE"
 [[ -z "\$USER" ]] && echo >&2 "Missing environment variable 'USER'" && false
 CMD="\$@"
-sudo -snu \$USER bash -c \
+sudo -snEHu \$USER bash -c \
   "source install/setup.bash &>/dev/null || source '/opt/ros/\$ROS_DISTRO/setup.bash' ; exec \$CMD"
 EOF

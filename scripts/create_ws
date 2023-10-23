@@ -1,4 +1,12 @@
 #!/bin/bash
+models_file='fira_hackathon_models.zip'
+
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 echo 'Import packages'
 vcs import -w6 <docker/hackathon.repos
+
+echo 'Import gazebo models'
+mkdir -p gazebo
+wget "https://nextcloud.inrae.fr/s/nRL9pZKoX6XrSYm/download/$models_file"
+unzip "$models_file" -d gazebo
+rm "$models_file"

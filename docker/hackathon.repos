@@ -211,7 +211,8 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/xsens_driver.git
     version: romea
-  src/romea_ros2/demos/hackathon_fira_demo:
+
+  src/romea_ros2/demos/fira_hackathon_demo:
     type: git
-    url: git@gitlab-ssh.irstea.fr:cyrille.pierre/hackathon_fira_demo.git
+    url: git@github.com:FiraHackathon/fira_hackathon_demo.git
     version: main

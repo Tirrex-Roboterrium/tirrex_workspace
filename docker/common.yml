@@ -25,8 +25,9 @@ services:
       - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
     environment:
       - DISPLAY
-      - GAZEBO_RESOURCE_PATH
-      - GAZEBO_MODEL_PATH
+      - GAZEBO_RESOURCE_PATH=$GAZEBO_RESOURCE_PATH:$PWD/gazebo
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:$PWD/gazebo/models
+      - GAZEBO_TEST=$GAZEBO_MODEL_PATH:$PWD/gazebo/models
       - XDG_RUNTIME_DIR
     privileged: true
 
