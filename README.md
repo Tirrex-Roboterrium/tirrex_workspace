@@ -39,3 +39,15 @@ You can save time by avoiding recompiling using the following command:
 ```
 docker compose up --no-deps demo
 ```
+
+If you want to execute a specific command, it is possible tu specify it using `docker compose run`.
+For example, to manually launch `demo.launch.py` you can execute:
+```
+docker compose run --rm -it --no-deps demo ros2 launch fira_hackathon_demo demo.launch.py
+```
+It is also possible to open a shell on the docker if you want:
+```
+docker compose run --rm -it --no-deps demo bash
+```
+The option `--rm` allows to automatically delete the container when the command finish and `-it`
+allows to make it more interactive.
