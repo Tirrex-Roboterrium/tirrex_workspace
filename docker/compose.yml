@@ -13,6 +13,7 @@ services:
     depends_on:
       compile:
         condition: service_completed_successfully
+    command: 'ros2 launch fira_hackathon_demo demo.launch.py'
 
   demo_gpu:  # currently, gazebo does not use the GPU in docker (I don't know why)
     extends:
@@ -32,3 +33,4 @@ services:
       compile:
         condition: service_completed_successfully
     profiles: [gpu]
+    command: 'ros2 launch fira_hackathon_demo demo.launch.py'

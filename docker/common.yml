@@ -30,6 +30,7 @@ services:
       - GAZEBO_MODEL_PATH=$PWD/gazebo/models
       - GAZEBO_TEST=$PWD/gazebo/models
     devices:
-      - /dev/input/
-    # privileged: true
+      - /dev/input/  # for joypads
+      - /dev/dri/    # for graphic card
+    privileged: true
 
