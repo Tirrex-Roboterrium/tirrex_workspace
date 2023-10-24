@@ -32,5 +32,4 @@ services:
     devices:
       - /dev/input/  # for joypads
       - /dev/dri/    # for graphic card
-    privileged: true
-
+    # privileged: true

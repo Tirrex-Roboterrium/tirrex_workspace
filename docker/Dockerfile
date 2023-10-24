@@ -59,13 +59,4 @@ WORKDIR $WORKSPACE
 ENV SHELL=/bin/bash
 RUN rm -rf "$WORKSPACE"
 
-RUN <<EOF cat >/ros_entrypoint.sh
-#!/bin/bash
-set -e
-[[ -z "\$WORKSPACE" ]] && echo >&2 "Missing environment variable 'WORKSPACE'" && false
-cd -- "\$WORKSPACE"
-[[ -z "\$USER" ]] && echo >&2 "Missing environment variable 'USER'" && false
-CMD="\$@"
-sudo -snEHu \$USER bash -c \
-  "source install/setup.bash &>/dev/null || source '/opt/ros/\$ROS_DISTRO/setup.bash' ; exec \$CMD"
-EOF
+COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
