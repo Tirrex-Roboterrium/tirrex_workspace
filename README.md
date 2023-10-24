@@ -13,7 +13,23 @@ From the root of this project, execute:
 ./scripts/create_ws
 ```
 
-### Compiling using docker
+### Compiling
+
+#### Temporary step for INRAE users
+
+The current version of the file containing all the git projects use irstea ssh URLs instead of github
+https.
+Then, it is necessary to configure the [irstea](https://gitlab.irstea.fr/-/profile/keys) and
+[github](https://github.com/settings/keys) servers to connect [using your ssh key](https://docs.github.com/en/github-ae@latest/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
+After that, you also need to add it to the ssh agent to allow docker to clone the repositories.
+You can do that by executing
+```
+eval $(ssh-agent)
+ssh-add ~/.ssh/id_ed25519
+```
+after replacing `~/.ssh/id_ed25519` by the correct private key file.
+
+#### Create docker image and compile
 
 It is possible to build a docker image that install ROS2 and all the dependencies of the packages.
 You first need to install a recent version of docker compose by [following the instruction on the
