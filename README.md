@@ -18,7 +18,7 @@ From the root of this project, execute:
 #### Temporary step for INRAE users
 
 The current version of the file containing all the git projects use irstea ssh URLs instead of github
-https.
+https URLs.
 Then, it is necessary to configure the [irstea](https://gitlab.irstea.fr/-/profile/keys) and
 [github](https://github.com/settings/keys) servers to connect [using your ssh key](https://docs.github.com/en/github-ae@latest/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
 After that, you also need to add it to the ssh agent to allow docker to clone the repositories.
@@ -42,7 +42,7 @@ docker compose up compile --build
 
 ## Running
 
-To start graphical applications, you have to enable connection to the host server X:
+To start graphical applications, you have to enable connection to the X server:
 ```
 xhost +local:docker
 ```
