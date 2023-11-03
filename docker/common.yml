@@ -5,9 +5,9 @@ services:
       context: ./
       target: dever
       ssh: [default]
-      args:
-        - FROM_IMAGE=osrf/ros:galactic-desktop
-    image: hackathon_fira:galactic
+      # args:
+      #   - FROM_IMAGE=osrf/ros:galactic-desktop
+    image: hackathon_fira:devel
     volumes:
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro

@@ -1,4 +1,4 @@
-ARG FROM_IMAGE=osrf/ros:humble-desktop-full
+ARG FROM_IMAGE=osrf/ros:humble-desktop
 ARG WORKSPACE=/opt/tirrex_ws
 ARG REPOS_FILE=./hackathon.repos
 
