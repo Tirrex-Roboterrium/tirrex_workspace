@@ -7,8 +7,13 @@ You need to install `vcstool`. You can install it using pip:
 pip install vcstool
 ```
 
-Then you can execute a script to clone all the ROS packages and download the gazebo models.
-From the root of this project, execute:
+Clone this project and go to the root:
+```
+git clone https://github.com/FiraHackathon/fira_hackathon_workspace.git
+cd fira_hackathon_workspace
+```
+
+Then you can execute a script to clone all the ROS packages and download the gazebo models:
 ```
 ./scripts/create_ws
 ```
@@ -31,7 +36,7 @@ after replacing `~/.ssh/id_ed25519` by the correct private key file.
 
 #### Create docker image and compile
 
-It is possible to build a docker image that install ROS2 and all the dependencies of the packages.
+A docker image is available to install ROS2 and all the dependencies of the packages.
 You first need to install a recent version of docker compose by [following the instruction on the
 docker documentation](https://docs.docker.com/compose/install/linux/).
 Then you can build the image and compile the workspace using the following command (from the root of
