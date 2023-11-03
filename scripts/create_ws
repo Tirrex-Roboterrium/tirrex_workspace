@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 models_file='fira_hackathon_models.zip'
 
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
@@ -10,3 +11,5 @@ mkdir -p gazebo
 wget "https://nextcloud.inrae.fr/s/nRL9pZKoX6XrSYm/download/$models_file"
 unzip "$models_file" -d gazebo
 rm "$models_file"
+
+echo 'Installation completed successfully'

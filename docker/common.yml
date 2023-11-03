@@ -11,12 +11,10 @@ services:
     volumes:
       - /etc/passwd:/etc/passwd:ro
       - /etc/group:/etc/group:ro
-      - $HOME:$HOME
+      - $PWD:$PWD
     environment:
       - WORKSPACE=$PWD
       - USER
-      - ROS_IP
-      - ROS_MASTER_URI
     network_mode: host
 
   x11_base:
@@ -25,6 +23,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
+      - $HOME:$HOME
     environment:
       - DISPLAY
       - XDG_RUNTIME_DIR

@@ -224,11 +224,7 @@ repositories:
     version: main
 
   # -------- third party --------------------------
-  # src/third_party/nmea_navsat_driver:
-  #   type: git
-  #   url: https://github.com/Romea/romea-ros2-third_party/nmea_navsat_driver.git
-  #   version: romea
-  # src/third_party/serial:
-  #   type: git
-  #   url: https://github.com/Romea/romea-ros2-third_party/serial.git
-  #   version: romea
+  src/third_party/serial:
+    type: git
+    url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/serial.git
+    version: romea
