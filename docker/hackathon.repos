@@ -199,10 +199,6 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/simulation/romea_simulation.git
     version: devel
-  src/third_party/bluespace_ai_xsens_ros_mti_driver:
-    type: git
-    url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/bluespace_ai_xsens_ros_mti_driver.git
-    version: romea
   src/third_party/nmea_navsat_driver:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/nmea_navsat_driver.git
@@ -210,10 +206,6 @@ repositories:
   src/third_party/serial:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/serial.git
-    version: romea
-  src/third_party/xsens_driver:
-    type: git
-    url: git@gitlab-ssh.irstea.fr:romea_ros2/third_party/xsens_driver.git
     version: romea
 
   src/romea_ros2/demos/fira_hackathon_demo:
