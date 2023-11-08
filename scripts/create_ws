@@ -8,7 +8,7 @@ vcs import -w6 <docker/hackathon.repos
 
 echo 'Import gazebo models'
 mkdir -p gazebo
-wget "https://nextcloud.inrae.fr/s/nRL9pZKoX6XrSYm/download/$models_file"
+wget "https://nextcloud.inrae.fr/s/Hg9cQiRqGFGJqBW/download/$models_file"
 unzip "$models_file" -d gazebo
 rm "$models_file"
 
