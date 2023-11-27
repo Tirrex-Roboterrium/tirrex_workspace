@@ -20,20 +20,6 @@ Then you can execute a script to clone all the ROS packages and download the gaz
 
 ### Compiling
 
-#### Temporary step for INRAE users
-
-The current version of the file containing all the git projects use irstea ssh URLs instead of github
-https URLs.
-Then, it is necessary to configure the [irstea](https://gitlab.irstea.fr/-/profile/keys) and
-[github](https://github.com/settings/keys) servers to connect [using your ssh key](https://docs.github.com/en/github-ae@latest/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account).
-After that, you also need to add it to the ssh agent to allow docker to clone the repositories.
-You can do that by executing
-```
-eval $(ssh-agent)
-ssh-add ~/.ssh/id_ed25519
-```
-after replacing `~/.ssh/id_ed25519` by the correct private key file.
-
 #### Create docker image and compile
 
 A docker image is available to install ROS2 and all the dependencies of the packages.

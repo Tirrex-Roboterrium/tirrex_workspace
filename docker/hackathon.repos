@@ -3,39 +3,39 @@ repositories:
   src/romea_core/romea_common:
     type: git
     url: https://github.com/Romea/romea-core-common.git
-    version: devel
+    version: main
   src/romea_core/romea_control:
     type: git
     url: https://github.com/Romea/romea-core-control.git
-    version: devel
+    version: main
   src/romea_core/romea_filtering:
     type: git
     url: https://github.com/Romea/romea-core-filtering.git
-    version: devel
+    version: main
   src/romea_core/romea_gps:
     type: git
     url: https://github.com/Romea/romea-core-gps.git
-    version: devel
+    version: main
   src/romea_core/romea_imu:
     type: git
     url: https://github.com/Romea/romea-core-imu.git
-    version: devel
+    version: main
   src/romea_core/romea_lidar:
     type: git
     url: https://github.com/Romea/romea-core-lidar.git
-    version: devel
+    version: main
   src/romea_core/romea_localisation:
     type: git
     url: https://github.com/Romea/romea-core-localisation.git
-    version: devel
+    version: main
   src/romea_core/romea_localisation_gps:
     type: git
     url: https://github.com/Romea/romea-core-localisation-gps.git
-    version: devel
+    version: main
   src/romea_core/romea_localisation_imu:
     type: git
     url: https://github.com/Romea/romea-core-localisation-imu.git
-    version: devel
+    version: main
   src/romea_core/romea_mobile_base:
     type: git
     url: https://github.com/Romea/romea-core-mobile-base.git
@@ -43,7 +43,7 @@ repositories:
   src/romea_core/romea_path:
     type: git
     url: https://github.com/Romea/romea-core-path.git
-    version: devel
+    version: main
 
   # -------- ros2 --------------------------
   src/romea_ros2/algorithms/control/path_following/romea_following_utils:
@@ -66,7 +66,7 @@ repositories:
   src/romea_ros2/algorithms/localisation/romea_localisation_gps:
     type: git
     url: https://github.com/Romea/romea-ros2-localisation-gps-plugin.git
-    version: devel
+    version: main
   src/romea_ros2/algorithms/localisation/romea_localisation_bringup:
     type: git
     url: https://github.com/Romea/romea-ros2-localisation-bringup.git
@@ -74,23 +74,23 @@ repositories:
   src/romea_ros2/algorithms/localisation/romea_localisation_imu:
     type: git
     url: https://github.com/Romea/romea-ros2-localisation-imu-plugin.git
-    version: devel
+    version: main
   src/romea_ros2/algorithms/localisation/romea_localisation_msgs:
     type: git
     url: https://github.com/Romea/romea-ros2-localisation-msgs.git
-    version: devel
+    version: main
   src/romea_ros2/algorithms/localisation/romea_localisation_odo:
     type: git
     url: https://github.com/Romea/romea-ros2-localisation-odo-plugin.git
-    version: devel
+    version: main
   src/romea_ros2/algorithms/localisation/romea_localisation_utils:
     type: git
     url: https://github.com/Romea/romea-ros2-localisation-utils.git
-    version: devel
+    version: main
   src/romea_ros2/algorithms/localisation/romea_robot_to_world_localisation:
     type: git
     url: https://github.com/Romea/romea-ros2-robot-to-world-localisation-core.git
-    version: devel
+    version: main
 
   # src/romea_ros2/demos/tirrex/ceol:
   #   type: git
@@ -148,7 +148,7 @@ repositories:
   #   type: git
   #   # url: https://github.com/Romea/alpo.git
   #   url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/alpo.git
-  #   version: devel
+  #   version: main
   # src/romea_ros2/interfaces/vehicles/campero:
   #   type: git
   #   # url: https://github.com/Romea/campero.git
@@ -166,23 +166,24 @@ repositories:
   src/romea_ros2/interfaces/vehicles/romea_mobile_base:
     type: git
     url: https://github.com/Romea/romea-ros2-mobile-base.git
-    version: devel
+    version: main
   src/romea_ros2/tools/romea_cmd_mux:
     type: git
     url: https://github.com/Romea/romea-ros2-cmd-mux.git
-    version: devel
+    version: main
   src/romea_ros2/tools/romea_common:
     type: git
     url: https://github.com/Romea/romea-ros2-common.git
-    version: devel
+    version: main
   src/romea_ros2/tools/romea_simulation:
     type: git
     url: https://github.com/Romea/romea-ros2-simulation.git
-    version: devel
+    version: main
 
   src/romea_ros2/demos/fira_hackathon_demo:
     type: git
-    url: git@github.com:FiraHackathon/fira_hackathon_demo.git
+    # url: git@github.com:FiraHackathon/fira_hackathon_demo.git
+    url: https://github.com/FiraHackathon/fira_hackathon_demo.git
     version: main
 
   # -------- third party --------------------------
