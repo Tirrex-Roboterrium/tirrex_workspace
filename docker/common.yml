@@ -16,6 +16,8 @@ services:
       - WORKSPACE=$PWD
       - USER
     network_mode: host
+    pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
+    ipc: host  # also used by ROS2
 
   x11_base:
     extends:

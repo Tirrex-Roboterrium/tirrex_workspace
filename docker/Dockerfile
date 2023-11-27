@@ -5,11 +5,6 @@ ARG REPOS_FILE=./hackathon.repos
 # multi-stage for caching
 FROM $FROM_IMAGE AS cacher
 
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends \
-#         git && \
-#     rm -rf /var/lib/apt/lists/*
-
 ARG WORKSPACE
 ARG REPOS_FILE
 WORKDIR $WORKSPACE
@@ -37,6 +32,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     apt-get install -y --no-install-recommends \
         # python3-pip \
         nlohmann-json3-dev \
+        # you can add some ubuntu packages here \
         libgsl-dev && \
     # pip3 install --no-cache-dir \
     rm -rf /var/lib/apt/lists/*
