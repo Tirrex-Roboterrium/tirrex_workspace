@@ -131,6 +131,14 @@ repositories:
     type: git
     url: https://github.com/Romea/romea-ros2-camera.git
     version: main
+  src/romea_ros2/interfaces/sensors/romea_stereo_camera:
+    type: git
+    url: https://github.com/Romea/romea-ros2-stereo-camera.git
+    version: main
+  src/romea_ros2/interfaces/sensors/romea_rgbd-camera:
+    type: git
+    url: https://github.com/Romea/romea-ros2-rgbd-camera.git
+    version: main
   src/romea_ros2/interfaces/sensors/romea_imu:
     type: git
     url: https://github.com/Romea/romea-ros2-imu.git
