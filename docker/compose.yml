@@ -10,27 +10,26 @@ services:
     extends:
       file: common.yml
       service: x11_base
+      # service: x11_gpu  # use this one if you want to use the GPU
     depends_on:
       compile:
         condition: service_completed_successfully
     command: 'ros2 launch fira_hackathon_demo demo.launch.py'
 
-  demo_gpu:  # currently, gazebo does not use the GPU in docker (I don't know why)
+  challenge1:
     extends:
-      file: common.yml
-      service: x11_base
-    environment:
-      - __NV_PRIME_RENDER_OFFLOAD=1
-      - __GLX_VENDOR_LIBRARY_NAME=nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-    depends_on:
-      compile:
-        condition: service_completed_successfully
-    profiles: [gpu]
-    command: 'ros2 launch fira_hackathon_demo demo.launch.py'
+      service: demo
+    profiles: [chal1]
+    command: 'ros2 launch fira_hackathon_demo challenge1.launch.py'
+
+  challenge2:
+    extends:
+      service: demo
+    profiles: [chal2]
+    command: 'ros2 launch fira_hackathon_demo challenge2.launch.py'
+
+  challenge3:
+    extends:
+      service: demo
+    profiles: [chal3]
+    command: 'ros2 launch fira_hackathon_demo challenge3.launch.py'

@@ -23,7 +23,7 @@ RUN mkdir -p /tmp/opt && \
     find . -name "COLCON_IGNORE" | xargs cp --parents -t /tmp/opt 2>/dev/null || true
 
 
-# multi-stage for installing build dependencies
+# multi-stage for installing dependencies
 FROM $FROM_IMAGE AS installer
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -53,6 +53,7 @@ FROM installer as dever
 ARG WORKSPACE
 WORKDIR $WORKSPACE
 ENV SHELL=/bin/bash
+# Remove the cloned projects to use a volume instead
 RUN rm -rf "$WORKSPACE"
 
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /

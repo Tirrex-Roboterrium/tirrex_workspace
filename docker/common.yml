@@ -37,3 +37,18 @@ services:
       - /dev/input/  # for joypads
       - /dev/dri/    # for graphic card
     # privileged: true
+  
+  x11_gpu:
+    extends:
+      service: x11_base
+    environment:  # these variables allows to use the GPU when the nvidia profile is 'on-demand'
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
