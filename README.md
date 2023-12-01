@@ -33,26 +33,55 @@ docker compose up compile --build
 
 ## Running
 
-To start graphical applications, you have to enable connection to the X server:
-```
-xhost +local:docker
-```
-Then, you can run the default roslaunch command by executing:
+You can run the default demo simulation by executing:
 ```
 docker compose up
 ```
+This command will start the default docker services named `compile` and `demo`.
+The `compile` service execute the `colcon build` command.
+The `demo` service is started when the `compile` service exits successfully and execute
+`ros2 launch fira_hackathon_demo demo.launch.py`.
 
-You can save time by avoiding recompiling using the following command:
+### Running a challenge
+
+The available docker service are the following:
+
+* `demo` (that starts `demo.launch.py`)
+* `challenge1` (that starts `challenge1.launch.py`)
+* `challenge2` (that starts `challenge2.launch.py`)
+* `challenge3` (that starts `challenge3.launch.py`)
+
+They are defined in the file [`docker/compose.yml`](docker/compose.yml).
+You can add your own services if you want to easily execute specific commands in the docker
+environment.
+
+All the commands must be run from the root of this project.
+
+To execute a specific challenge. You can replace `challenge1` by one the previous services and run
 ```
-docker compose up --no-deps demo
+docker compose up challenge1
 ```
 
-If you want to execute a specific command, it is possible tu specify it using `docker compose run`.
+You can save time by avoiding recompiling using `--no-deps` and you can lighten terminal output
+using `run` instead of `up`
+```
+docker compose run --rm --no-deps challenge1
+```
+
+### Run other commands in docker
+
+If you want to execute a specific command, it is possible tu specify it after `docker compose run`.
 For example, to manually launch `demo.launch.py` you can execute:
 ```
 docker compose run --rm --no-deps demo ros2 launch fira_hackathon_demo demo.launch.py
 ```
-It is also possible to open a shell on the docker if you want:
+Every ros command is available.
+For example, it is possible to do `ros2 topic list` by executing
+```
+docker compose run --rm --no-deps demo ros2 topic list
+```
+
+It is also possible to open a shell on the docker to run several commands
 ```
 docker compose run --rm --no-deps demo bash
 ```
