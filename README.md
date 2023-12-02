@@ -45,6 +45,8 @@ The `demo` service is started when the `compile` service exits successfully and 
 
 ### Running a challenge
 
+All the following commands must be run from the root of this project.
+
 The available docker service are the following:
 
 * `demo` (that starts `demo.launch.py`)
@@ -55,8 +57,6 @@ The available docker service are the following:
 They are defined in the file [`docker/compose.yml`](docker/compose.yml).
 You can add your own services if you want to easily execute specific commands in the docker
 environment.
-
-All the commands must be run from the root of this project.
 
 To execute a specific challenge. You can replace `challenge1` by one the previous services and run
 ```
@@ -86,7 +86,7 @@ It is also possible to open a shell on the docker to run several commands
 ```
 docker compose run --rm --no-deps demo bash
 ```
-The option `--rm` allows to automatically delete the container when the command finished.
+The option `--rm` allows to automatically delete the container when the command finishes.
 
 
 ## Architecture of the workspace
@@ -109,7 +109,23 @@ The image is built from the [Dockerfile](docker/Dockerfile) and can be edited to
 pip packages.
 
 When a docker service is started, this workspace is mounted as a volume inside the docker
-container and the ROS commands are run using your own user.
+container and the ROS commands are run using your own Linux user.
 This makes using the tools in docker similar to using them directly.
 This means that, if you have ROS Humble on your host system, you should be able to direclty run ros2
 commands without using docker commands.
+
+### ROS packages for the hackathon
+
+In the `src` directory, the packages are organized in several sub-folders:
+
+* `romea_core` contains all packages that are independant of ROS
+* `romea_ros2` contains all ROS2 packages (in several sub-folders)
+* `third_party` contains packages that are not written by our team
+
+Your developments will focus on the following projects:
+* [`romea_ros2/demos/fira_hackathon_demo`](https://github.com/FiraHackathon/fira_hackathon_demo)
+    containing the main launch files of the challenges
+* [`romea_ros2/demos/fira_minimal_node`](https://github.com/FiraHackathon/fira_minimal_node)
+    containing an example node to make the robot follow a trajectory
+
+For more details about this packages, read their README.
