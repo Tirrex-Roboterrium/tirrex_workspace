@@ -143,7 +143,7 @@ This may be due to local modifications.
 You have to manually handle this projects.
 However, it is possible to stash your local changes on every project before updating by running
 ```
-vcs -nw6 custom --args pull --rebase --autostash 
+vcs custom -nw6 --args pull --rebase --autostash 
 ```
 
 If you want to update projects and re-download the gazebo models, you can re-run the installation
