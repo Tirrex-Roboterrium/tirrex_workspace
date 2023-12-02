@@ -129,3 +129,25 @@ Your developments will focus on the following projects:
     containing an example node to make the robot follow a trajectory
 
 For more details about this packages, read their README.
+
+## Updating
+
+All the ROS packages may evolve during the hackathon.
+You can update them by using the command
+```
+vcs pull -nw6
+```
+
+Some projects may fail to update.
+This may be due to local modifications.
+You have to manually handle this projects.
+However, it is possible to stash your local changes on every project before updating by running
+```
+vcs -nw6 custom --args pull --rebase --autostash 
+```
+
+If you want to update projects and re-download the gazebo models, you can re-run the installation
+script
+```
+./scripts/create_ws
+```
