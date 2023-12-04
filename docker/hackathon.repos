@@ -193,6 +193,10 @@ repositories:
     type: git
     url: https://github.com/Romea/romea-ros2-simulation.git
     version: main
+  src/romea_ros2/tools/romea_path_tools:
+    type: git
+    url: https://github.com/Romea/romea-ros-path-tools.git
+    version: main
 
   # -------- hackathon packages --------------------------
   src/romea_ros2/demos/fira_hackathon_demo:
