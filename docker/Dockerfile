@@ -12,8 +12,6 @@ COPY $REPOS_FILE repos
 RUN --mount=type=ssh \
     mkdir -pm 700 ~/.ssh && \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
-    ssh-keyscan gitlab.com >>~/.ssh/known_hosts && \
-    ssh-keyscan gitlab-ssh.irstea.fr >>~/.ssh/known_hosts && \
     vcs import -w6 <repos
 
 # copy manifests for caching
