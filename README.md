@@ -1,3 +1,10 @@
+## Documentation of the challenges
+
+* [challenge 1: generate a path](/doc/challenge1.md)
+* [challenge 2: detect the obstacles](/doc/challenge2.md)
+* [challenge 3: avoid the obstacles](/doc/challenge3.md)
+
+
 ## Installation
 
 ### Create workspace
