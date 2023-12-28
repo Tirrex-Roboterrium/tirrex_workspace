@@ -45,7 +45,7 @@ The files provided are just examples used to develop the path generation program
 
 The first version of the file contains only the waypoints that the robot must pass through.
 A second version including waypoints defining the boundaries of the working area will be provided to you shortly.
-This next version will be provided with explanation on the different elements constituing a waypoin.
+This next version will be provided with an explanation of the different elements constituting a waypoint.
 
 The file used for evaluation will be different from the example here.
 
@@ -86,11 +86,11 @@ corresponds to the euler angles roll, pitch and yaw (in radian) of the robot ori
 
 ### The evaluation method
 
-The ranking of participants in this challenge will be calculate on the basis of:
-* the percentage of traversable surface area within the plot covered by the robot
-* the number of waypoints validated
-* the travel time between the first and last validation
-* the number and time of collision with crops
+The ranking of participants in this challenge will be calculated based on:
+* The percentage of traversable surface area within the plot covered by the robot
+* The number of waypoints validated
+* The travel time between the first and last validation
+* The number and time of collisions with crops
 
 __For information:__
 A waypoint is validated when the robot origin (the center of the rear axle) passes within 20 cm of
