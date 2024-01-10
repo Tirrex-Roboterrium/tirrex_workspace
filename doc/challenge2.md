@@ -35,3 +35,28 @@ For the evaluation of this challenge, the ranking of participants in this challe
 * The percentage of successful detection
 * The accuracy of the detection (position in GPS coordinates)
 * Average time detection regarding an area of 5 meters around the robot
+
+### Detection output format
+
+The detections made by your node should be published on the topic `/evaluation/obstacle_detection`.
+The type of the message is `fira_hackathon_gazebo/msg/ObstacleDetection`.
+Here is the result of `ros2 interface show fira_hackathon_gazebo/msg/ObstacleDetection`:
+```
+std_msgs/Header header
+	builtin_interfaces/Time stamp
+		int32 sec
+		uint32 nanosec
+	string frame_id
+string id
+geometry_msgs/Point position
+	float64 x
+	float64 y
+	float64 z
+```
+
+The `header.stamp` should contains the correct time of the simulation.
+The `header.frame_id` should be `map`.
+The `id` can be anything but it must be unique for each obstacle.
+This allows you improve your estimation by publishing several times the same obstacle.
+The `position` corresponds to the estimated 3D position of the obstacle in the `map` frame but the
+error will be computed using only `x` and `y` coordinates.
