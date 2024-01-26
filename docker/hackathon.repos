@@ -103,7 +103,7 @@ repositories:
   src/romea_ros2/demos/tirrex/adap2e:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_adap2e.git
-    version: main
+    version: devel
   # src/romea_ros2/demos/tirrex/alpo:
   #   type: git
   #   # url: https://github.com/Tirrex-Roboterrium/tirrex_alpo.git
@@ -121,7 +121,7 @@ repositories:
   src/romea_ros2/demos/tirrex/tirrex_demo:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_demo.git
-    version: main
+    version: devel
 
   src/romea_ros2/interfaces/sensors/romea_gps:
     type: git
@@ -180,7 +180,7 @@ repositories:
   src/romea_ros2/interfaces/vehicles/romea_mobile_base:
     type: git
     url: https://github.com/Romea/romea-ros2-mobile-base.git
-    version: main
+    version: devel
   src/romea_ros2/tools/romea_cmd_mux:
     type: git
     url: https://github.com/Romea/romea-ros2-cmd-mux.git
@@ -188,7 +188,7 @@ repositories:
   src/romea_ros2/tools/romea_common:
     type: git
     url: https://github.com/Romea/romea-ros2-common.git
-    version: main
+    version: devel
   src/romea_ros2/tools/romea_simulation:
     type: git
     url: https://github.com/Romea/romea-ros2-simulation.git

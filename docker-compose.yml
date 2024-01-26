@@ -28,16 +28,16 @@ services:
     extends:
       service: demo
     profiles: [chal1]
-    command: 'ros2 launch fira_hackathon_demo challenge1.launch.py'
+    command: 'ros2 launch fira_hackathon_demo challenge1.launch.py mode:=simulation_4dv'
 
   challenge2:
     extends:
       service: demo
     profiles: [chal2]
-    command: 'ros2 launch fira_hackathon_demo challenge2.launch.py'
+    command: 'ros2 launch fira_hackathon_demo challenge2.launch.py mode:=simulation_4dv'
 
   challenge3:
     extends:
       service: demo
     profiles: [chal3]
-    command: 'ros2 launch fira_hackathon_demo challenge3.launch.py'
+    command: 'ros2 launch fira_hackathon_demo challenge3.launch.py mode:=simulation_4dv'
