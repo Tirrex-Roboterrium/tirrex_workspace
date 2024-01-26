@@ -203,7 +203,7 @@ repositories:
     type: git
     # url: git@github.com:FiraHackathon/fira_hackathon_demo.git
     url: https://github.com/FiraHackathon/fira_hackathon_demo.git
-    version: main
+    version: 4dv
   src/romea_ros2/demos/fira_minimal_node:
     type: git
     url: https://github.com/FiraHackathon/fira_minimal_node.git
