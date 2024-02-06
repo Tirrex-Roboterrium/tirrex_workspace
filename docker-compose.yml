@@ -30,7 +30,7 @@ services:
       file: docker/common.yml
       service: x11_base
     profiles: [chal1]
-    command: 'ros2 launch fira_hackathon_demo challenge1.launch.py mode:=simulation'
+    command: 'ros2 launch fira_hackathon_demo challenge1.launch.py mode:=simulation_4dv'
 
   challenge2:
     image: hackathon_fira:devel
@@ -38,7 +38,7 @@ services:
       file: docker/common.yml
       service: x11_base
     profiles: [chal2]
-    command: 'ros2 launch fira_hackathon_demo challenge2.launch.py mode:=simulation'
+    command: 'ros2 launch fira_hackathon_demo challenge2.launch.py mode:=simulation_4dv'
 
   challenge3:
     image: hackathon_fira:devel
@@ -46,4 +46,4 @@ services:
       file: docker/common.yml
       service: x11_base
     profiles: [chal3]
-    command: 'ros2 launch fira_hackathon_demo challenge3.launch.py mode:=simulation'
+    command: 'ros2 launch fira_hackathon_demo challenge3.launch.py mode:=simulation_4dv'
