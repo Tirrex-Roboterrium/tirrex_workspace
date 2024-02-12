@@ -7,14 +7,14 @@ services:
       ssh: [default]
       # args:
       #   - FROM_IMAGE=osrf/ros:galactic-desktop
-    image: hackathon_fira:devel
+    image: tirrex_fira:devel
     extends:
       file: docker/common.yml
       service: base
     command: 'colcon build --symlink-install'
 
-  demo:
-    image: hackathon_fira:devel
+  adap2e_test:
+    image: tirrex_fira:devel
     extends:
       file: docker/common.yml
       service: x11_base
@@ -22,28 +22,4 @@ services:
     depends_on:
       compile:
         condition: service_completed_successfully
-    command: 'ros2 launch fira_hackathon_demo demo.launch.py'
-
-  challenge1:
-    image: hackathon_fira:devel
-    extends:
-      file: docker/common.yml
-      service: x11_base
-    profiles: [chal1]
-    command: 'ros2 launch fira_hackathon_demo challenge1.launch.py mode:=simulation_4dv'
-
-  challenge2:
-    image: hackathon_fira:devel
-    extends:
-      file: docker/common.yml
-      service: x11_base
-    profiles: [chal2]
-    command: 'ros2 launch fira_hackathon_demo challenge2.launch.py mode:=simulation_4dv'
-
-  challenge3:
-    image: hackathon_fira:devel
-    extends:
-      file: docker/common.yml
-      service: x11_base
-    profiles: [chal3]
-    command: 'ros2 launch fira_hackathon_demo challenge3.launch.py mode:=simulation_4dv'
+    command: 'ros2 launch adap2e_bringup adap2e_test.launch.py'

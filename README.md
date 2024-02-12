@@ -1,10 +1,3 @@
-## Documentation of the challenges
-
-* [challenge 1: generate a path](/doc/challenge1.md)
-* [challenge 2: detect the obstacles](/doc/challenge2.md)
-* [challenge 3: avoid the obstacles](/doc/challenge3.md)
-
-
 ## Installation
 
 ### Create workspace
@@ -16,8 +9,8 @@ pip install vcstool
 
 Clone this project and go to the root:
 ```
-git clone https://github.com/FiraHackathon/fira_hackathon_workspace.git
-cd fira_hackathon_workspace
+git clone https://github.com/FiraHackathon/fira_tirrex_workspace.git
+cd fira_tirrex_workspace
 ```
 
 Then you can execute a script to clone all the ROS packages and download the gazebo models:
@@ -48,7 +41,7 @@ docker compose up
 This command will start the default docker services named `compile` and `demo`.
 The `compile` service execute the `colcon build` command.
 The `demo` service is started when the `compile` service exits successfully and execute
-`ros2 launch fira_hackathon_demo demo.launch.py`.
+`ros2 launch fira_tirrex_demo demo.launch.py`.
 
 ### Running a challenge
 
@@ -81,7 +74,7 @@ docker compose run --rm --no-deps challenge1
 If you want to execute a specific command, it is possible tu specify it after `docker compose run`.
 For example, to manually launch `demo.launch.py` you can execute:
 ```
-docker compose run --rm --no-deps demo ros2 launch fira_hackathon_demo demo.launch.py
+docker compose run --rm --no-deps demo ros2 launch fira_tirrex_demo demo.launch.py
 ```
 Every ros command is available.
 For example, it is possible to do `ros2 topic list` by executing
@@ -121,7 +114,7 @@ This makes using the tools in docker similar to using them directly.
 This means that, if you have ROS Humble on your host system, you should be able to direclty run ros2
 commands without using docker commands.
 
-### ROS packages for the hackathon
+### ROS packages for the tirrex
 
 In the `src` directory, the packages are organized in several sub-folders:
 
@@ -129,17 +122,11 @@ In the `src` directory, the packages are organized in several sub-folders:
 * `romea_ros2` contains all ROS2 packages (in several sub-folders)
 * `third_party` contains packages that are not written by our team
 
-Your developments will focus on the following projects:
-* [`romea_ros2/demos/fira_hackathon_demo`](https://github.com/FiraHackathon/fira_hackathon_demo)
-    containing the main launch files of the challenges
-* [`romea_ros2/demos/fira_minimal_node`](https://github.com/FiraHackathon/fira_minimal_node)
-    containing an example node to make the robot follow a trajectory
-
 For more details about this packages, read their README.
 
 ## Updating
 
-All the ROS packages may evolve during the hackathon.
+All the ROS packages may evolve during the tirrex.
 You can update them by using the command
 ```
 vcs pull -nw6

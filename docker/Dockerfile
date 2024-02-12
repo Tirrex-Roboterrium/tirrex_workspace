@@ -1,6 +1,6 @@
 ARG FROM_IMAGE=osrf/ros:humble-desktop
 ARG WORKSPACE=/opt/tirrex_ws
-ARG REPOS_FILE=./hackathon.repos
+ARG REPOS_FILE=./tirrex.repos
 
 # multi-stage for caching
 FROM $FROM_IMAGE AS cacher

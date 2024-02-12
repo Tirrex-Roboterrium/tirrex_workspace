@@ -198,21 +198,6 @@ repositories:
     url: https://github.com/Romea/romea-ros-path-tools.git
     version: main
 
-  # -------- hackathon packages --------------------------
-  src/romea_ros2/demos/fira_hackathon_demo:
-    type: git
-    # url: git@github.com:FiraHackathon/fira_hackathon_demo.git
-    url: https://github.com/FiraHackathon/fira_hackathon_demo.git
-    version: 4dv
-  src/romea_ros2/demos/fira_minimal_node:
-    type: git
-    url: https://github.com/FiraHackathon/fira_minimal_node.git
-    version: main
-  src/romea_ros2/demos/fira_hackathon_gazebo:
-    type: git
-    url: https://github.com/FiraHackathon/fira_hackathon_gazebo.git
-    version: main
-
   # -------- third party --------------------------
   src/third_party/serial:
     type: git

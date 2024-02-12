@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
-models_file='fira_hackathon_models.zip'
+models_file='fira_tirrex_models.zip'
 
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 echo 'Import packages'
-vcs import -w6 <docker/hackathon.repos
+vcs import -w6 <docker/tirrex.repos
 
 echo 'Import gazebo models'
 mkdir -p gazebo
