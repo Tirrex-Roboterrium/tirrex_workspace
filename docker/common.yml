@@ -47,3 +47,11 @@ services:
               count: 1
               capabilities: [gpu]
 
+  zed_req:
+    extends:
+      service: x11_gpu
+    volumes:
+      - /usr/local/zed/resources:/usr/local/zed/resources
+      - /usr/local/zed/settings:/usr/local/zed/settings
+      - /usr/local/zed/tools:/usr/local/zed/tools
+      - /dev:/dev

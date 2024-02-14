@@ -69,3 +69,10 @@ ENV SHELL=/bin/bash
 RUN rm -rf "$WORKSPACE"
 
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
+<<<<<<< HEAD
+=======
+
+COPY --chmod=755 install_gesture_command.sh install_gesture_detection.sh /tmp
+RUN /tmp/install_gesture_command.sh && \
+    /tmp/install_gesture_detection.sh
+>>>>>>> b1cefff... Test adap2e in live mode (it works)

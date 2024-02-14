@@ -30,4 +30,4 @@ services:
     extends:
       file: docker/common.yml
       service: x11_base
-    command: 'ros2 launch adap2e_bringup adap2e_test.launch.py'
+    command: 'ros2 launch adap2e_bringup adap2e_test.launch.py mode:=live'
