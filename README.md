@@ -43,31 +43,14 @@ The `compile` service execute the `colcon build` command.
 The `demo` service is started when the `compile` service exits successfully and execute
 `ros2 launch fira_tirrex_demo demo.launch.py`.
 
-### Running a challenge
+It is also possible to run a unique service without recompiling and with a lignthen terminal output
+```
+docker compose run --rm --no-deps demo
+```
 
-All the following commands must be run from the root of this project.
-
-The available docker service are the following:
-
-* `demo` (that starts `demo.launch.py`)
-* `challenge1` (that starts `challenge1.launch.py`)
-* `challenge2` (that starts `challenge2.launch.py`)
-* `challenge3` (that starts `challenge3.launch.py`)
-
-They are defined in the file [`docker/compose.yml`](docker/compose.yml).
+All the available services are defined in the file [`docker-compose.yml`](docker-compose.yml).
 You can add your own services if you want to easily execute specific commands in the docker
 environment.
-
-To execute a specific challenge. You can replace `challenge1` by one the previous services and run
-```
-docker compose up challenge1
-```
-
-You can save time by avoiding recompiling using `--no-deps` and you can lighten terminal output
-using `run` instead of `up`
-```
-docker compose run --rm --no-deps challenge1
-```
 
 ### Run other commands in docker
 
