@@ -12,6 +12,7 @@ COPY $REPOS_FILE repos
 RUN --mount=type=ssh \
     mkdir -pm 700 ~/.ssh && \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
+    ssh-keyscan gitlab-ssh.irstea.fr >>~/.ssh/known_hosts && \
     vcs import -w6 <repos
 
 # copy manifests for caching
@@ -69,10 +70,3 @@ ENV SHELL=/bin/bash
 RUN rm -rf "$WORKSPACE"
 
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
-<<<<<<< HEAD
-=======
-
-COPY --chmod=755 install_gesture_command.sh install_gesture_detection.sh /tmp
-RUN /tmp/install_gesture_command.sh && \
-    /tmp/install_gesture_detection.sh
->>>>>>> b1cefff... Test adap2e in live mode (it works)

@@ -31,3 +31,13 @@ services:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch adap2e_bringup adap2e_test.launch.py mode:=live'
+
+  adap2e:
+    image: tirrex_fira:devel
+    extends:
+      file: docker/common.yml
+      service: x11_base
+    depends_on:
+      compile:
+        condition: service_completed_successfully
+    command: 'ros2 launch tirrex_adap2e adap2e.launch.py mode:=live'
