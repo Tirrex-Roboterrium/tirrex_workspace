@@ -147,6 +147,10 @@ repositories:
     type: git
     url: https://github.com/Romea/romea-ros2-lidar.git
     version: main
+  src/romea_ros2/interfaces/sensors/romea_ublox:
+    type: git
+    url: https://github.com/Romea/romea-ros2-ublox-driver.git
+    version: main
   src/romea_ros2/interfaces/teleoperation/romea_joy:
     type: git
     url: https://github.com/Romea/romea-ros2-joy.git

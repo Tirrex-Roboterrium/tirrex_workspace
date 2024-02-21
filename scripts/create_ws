@@ -6,7 +6,7 @@ MODELS_FILE='fira_tirrex_models.zip'
 REPOS_FILE='repositories'
 
 if [[ -r '.env' ]] ; then
-    source .env
+    eval $(grep -v '^[UG]ID=' .env)
 fi
 
 
@@ -31,9 +31,10 @@ import_packages() {
 import_gazebo_models() {
     echo 'Import gazebo models'
     mkdir -p gazebo
-    wget -O "$MODELS_FILE" \
-        "https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$MODELS_FILE"
-    unzip "$MODELS_FILE" -d gazebo
+    url="https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$MODELS_FILE"
+    if wget -O "$MODELS_FILE" "$url" ; then
+        unzip "$MODELS_FILE" -d gazebo
+    fi
     rm "$MODELS_FILE"
 }
 
