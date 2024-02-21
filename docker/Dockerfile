@@ -53,6 +53,14 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 # multi-stage for developing
 FROM installer as dever
 
+# add the host user in the docker image
+ARG USER
+ARG GID
+ARG UID
+ARG HOME
+RUN groupadd -g $GID $USER && \
+    useradd -u $UID -g $GID -s /bin/bash -d $HOME $USER
+
 ARG WORKSPACE
 WORKDIR $WORKSPACE
 ENV SHELL=/bin/bash

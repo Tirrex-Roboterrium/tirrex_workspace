@@ -1,16 +1,44 @@
 #!/bin/bash
 set -e
-models_file='fira_tirrex_models.zip'
-
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
-echo 'Import packages'
-vcs import -w6 <docker/tirrex.repos
 
-echo 'Import gazebo models'
-mkdir -p gazebo
-wget -O "$models_file" \
-  "https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$models_file"
-unzip "$models_file" -d gazebo
-rm "$models_file"
+MODELS_FILE='fira_tirrex_models.zip'
+REPOS_FILE='tirrex.repos'
 
+if [[ -r '.env' ]] ; then
+    source .env
+fi
+
+
+add_variable_to_env_file() {
+    if ! grep -q "$1=" .env 2>/dev/null ; then
+        echo "  - Add $1=$2 to .env"
+        echo "$1=$2" >>.env
+    fi
+}
+
+initialize_env_file() {
+    echo 'Initialize ".env" file'
+    add_variable_to_env_file UID "$(id -u)"
+    add_variable_to_env_file GID "$(id -g)"
+}
+
+import_packages() {
+    echo 'Import packages'
+    vcs import -w6 <"docker/$REPOS_FILE"
+}
+
+import_gazebo_models() {
+    echo 'Import gazebo models'
+    mkdir -p gazebo
+    wget -O "$MODELS_FILE" \
+        "https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$MODELS_FILE"
+    unzip "$MODELS_FILE" -d gazebo
+    rm "$MODELS_FILE"
+}
+
+
+initialize_env_file
+import_packages
+import_gazebo_models
 echo 'Installation completed successfully'

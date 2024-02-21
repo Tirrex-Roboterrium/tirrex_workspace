@@ -2,8 +2,6 @@ version: '3.4'
 services:
   base:
     volumes:
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
       - $PWD:$PWD
     environment:
       - WORKSPACE=$PWD

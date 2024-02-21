@@ -5,7 +5,12 @@ services:
       context: docker/
       target: dever
       ssh: [default]
-      # args:
+      args:
+        - USER=$USER
+        - UID=$UID
+        - GID=$GID
+        - HOME=$HOME
+        - REPOS_FILE=${REPOS_FILE:-./repos.private}
       #   - FROM_IMAGE=osrf/ros:galactic-desktop
     image: tirrex_fira:devel
     extends:
@@ -13,13 +18,16 @@ services:
       service: base
     command: 'colcon build --symlink-install'
 
+  bash:
+    image: tirrex_fira:devel
+    extends:
+      file: docker/common.yml
+      service: x11_base
+    command: 'bash'
+
   adap2e_test:
     image: tirrex_fira:devel
     extends:
       file: docker/common.yml
       service: x11_base
-      # service: x11_gpu  # use this one if you want to use the GPU
-    depends_on:
-      compile:
-        condition: service_completed_successfully
     command: 'ros2 launch adap2e_bringup adap2e_test.launch.py'
