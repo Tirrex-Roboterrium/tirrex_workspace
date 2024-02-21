@@ -5,3 +5,4 @@
 /gazebo/
 .cache/
 .env
+*.dat

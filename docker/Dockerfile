@@ -39,6 +39,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
         matplotlib \
         geojson \
         pyserial \
+        transforms3d \
         pymap3d && \
     rm -rf /var/lib/apt/lists/*
 
@@ -61,7 +62,7 @@ ARG GID
 ARG UID
 ARG HOME
 RUN groupadd -g $GID $USER && \
-    useradd -u $UID -g $GID -s /bin/bash -d $HOME $USER
+    useradd -u $UID -g $GID -s /bin/bash -d $HOME -G dialout $USER
 
 ARG WORKSPACE
 WORKDIR $WORKSPACE
