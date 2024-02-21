@@ -70,3 +70,5 @@ ENV SHELL=/bin/bash
 RUN rm -rf "$WORKSPACE"
 
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
+
+RUN echo 'eval "$(register-python-argcomplete3 ros2)"' >>/etc/bash.bashrc

@@ -40,4 +40,4 @@ services:
     depends_on:
       compile:
         condition: service_completed_successfully
-    command: 'ros2 launch tirrex_adap2e adap2e.launch.py mode:=live'
+    command: 'ros2 launch tirrex_adap2e adap2e.launch.py mode:=live localisation:=false'
