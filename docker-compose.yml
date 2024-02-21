@@ -10,7 +10,7 @@ services:
         - UID=$UID
         - GID=$GID
         - HOME=$HOME
-        - REPOS_FILE=${REPOS_FILE:-./repos.private}
+        - REPOS_FILE=${REPOS_FILE:-repositories}
       #   - FROM_IMAGE=osrf/ros:galactic-desktop
     image: tirrex_fira:devel
     extends:

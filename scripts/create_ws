@@ -3,7 +3,7 @@ set -e
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 
 MODELS_FILE='fira_tirrex_models.zip'
-REPOS_FILE='tirrex.repos'
+REPOS_FILE='repositories'
 
 if [[ -r '.env' ]] ; then
     source .env

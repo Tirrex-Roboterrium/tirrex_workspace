@@ -1,6 +1,6 @@
 ARG FROM_IMAGE=osrf/ros:humble-desktop
 ARG WORKSPACE=/opt/tirrex_ws
-ARG REPOS_FILE=./tirrex.repos
+ARG REPOS_FILE=./repositories
 
 # multi-stage for caching
 FROM $FROM_IMAGE AS cacher
@@ -37,6 +37,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
         numpy \
         matplotlib \
         geojson \
+        pyserial \
         pymap3d && \
     rm -rf /var/lib/apt/lists/*
 
