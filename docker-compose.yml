@@ -12,14 +12,14 @@ services:
         - HOME=$HOME
         - REPOS_FILE=${REPOS_FILE:-repositories}
       #   - FROM_IMAGE=osrf/ros:galactic-desktop
-    image: tirrex_fira:devel
+    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: base
     command: 'colcon build --symlink-install'
 
   bash:
-    image: tirrex_fira:devel
+    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
@@ -33,7 +33,7 @@ services:
     command: 'ros2 launch adap2e_bringup adap2e_test.launch.py mode:=live'
 
   adap2e:
-    image: tirrex_fira:devel
+    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base

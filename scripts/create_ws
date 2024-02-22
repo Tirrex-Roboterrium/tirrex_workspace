@@ -2,7 +2,7 @@
 set -e
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 
-MODELS_FILE='fira_tirrex_models.zip'
+MODELS_FILE='fira_hackathon_models.zip'
 REPOS_FILE='repositories'
 
 if [[ -r '.env' ]] ; then

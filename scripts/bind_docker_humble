@@ -1,0 +1,33 @@
+#!/bin/bash
+# Reverse bind of /opt/ros/humble from the docker to the host (for IDE auto-completion)
+if [[ "${USER}" != 'root' ]] ; then
+  echo >&2 'This command must be run as root'
+  exit 1
+fi
+
+docker_image='tirrex:latest'
+ros_path='/opt/ros/humble'
+
+cd "$(dirname -- "${BASH_SOURCE[0]}")"
+
+echo "Start docker container '${docker_image}'"
+docker run -d --rm --entrypoint tail "${docker_image}" -f /dev/null
+sleep 1
+
+container_ID="$(docker ps | grep "${docker_image}" | head -1 | cut -d' ' -f1)"
+root_path="$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' "${container_ID}")"
+
+at_exit() {
+  echo 'Interrupted. Stopping the container...'
+  umount "${ros_path}"
+  docker kill "${container_ID}"
+  rmdir "${ros_path}"
+}
+
+echo "Bind '${ros_path}' from the container to the host"
+mkdir -p "${ros_path}"
+mount --bind "${root_path}${ros_path}" "${ros_path}"
+
+echo 'You can now open your IDE'
+trap at_exit INT QUIT TERM
+tail -f /dev/null
