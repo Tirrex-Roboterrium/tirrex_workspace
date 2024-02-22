@@ -145,10 +145,6 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_lidar.git 
     version: main
-  src/romea_ros2/interfaces/sensors/romea_ublox:
-    type: git
-    url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_ublox.git
-    version: main
   src/romea_ros2/interfaces/teleoperation/romea_joy:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/teleoperation/romea_joy.git 
