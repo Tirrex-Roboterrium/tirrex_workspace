@@ -37,7 +37,11 @@ services:
     extends:
       file: docker/common.yml
       service: x11_base
-    depends_on:
-      compile:
-        condition: service_completed_successfully
-    command: 'ros2 launch tirrex_adap2e adap2e.launch.py mode:=live localisation:=true'
+    command: 'ros2 launch tirrex_adap2e adap2e.launch.py mode:=live localisation:=false'
+
+  adap2e_path:
+    image: tirrex:latest
+    extends:
+      file: docker/common.yml
+      service: x11_base
+    command: 'ros2 launch tirrex_adap2e path_following.launch.py mode:=live'
