@@ -9,8 +9,8 @@ pip install vcstool
 
 Clone this project and go to the root:
 ```
-git clone https://github.com/FiraHackathon/fira_tirrex_workspace.git
-cd fira_tirrex_workspace
+git clone https://github.com/Tirrex-Roboterrium/tirrex_workspace.git
+cd tirrex_workspace
 ```
 
 Then you can execute a script to clone all the ROS packages and download the gazebo models:
@@ -43,9 +43,9 @@ The `compile` service execute the `colcon build` command.
 The `demo` service is started when the `compile` service exits successfully and execute
 `ros2 launch fira_tirrex_demo demo.launch.py`.
 
-It is also possible to run a unique service without recompiling and with a lignthen terminal output
+It is also possible to run a unique service without recompiling and with a lighten terminal output like
 ```
-docker compose run --rm --no-deps demo
+docker compose run --rm --no-deps adap2e_test
 ```
 
 All the available services are defined in the file [`docker-compose.yml`](docker-compose.yml).
@@ -56,8 +56,9 @@ environment.
 
 If you want to execute a specific command, it is possible tu specify it after `docker compose run`.
 For example, to manually launch `demo.launch.py` you can execute:
+
 ```
-docker compose run --rm --no-deps demo ros2 launch fira_tirrex_demo demo.launch.py
+docker compose run --rm --no-deps demo ros2 launch adap2e_bringup adap2e_test.launch.py
 ```
 Every ros command is available.
 For example, it is possible to do `ros2 topic list` by executing
