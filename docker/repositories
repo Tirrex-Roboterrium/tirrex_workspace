@@ -125,6 +125,10 @@ repositories:
     type: git
     url: https://github.com/Romea/hunter
     version: main
+  src/romea_ros2/interfaces/vehicles/husky:
+    type: git
+    url: https://github.com/Romea/husky
+    version: main
   src/romea_ros2/interfaces/vehicles/scout:
     type: git
     url: https://github.com/Romea/scout
@@ -191,9 +195,13 @@ repositories:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_adap2e.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_ceol:
+  src/romea_ros2/demos/tirrex/tirrex_campero:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_campero.git
+    version: main
+  src/romea_ros2/demos/tirrex/tirrex_ceol:
+    type: git
+    url: https://github.com/Tirrex-Roboterrium/tirrex_ceol.git
     version: main
   src/romea_ros2/demos/tirrex/tirrex_robufast:
     type: git
@@ -207,7 +215,11 @@ repositories:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_hunter.git
     version: main
-  romea_ros2/demos/tirrex/tirrex_scout_mini:
+  src/romea_ros2/demos/tirrex/tirrex_husky:
+    type: git
+    url: https://github.com/Tirrex-Roboterrium/tirrex_husky.git
+    version: main
+  src/romea_ros2/demos/tirrex/tirrex_scout_mini:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_scout_mini.git
     version: main
