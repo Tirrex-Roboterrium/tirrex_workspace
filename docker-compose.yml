@@ -23,6 +23,7 @@ services:
     extends:
       file: docker/common.yml
       service: x11_base
+      # service: x11_gpu
     command: 'bash'
 
   adap2e_test:

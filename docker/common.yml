@@ -35,10 +35,23 @@ services:
   
   x11_gpu:
     extends:
-      service: x11_base
+      service: base
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
+      - $HOME:$HOME
     environment:  # these variables allows to use the GPU when the nvidia profile is 'on-demand'
       - __NV_PRIME_RENDER_OFFLOAD=1
       - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - DISPLAY
+      - XDG_RUNTIME_DIR
+      - GAZEBO_RESOURCE_PATH=$PWD/gazebo
+      - GAZEBO_MODEL_PATH=$PWD/gazebo/models
+      - GAZEBO_TEST=$PWD/gazebo/models
+    devices:
+      - /dev/input/  # for joypads
+      - /dev/dri/    # for graphic card
     deploy:
       resources:
         reservations:
