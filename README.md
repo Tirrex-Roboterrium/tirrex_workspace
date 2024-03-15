@@ -25,7 +25,7 @@ To build the `tirrex` docker image, your first need to start a `ssh-agent` (if n
 source <(ssh-agent)
 ```
 
-After that, you can 
+After that, you can build the `tirrex` image using:
 ```
 docker compose build compile
 ```
