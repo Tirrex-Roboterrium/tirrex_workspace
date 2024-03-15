@@ -25,17 +25,17 @@ initialize_env_file() {
 
 import_packages() {
     echo 'Import packages'
-    vcs import -w6 <"docker/$REPOS_FILE"
+    vcs import --force --recursive -w6 <"docker/$REPOS_FILE"
 }
 
 import_gazebo_models() {
     echo 'Import gazebo models'
     mkdir -p gazebo
     url="https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$MODELS_FILE"
-    if wget -O "$MODELS_FILE" "$url" ; then
-        unzip "$MODELS_FILE" -d gazebo
+    if wget -O "/tmp/$MODELS_FILE" "$url" ; then
+        unzip -f "/tmp/$MODELS_FILE" -d gazebo
     fi
-    rm "$MODELS_FILE"
+    rm "/tmp/$MODELS_FILE"
 }
 
 
