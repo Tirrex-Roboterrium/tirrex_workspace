@@ -1,3 +1,4 @@
+# vim: ft=yaml
 repositories:
   # -------- core --------------------------
   src/romea_core/romea_common:
@@ -44,10 +45,10 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path.git 
     version: main
-  src/romea_core/romea_path_following:
-    type: git
-    url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_following.git 
-    version: main
+  # src/romea_core/romea_path_following:
+  #   type: git
+  #   url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_following.git 
+  #   version: main
 
   # -------- ros2 --------------------------
   src/romea_ros2/algorithms/control/path_following/romea_following_utils:
