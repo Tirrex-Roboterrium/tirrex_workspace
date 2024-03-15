@@ -13,9 +13,21 @@ git clone https://github.com/Tirrex-Roboterrium/tirrex_workspace.git
 cd tirrex_workspace
 ```
 
-Then you can execute a script to clone all the ROS packages and download the gazebo models:
+### Build the docker image
+
+The recommended method for compiling the workspace and running the programs is to use docker.
+If you do not want to use docker and you are using Ubuntu 22.04 and ROS2 Humble, you can skip this
+step and directly use `colcon` and `ros2` commands.
+However, the following instructions assume that docker is being used.
+
+To build the `tirrex` docker image, your first need to start a `ssh-agent` (if not already running):
 ```
-./scripts/create_ws
+source <(ssh-agent)
+```
+
+After that, you can 
+```
+docker compose build compile
 ```
 
 ### Compiling
@@ -28,24 +40,40 @@ docker documentation](https://docs.docker.com/compose/install/linux/).
 Then you can build the image and compile the workspace using the following command (from the root of
 this project):
 ```
-docker compose up compile --build
+docker compose run --rm compile
 ```
 
+## Installation (only for INRAE developers)
+
+If you are an INRAE developer with an access to the projects on gitlab.irstea.fr, you can use
+alternative repositories with ssh URLs.
+To do that, you have to add `REPOS_FILE` in the `.env` file before creating the workspace and
+building the docker image.
+Execute the following commands after replacing `id_ed25519` by the correct name of your ssh key:
+```bash
+echo 'REPOS_FILE=repositories.private' >> .env
+source <(ssh-agent)
+ssh-add ~/.ssh/id_ed25519
+./scripts/create_ws
+docker compose run --rm --build compile
+```
 
 ## Running
 
-You can run the default demo simulation by executing:
+You can run a simple simulation test that spawn a robot in Gazebo and can be controlled using a
+joypad.
+You just have to start one of the docker services corresponding to the robot name with the suffix
+`_test`.
+The currently robot available are `adap2e`, `campero`, `ceol`, `cinteo`, `hunter`, `husky`,
+`scout_mini` and `robufast`.
+For example, you can test `adap2e` using the command:
 ```
-docker compose up
+docker compose up adap2e_test
 ```
-This command will start the default docker services named `compile` and `demo`.
-The `compile` service execute the `colcon build` command.
-The `demo` service is started when the `compile` service exits successfully and execute
-`ros2 launch fira_tirrex_demo demo.launch.py`.
 
-It is also possible to run a unique service without recompiling and with a lighten terminal output like
+Alternatively, you can start a docker service using `run` to avoid prefixes on output lines:
 ```
-docker compose run --rm --no-deps adap2e_test
+docker compose run --rm adap2e_test
 ```
 
 All the available services are defined in the file [`docker-compose.yml`](docker-compose.yml).
@@ -54,22 +82,19 @@ environment.
 
 ### Run other commands in docker
 
-If you want to execute a specific command, it is possible tu specify it after `docker compose run`.
-For example, to manually launch `demo.launch.py` you can execute:
-
+It is possible to open a shell in the docker.
+It can be useful to execute some ROS command like `ros2 topic list` or `ros2 launch ...`.
+To start the shell, use the command:
 ```
-docker compose run --rm --no-deps demo ros2 launch adap2e_bringup adap2e_test.launch.py
-```
-Every ros command is available.
-For example, it is possible to do `ros2 topic list` by executing
-```
-docker compose run --rm --no-deps demo ros2 topic list
+docker compose run --rm bash
 ```
 
-It is also possible to open a shell on the docker to run several commands
+It is also possible to directly specify a command in the line.
+For exemple, you can manually start `adap2e_test` using:
 ```
-docker compose run --rm --no-deps demo bash
+docker compose run --rm bash ros2 launch adap2e_bringup adap2e_test.launch.py
 ```
+
 The option `--rm` allows to automatically delete the container when the command finishes.
 
 
@@ -98,7 +123,7 @@ This makes using the tools in docker similar to using them directly.
 This means that, if you have ROS Humble on your host system, you should be able to direclty run ros2
 commands without using docker commands.
 
-### ROS packages for the tirrex
+### Organization of the ROS packages
 
 In the `src` directory, the packages are organized in several sub-folders:
 
