@@ -64,7 +64,7 @@ You can run a simple simulation test that spawn a robot in Gazebo and can be con
 joypad.
 You just have to start one of the docker services corresponding to the robot name with the suffix
 `_test`.
-The currently robot available are `adap2e`, `campero`, `ceol`, `cinteo`, `hunter`, `husky`,
+The currently available robots are `adap2e`, `campero`, `ceol`, `cinteo`, `hunter`, `husky`,
 `scout_mini` and `robufast`.
 For example, you can test `adap2e` using the command:
 ```
@@ -90,7 +90,7 @@ docker compose run --rm bash
 ```
 
 It is also possible to directly specify a command in the line.
-For exemple, you can manually start `adap2e_test` using:
+For example, you can manually start `adap2e_test` using:
 ```
 docker compose run --rm bash ros2 launch adap2e_bringup adap2e_test.launch.py
 ```
@@ -135,15 +135,13 @@ For more details about this packages, read their README.
 
 ## Updating
 
-All the ROS packages may evolve during the tirrex.
-You can update them by using the command
+You can update the ROS packages using:
 ```
 vcs pull -nw6
 ```
 
-Some projects may fail to update.
-This may be due to local modifications.
-You have to manually handle this projects.
+Some projects may fail to update if you have local modifications.
+You have to manually handle these projects.
 However, it is possible to stash your local changes on every project before updating by running
 ```
 vcs custom -nw6 --args pull --rebase --autostash 
