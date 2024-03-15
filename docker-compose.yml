@@ -12,14 +12,12 @@ services:
         - HOME=$HOME
         - REPOS_FILE=${REPOS_FILE:-repositories}
       #   - FROM_IMAGE=osrf/ros:galactic-desktop
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: base
     command: 'colcon build --symlink-install'
 
   bash:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
@@ -27,56 +25,48 @@ services:
     command: 'bash'
 
   adap2e_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch adap2e_bringup adap2e_test.launch.py'
     
   campero_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch campero_bringup campero_test.launch.py'
     
   ceol_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch ceol_bringup ceol_test.launch.py'
     
   cinteo_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch cinteo_bringup cinteo_test.launch.py'
   
   hunter_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch hunter_bringup hunter_test.launch.py'
 
   husky_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch husky_bringup husky_test.launch.py'
     
   scout_mini_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base
     command: 'ros2 launch scout_bringup scout_test.launch.py model:=mini'
     
   robufast_test:
-    image: tirrex:latest
     extends:
       file: docker/common.yml
       service: x11_base

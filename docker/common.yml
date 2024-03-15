@@ -1,6 +1,7 @@
 version: '3.4'
 services:
   base:
+    image: tirrex:latest
     volumes:
       - $PWD:$PWD
     environment:
