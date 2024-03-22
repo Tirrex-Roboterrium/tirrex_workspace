@@ -4,43 +4,43 @@ repositories:
   src/romea_core/romea_common:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_common.git
-    version: main
+    version: devel
   src/romea_core/romea_gps:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_gps.git
-    version: main
+    version: devel
   src/romea_core/romea_imu:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_imu.git
-    version: main
+    version: devel
   src/romea_core/romea_lidar:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_lidar.git
-    version: main
+    version: devel
   src/romea_core/romea_mobile_base:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_mobile_base.git
-    version: main
+    version: devel
   src/romea_core/romea_filtering:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_filtering.git
-    version: main
+    version: devel
   src/romea_core/romea_localisation:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_localisation.git
-    version: main
+    version: devel
   src/romea_core/romea_localisation_imu:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_localisation_imu.git
-    version: main
+    version: devel
   src/romea_core/romea_localisation_gps:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_localisation_gps.git
-    version: main
+    version: devel
   src/romea_core/romea_control:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_control.git
-    version: main
+    version: devel
   src/romea_core/romea_path:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path.git
@@ -52,136 +52,136 @@ repositories:
   src/romea_core/romea_path_following:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_following.git
-    version: main
+    version: devel
 
   # -------- ros2 interfaces --------------------------
   src/romea_ros2/interfaces/manipulators/romea_arm:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/manipulators/romea_arm.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/sensors/romea_gps:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_gps.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/sensors/romea_imu:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_imu.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/sensors/romea_lidar:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_lidar.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/sensors/romea_camera:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_camera.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/sensors/romea_stereo_camera:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_stereo_camera.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/sensors/romea_rgbd_camera:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/sensors/romea_rgbd_camera.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/teleoperation/romea_joy:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/teleoperation/romea_joy.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/teleoperation/romea_teleop:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/teleoperation/romea_teleop.git
-    version: main
+    version: devel
 
   # -------- ros2 vehicle interfaces --------------------------
   src/romea_ros2/interfaces/vehicles/romea_mobile_base:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/romea_mobile_base.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/adap2e:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/adap2e.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/alpo:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/alpo.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/campero:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/campero.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/ceol:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/ceol.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/cinteo:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/cinteo.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/hunter:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/hunter.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/husky:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/husky.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/robufast:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/robucar.git
-    version: main
+    version: devel
   src/romea_ros2/interfaces/vehicles/scout:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/scout.git
-    version: main
+    version: devel
 
   # -------- ros2 algorithms --------------------------
   src/romea_ros2/algorithms/localisation/romea_localisation_bringup:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_bringup.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/localisation/romea_localisation_msgs:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_msgs.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/localisation/romea_localisation_utils:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_utils.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/localisation/romea_localisation_odo:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_odo_plugin.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/localisation/romea_localisation_gps:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_gps_plugin.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/localisation/romea_localisation_imu:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_localisation_imu_plugin.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/localisation/romea_robot_to_world_localisation:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/localisation/romea_robot_to_world_localisation_core.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/control/path_following/romea_path:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/control/path_following/romea_path_matching:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_matching.git
-    version: main
+    version: devel
   src/romea_ros2/algorithms/control/path_following/romea_path_following:
     type: git
     url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_following2.git
-    version: main
+    version: devel
 
 
   # -------- tirrex --------------------------
   src/romea_ros2/demos/tirrex/core:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_projects/tirrex/tirrex_demo.git
-    version: main
+    version: devel
   src/romea_ros2/demos/tirrex/robots/adap2e:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_projects/tirrex/adap2e.git
@@ -227,19 +227,19 @@ repositories:
   src/romea_ros2/tools/romea_common:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/tools/romea_common.git
-    version: main
+    version: devel
   src/romea_ros2/tools/romea_cmd_mux:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/tools/romea_cmd_mux.git
-    version: main
+    version: devel
   src/romea_ros2/tools/romea_simulation:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/simulation/romea_simulation.git
-    version: main
+    version: devel
   src/romea_ros2/tools/romea_path_tools:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/tools/romea_path_tools.git
-    version: main
+    version: devel
 
   # -------- third party --------------------------
   src/third_party/serial:
