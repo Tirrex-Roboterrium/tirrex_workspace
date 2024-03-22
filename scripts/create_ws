@@ -33,7 +33,7 @@ import_gazebo_models() {
     mkdir -p gazebo
     url="https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$MODELS_FILE"
     if wget -O "/tmp/$MODELS_FILE" "$url" ; then
-        unzip -f "/tmp/$MODELS_FILE" -d gazebo
+        unzip "/tmp/$MODELS_FILE" -d gazebo
     fi
     rm "/tmp/$MODELS_FILE"
 }
