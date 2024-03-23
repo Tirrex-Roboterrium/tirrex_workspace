@@ -13,6 +13,11 @@ git clone https://github.com/Tirrex-Roboterrium/tirrex_workspace.git
 cd tirrex_workspace
 ```
 
+Import all repositories in `src/` and download gazebo models in `gazebo/`:
+```
+./scripts/create_ws
+```
+
 ### Build the docker image
 
 The recommended method for compiling the workspace and running the programs is to use docker.

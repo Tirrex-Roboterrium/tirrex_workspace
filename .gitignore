@@ -4,5 +4,6 @@
 /log/
 /gazebo/
 .cache/
+.venv/
 .env
 *.dat
