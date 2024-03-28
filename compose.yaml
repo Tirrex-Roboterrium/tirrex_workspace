@@ -4,18 +4,9 @@ x-extends: &x11  # Create 'x11' aliases that can be referenced using '*x11'
 
 services:
   compile:
-    build:
-      context: docker/
-      target: dever
-      ssh: [default]
-      args:
-        - USER=$USER
-        - UID=$UID
-        - GID=$GID
-        - HOME=$HOME
-        - REPOS_FILE=${REPOS_FILE:-repositories}
-      #   - FROM_IMAGE=osrf/ros:galactic-desktop
-    extends: *x11
+    extends:
+      file: docker/common.yml
+      service: base
     command: 'colcon build --symlink-install'
 
   bash:

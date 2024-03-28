@@ -1,0 +1,10 @@
+services:
+  devel:
+    image: gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:latest
+    build:
+      context: .
+      target: dever
+      ssh: [default]
+      args:
+        - REPOS_FILE=${REPOS_FILE:-repositories}
+      #   - FROM_IMAGE=osrf/ros:galactic-desktop

@@ -1,6 +1,11 @@
 services:
   base:
-    image: tirrex:latest
+    build: # use tirrex_workspace image but add the host user in it
+      dockerfile_inline: |
+        FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:latest
+        RUN groupadd -g $GID $USER && \
+            useradd -u $UID -g $GID -s /bin/bash -d $HOME -G dialout $USER
+    image: tirrex_workspace
     volumes:
       - $PWD:$PWD
     environment:

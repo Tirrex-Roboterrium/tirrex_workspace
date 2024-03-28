@@ -56,14 +56,6 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 # multi-stage for developing
 FROM installer as dever
 
-# add the host user in the docker image
-ARG USER
-ARG GID
-ARG UID
-ARG HOME
-RUN groupadd -g $GID $USER && \
-    useradd -u $UID -g $GID -s /bin/bash -d $HOME -G dialout $USER
-
 ARG WORKSPACE
 WORKDIR $WORKSPACE
 ENV SHELL=/bin/bash
@@ -73,3 +65,11 @@ RUN rm -rf "$WORKSPACE"
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
+
+# add the host user in the docker image
+# ARG USER
+# ARG GID
+# ARG UID
+# ARG HOME
+# RUN groupadd -g $GID $USER && \
+#     useradd -u $UID -g $GID -s /bin/bash -d $HOME -G dialout $USER
