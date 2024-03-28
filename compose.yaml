@@ -20,7 +20,7 @@ services:
 
   bash:
     extends: *x11
-    command: 'bash'
+    command: 'bash --rcfile /etc/bash.bashrc'
 
   adap2e_test:
     extends: *x11
