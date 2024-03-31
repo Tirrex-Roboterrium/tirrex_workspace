@@ -2,19 +2,16 @@ services:
   base:
     build: # use tirrex_workspace image but add the host user in it
       dockerfile_inline: |
-        FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:latest
-        RUN groupadd -g $GID $USER && \
-            useradd -u $UID -g $GID -s /bin/bash -d $HOME -G dialout $USER
+        FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:devel
+        RUN groupadd -g ${GID-} $USER && \
+            useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -G dialout $USER
     image: tirrex_workspace
     volumes:
       - $PWD:$PWD
     environment:
       - WORKSPACE=$PWD
       - USER
-      # - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
-    # devices:
-    #   - /dev/input/  # for joypads
-    #   - /dev/dri/    # for graphic card
+      - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
     network_mode: host
     pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
     ipc: host  # also used by ROS2
@@ -35,7 +32,6 @@ services:
       - GAZEBO_TEST=$PWD/gazebo/models
     devices:
       - /dev/input/  # for joypads
-      - /dev/dri/    # for graphic card
   
   x11_gpu:
     extends:
@@ -63,12 +59,3 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-
-  zed_req:
-    extends:
-      service: x11_gpu
-    volumes:
-      - /usr/local/zed/resources:/usr/local/zed/resources
-      - /usr/local/zed/settings:/usr/local/zed/settings
-      - /usr/local/zed/tools:/usr/local/zed/tools
-      - /dev:/dev

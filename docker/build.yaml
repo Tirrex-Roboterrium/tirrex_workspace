@@ -1,6 +1,6 @@
 services:
   devel:
-    image: gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:latest
+    image: gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:devel
     build:
       context: .
       target: dever
