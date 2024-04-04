@@ -13,40 +13,43 @@ git clone https://github.com/Tirrex-Roboterrium/tirrex_workspace.git
 cd tirrex_workspace
 ```
 
-Import all repositories in `src/` and download gazebo models in `gazebo/`:
+All the following commands must be run from the root of this project.
+Execute this script to clone all the ROS packages and download the gazebo models:
 ```
 ./scripts/create_ws
 ```
 
-### Build the docker image
+### Build the docker image and compile
 
 The recommended method for compiling the workspace and running the programs is to use docker.
-If you do not want to use docker and you are using Ubuntu 22.04 and ROS2 Humble, you can skip this
-step and directly use `colcon` and `ros2` commands.
+If you do not want to use docker and you are using Ubuntu 22.04 and ROS Humble, you can skip these
+steps and directly use `colcon` and `ros2` commands.
 However, the following instructions assume that docker is being used.
 
-To build the `tirrex` docker image, your first need to start a `ssh-agent` (if not already running):
-```
-source <(ssh-agent)
-```
-
-After that, you can build the `tirrex` image using:
-```
-docker compose build compile
-```
-
-### Compiling
-
-#### Create docker image and compile
-
-A docker image is available to install ROS2 and all the dependencies of the packages.
 You first need to install a recent version of docker compose by [following the instruction on the
 docker documentation](https://docs.docker.com/compose/install/linux/).
-Then you can build the image and compile the workspace using the following command (from the root of
-this project):
+If it is already installed, you can check that its version is greater or equal to `2.20` using the
+command:
+```
+docker compose version
+```
+
+Since the docker image is hosted in a private repository, you must first log docker in to the
+registry server.
+You can do it using this access token:
+```
+docker login gitlab-registry.irstea.fr -u tirrex -p nfUboGD4sj1e6DMzt9iq
+```
+
+After that, you can build the image (the first time) and compile the workspace:
 ```
 docker compose run --rm compile
 ```
+This command will:
+* pull the lastest image containing a ROS environment with all the workspace dependencies installed
+* build a local image based on the previous one but including a copy of your local
+  user in order to execute every command using the same user as the host system
+* run the `compile` service that execute a `catkin build` command to compile everything
 
 ## Installation (only for INRAE developers)
 
@@ -54,12 +57,13 @@ If you are an INRAE developer with an access to the projects on gitlab.irstea.fr
 alternative repositories with ssh URLs.
 To do that, you have to add `REPOS_FILE` in the `.env` file before creating the workspace and
 building the docker image.
-Execute the following commands after replacing `id_ed25519` by the correct name of your ssh key:
+Execute the following commands:
 ```bash
+git clone git@gitlab-ssh.irstea.fr:romea_projects/tirrex/tirrex_workspace.git
+cd tirrex_workspace
 echo 'REPOS_FILE=repositories.private' >> .env
-source <(ssh-agent)
-ssh-add ~/.ssh/id_ed25519
 ./scripts/create_ws
+docker login gitlab-registry.irstea.fr -u tirrex -p nfUboGD4sj1e6DMzt9iq
 docker compose run --rm --build compile
 ```
 
@@ -81,23 +85,26 @@ Alternatively, you can start a docker service using `run` to avoid prefixes on o
 docker compose run --rm adap2e_test
 ```
 
-All the available services are defined in the file [`docker-compose.yml`](docker-compose.yml).
+All the available services are defined in the file [`compose.yaml`](compose.yaml).
 You can add your own services if you want to easily execute specific commands in the docker
 environment.
 
 ### Run other commands in docker
 
-It is possible to open a shell in the docker.
-It can be useful to execute some ROS command like `ros2 topic list` or `ros2 launch ...`.
-To start the shell, use the command:
-```
-docker compose run --rm bash
-```
-
-It is also possible to directly specify a command in the line.
+If you want to execute a specific command, it is possible to specify it after `docker compose run`.
 For example, you can manually start `adap2e_test` using:
 ```
 docker compose run --rm bash ros2 launch adap2e_bringup adap2e_test.launch.py
+```
+Every `ros2` commands are available.
+For example, it is possible to do `ros2 topic list` by executing
+```
+docker compose run --rm bash ros2 topic list
+```
+
+It is also possible to open a shell on the docker using the `bash` service:
+```
+docker compose run --rm bash
 ```
 
 The option `--rm` allows to automatically delete the container when the command finishes.
