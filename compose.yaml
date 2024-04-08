@@ -48,3 +48,9 @@ services:
   robufast_test:
     extends: *x11
     command: 'ros2 launch robucar_bringup robucar_test.launch.py'
+
+  path_following:
+    extends: *x11
+    command: >-
+      ros2 launch tirrex_path_following path_following.launch.py
+        robot:=adap2e path:=field.txt
