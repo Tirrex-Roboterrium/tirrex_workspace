@@ -178,7 +178,7 @@ repositories:
 
   # -------- tirrex --------------------------
 
-  src/romea_ros2/demos/tirrex/robots/demo:
+  src/romea_ros2/demos/tirrex/core:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_demo.git
     version: main

@@ -178,7 +178,7 @@ repositories:
 
 
   # -------- tirrex --------------------------
-  src/romea_ros2/demos/tirrex/robots/demo:
+  src/romea_ros2/demos/tirrex/core:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_projects/tirrex/tirrex_demo.git
     version: main
