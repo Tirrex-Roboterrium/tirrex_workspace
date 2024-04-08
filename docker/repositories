@@ -104,35 +104,35 @@ repositories:
 
   src/romea_ros2/interfaces/vehicles/adap2e:
     type: git
-    url: https://github.com/Romea/adap2e
+    url: https://github.com/Romea/adap2e.git
     version: main
-  src/romea_ros2/interfaces/vehicles/robucar:
+  src/romea_ros2/interfaces/vehicles/robufast:
     type: git
-    url: https://github.com/Romea/robucar
+    url: https://github.com/Romea/robucar.git
     version: main
   src/romea_ros2/interfaces/vehicles/campero:
     type: git
-    url: https://github.com/Romea/campero
+    url: https://github.com/Romea/campero.git
     version: main
   src/romea_ros2/interfaces/vehicles/ceol:
     type: git
-    url: https://github.com/Romea/ceol
+    url: https://github.com/Romea/ceol.git
     version: main
   src/romea_ros2/interfaces/vehicles/cinteo:
     type: git
-    url: https://github.com/Romea/cinteo
+    url: https://github.com/Romea/cinteo.git
     version: main
   src/romea_ros2/interfaces/vehicles/hunter:
     type: git
-    url: https://github.com/Romea/hunter
+    url: https://github.com/Romea/hunter.git
     version: main
   src/romea_ros2/interfaces/vehicles/husky:
     type: git
-    url: https://github.com/Romea/husky
+    url: https://github.com/Romea/husky.git
     version: main
   src/romea_ros2/interfaces/vehicles/scout:
     type: git
-    url: https://github.com/Romea/scout
+    url: https://github.com/Romea/scout.git
     version: main
 
   # -------- algorithms--------------------------
@@ -188,39 +188,39 @@ repositories:
 
   # -------- tirrex --------------------------
 
-  src/romea_ros2/demos/tirrex/tirrex_demo:
+  src/romea_ros2/demos/tirrex/robots/demo:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_demo.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_adap2e:
+  src/romea_ros2/demos/tirrex/robots/adap2e:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_adap2e.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_campero:
+  src/romea_ros2/demos/tirrex/robots/campero:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_campero.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_ceol:
+  src/romea_ros2/demos/tirrex/robots/ceol:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_ceol.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_robufast:
+  src/romea_ros2/demos/tirrex/robots/robufast:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_robufast.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_cinteo:
+  src/romea_ros2/demos/tirrex/robots/cinteo:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_cinteo.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_hunter:
+  src/romea_ros2/demos/tirrex/robots/hunter:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_hunter.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_husky:
+  src/romea_ros2/demos/tirrex/robots/husky:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_husky.git
     version: main
-  src/romea_ros2/demos/tirrex/tirrex_scout_mini:
+  src/romea_ros2/demos/tirrex/robots/scout_mini:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_scout_mini.git
     version: main
