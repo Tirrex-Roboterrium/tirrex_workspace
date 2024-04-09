@@ -21,6 +21,8 @@ initialize_env_file() {
     echo 'Initialize ".env" file'
     add_variable_to_env_file UID "$(id -u)"
     add_variable_to_env_file GID "$(id -g)"
+    add_variable_to_env_file USER "$(whoami)"
+    add_variable_to_env_file WORKSPACE "$(pwd)"
 }
 
 import_packages() {

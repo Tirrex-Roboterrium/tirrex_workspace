@@ -7,10 +7,10 @@ services:
             useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -G dialout $USER
     image: tirrex_workspace
     volumes:
-      - $PWD:$PWD
+      - $HOME:$HOME
+    env_file:
+      - ../.env
     environment:
-      - WORKSPACE=$PWD
-      - USER
       - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
     network_mode: host
     pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID

@@ -1,11 +1,11 @@
 x-extends: &x11  # Create 'x11' aliases that can be referenced using '*x11'
-  file: docker/common.yml
+  file: docker/common.yaml
   service: x11_base
 
 services:
   compile:
     extends:
-      file: docker/common.yml
+      file: docker/common.yaml
       service: base
     command: 'colcon build --symlink-install'
 
