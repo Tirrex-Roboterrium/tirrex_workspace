@@ -27,9 +27,8 @@ services:
     environment:
       - DISPLAY
       - XDG_RUNTIME_DIR
-      - GAZEBO_RESOURCE_PATH=$PWD/gazebo
-      - GAZEBO_MODEL_PATH=$PWD/gazebo/models
-      - GAZEBO_TEST=$PWD/gazebo/models
+      - GAZEBO_RESOURCE_PATH
+      - GAZEBO_MODEL_PATH
     devices:
       - /dev/input/  # for joypads
   
@@ -46,9 +45,8 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - DISPLAY
       - XDG_RUNTIME_DIR
-      - GAZEBO_RESOURCE_PATH=$PWD/gazebo
-      - GAZEBO_MODEL_PATH=$PWD/gazebo/models
-      - GAZEBO_TEST=$PWD/gazebo/models
+      - GAZEBO_RESOURCE_PATH
+      - GAZEBO_MODEL_PATH
     devices:
       - /dev/input/  # for joypads
       - /dev/dri/    # for graphic card

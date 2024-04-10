@@ -6,5 +6,5 @@ services:
       target: dever
       ssh: [default]
       args:
-        - REPOS_FILE=${REPOS_FILE:-repositories}
+        - REPOS_FILE=${REPOS_FILE:-repositories.private}
       #   - FROM_IMAGE=osrf/ros:galactic-desktop

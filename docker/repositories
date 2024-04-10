@@ -47,7 +47,7 @@ repositories:
     version: main
   src/romea_core/romea_path_matching:
     type: git
-    url: https://github.com/Romea/romea-core-path-matching.git
+    url: https://github.com/Romea/romea_core_path_matching.git
     version: multi
   src/romea_core/romea_path_following:
     type: git
