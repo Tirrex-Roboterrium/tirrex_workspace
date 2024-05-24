@@ -1,0 +1,20 @@
+x-extends: &x11  # Create 'x11' aliases that can be referenced using '*x11'
+  file: ../../docker/common.yaml
+  service: x11_base
+
+services:
+  bash:
+    extends: *x11
+    profiles: [no]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
+  robot:
+    extends: *x11
+    command: ros2 launch adap2e_bringup adap2e_test.launch.py mode:=live
+
+  path_following:
+    extends: *x11
+    command: >-
+      ros2 launch tirrex_path_following path_following.launch.py
+        robot:=adap2e
+        path:=field.txt
