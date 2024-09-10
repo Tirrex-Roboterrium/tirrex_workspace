@@ -101,10 +101,10 @@ repositories:
     type: git
     url: https://github.com/Romea/adap2e.git
     version: main
-  # src/romea_ros2/interfaces/vehicles/alpo:
-  #   type: git
-  #   url: https://github.com/Romea/alpo.git
-  #   version: main
+  src/romea_ros2/interfaces/vehicles/alpo:
+    type: git
+    url: https://github.com/Romea/alpo.git
+    version: main
   src/romea_ros2/interfaces/vehicles/campero:
     type: git
     url: https://github.com/Romea/campero.git
@@ -173,7 +173,7 @@ repositories:
     version: main
   src/romea_ros2/algorithms/control/path_following/romea_path_following:
     type: git
-    url: https://github.com/Romea/romea_path_following.git
+    url: https://github.com/Romea/romea-ros2-path-following.git
     version: main
 
   # -------- tirrex --------------------------
@@ -186,10 +186,10 @@ repositories:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_adap2e.git
     version: main
-  # src/romea_ros2/demos/tirrex/robots/alpo:
-  #   type: git
-  #   url: https://github.com/Tirrex-Roboterrium/tirrex_alpo.git
-  #   version: main
+  src/romea_ros2/demos/tirrex/robots/alpo:
+    type: git
+    url: https://github.com/Tirrex-Roboterrium/tirrex_alpo.git
+    version: main
   src/romea_ros2/demos/tirrex/robots/campero:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_campero.git

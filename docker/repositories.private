@@ -170,7 +170,7 @@ repositories:
   src/romea_ros2/algorithms/control/path_following/romea_path_matching:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_matching.git
-    version: using_core
+    version: main
   src/romea_ros2/algorithms/control/path_following/romea_path_following:
     type: git
     url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_following2.git
