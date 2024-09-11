@@ -5,6 +5,7 @@
 You need to install `vcstool`. You can install it using pip:
 ```
 pip install vcstool
+vcs --version
 ```
 
 Clone this project and go to the root:
@@ -150,13 +151,6 @@ For more details about this packages, read their README.
 You can update the ROS packages using:
 ```
 vcs pull -nw6
-```
-
-Some projects may fail to update if you have local modifications.
-You have to manually handle these projects.
-However, it is possible to stash your local changes on every project before updating by running
-```
-vcs custom -nw6 --args pull --rebase --autostash 
 ```
 
 If you want to update projects and re-download the gazebo models, you can re-run the installation

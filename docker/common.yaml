@@ -5,7 +5,7 @@ services:
         FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:devel
         RUN groupadd -g ${GID-} $USER && \
             useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -G dialout $USER
-    image: tirrex_workspace
+    image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
     volumes:
       - $HOME:$HOME
     env_file:
@@ -14,8 +14,9 @@ services:
       - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
     network_mode: host
     pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
-    ipc: host  # also used by ROS2
-    privileged: true
+    ipc: host  # used by ROS2 and X11 (for shared memory)
+    privileged: false
+    stop_signal: SIGINT  # Correctly forward SIGINT on services started with 'compose up'
 
   x11_base:
     extends:

@@ -18,4 +18,4 @@ if [[ -d "/dev/input" ]] ; then
 fi
 
 # execute command as USER
-sudo -snEHu $USER -- /ros_setup.sh $@
+exec sudo -snEHu "$USER" -- /ros_setup.sh $@
