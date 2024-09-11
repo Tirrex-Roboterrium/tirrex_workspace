@@ -1,0 +1,26 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  x11-base: &x11-base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ./config:/config
+
+
+services:
+  robot:
+    <<: [*x11-base]
+    command: >-
+      ros2 launch tirrex_alpo alpo.launch.py
+        demo_config_directory:=/config
+        mode:=simulation
+
+  path_following:
+    <<: [*x11-base]
+    command: >-
+      ros2 launch tirrex_path_following path_following.launch.py
+        demo_config_directory:=/config
+        launch_robot:=false
+        mode:=simulation
+        robot:=alpo
+        path:=montoldre_demo4_cc.traj

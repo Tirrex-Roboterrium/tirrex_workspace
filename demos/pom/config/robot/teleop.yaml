@@ -1,0 +1,8 @@
+cmd_output:
+  message_type: romea_mobile_base_msgs/OneAxleSteeringCommand
+  message_priority: 100
+cmd_range:
+  maximal_linear_speed:
+    slow_mode: 1.0
+    turbo_mode: 2.0
+  #maximal_steering_angle:

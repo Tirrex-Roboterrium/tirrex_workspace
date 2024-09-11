@@ -1,0 +1,60 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  x11-base: &x11-base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    environment:
+      - ROS_DOMAIN_ID=29
+      - ROS_LOCALHOST_ONLY=0  # overwrite value of x11_base
+    volumes:
+      - ./config:/config
+
+
+  env-robot: &env-robot
+    environment:
+      - ROS_IP=192.168.100.2
+      - ROS_MASTER_URI=http://192.168.100.1:11311
+      - ROS_DOMAIN_ID=29
+    network_mode: host
+    dns:
+      # Manually specifying the robot DNS prevents docker from using local DNS server such as
+      # systemd-resolved, which causes problems when resolving local domains (like alpo.local)
+      - 192.168.0.10
+      - 1.1.1.1
+
+
+services:
+  robot_test:
+    <<: [*x11-base]
+    profiles: [no]
+    command: >-
+      ros2 launch alpo_bringup alpo_test.launch.py
+        mode:=live
+        robot_model:=slim
+
+  robot:
+    <<: [*x11-base]
+    # profiles: [no]
+    command: >-
+      ros2 launch tirrex_alpo alpo.launch.py
+        demo_config_directory:=/config
+        mode:=live
+
+  bridge:
+    <<: [*env-robot]
+    image: gitlab-registry.irstea.fr/romea_ros2/interfaces/vehicles/alpo/alpo_bridge
+    command: >-
+      ros2 run alpo_bridge alpo_bridge 
+        --ros-args 
+        -r __ns:=/alpo/base
+        -p override_ros1_master:=false
+
+  path_following:
+    <<: [*x11-base]
+    command: >-
+      ros2 launch tirrex_path_following path_following.launch.py
+        demo_config_directory:=/config
+        robot:=alpo
+        mode:=live
+        path:=cezeaux_field1.traj
+        launch_robot:=false
