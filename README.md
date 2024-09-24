@@ -39,7 +39,7 @@ Since the docker image is hosted in a private repository, you must first log doc
 registry server.
 You can do it using this access token:
 ```
-docker login gitlab-registry.irstea.fr -u tirrex -p nfUboGD4sj1e6DMzt9iq
+docker login gitlab-registry.irstea.fr -u tirrex -p v2_neDvAkk3qeZEg6ABz
 ```
 
 After that, you can build the image (the first time) and compile the workspace:
@@ -64,7 +64,7 @@ git clone git@gitlab-ssh.irstea.fr:romea_projects/tirrex/tirrex_workspace.git
 cd tirrex_workspace
 echo 'REPOS_FILE=repositories.private' >> .env
 ./scripts/create_ws
-docker login gitlab-registry.irstea.fr -u tirrex -p nfUboGD4sj1e6DMzt9iq
+docker login gitlab-registry.irstea.fr -u tirrex -p v2_neDvAkk3qeZEg6ABz
 docker compose run --rm --build compile
 ```
 
