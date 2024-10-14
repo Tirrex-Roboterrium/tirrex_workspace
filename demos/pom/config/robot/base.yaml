@@ -1,7 +1,7 @@
 name: "base"
 configuration:
   type: alpo
-  model: slim
+  model: fat
 # control: not yet implemented
 #   controller_manager:
 #     update_rate: 100
