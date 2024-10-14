@@ -48,7 +48,7 @@ repositories:
   src/romea_core/romea_path_matching:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_matching.git
-    version: multi
+    version: main
   src/romea_core/romea_path_following:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_following.git
