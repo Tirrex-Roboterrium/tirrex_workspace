@@ -8,6 +8,8 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
       - ROS_LOCALHOST_ONLY=0  # overwrite value of x11_base
     volumes:
       - ./config:/config
+    devices:
+      - /dev/imu:/dev/imu
 
 
   env-robot: &env-robot
@@ -24,6 +26,11 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
 
 
 services:
+  bash:
+    <<: [*x11-base]
+    profiles: [no]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
   robot_test:
     <<: [*x11-base]
     profiles: [no]
