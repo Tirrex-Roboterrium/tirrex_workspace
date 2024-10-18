@@ -10,6 +10,8 @@ services:
     command: 'colcon build --symlink-install'
 
   bash:
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
     extends: *x11
     command: 'bash --rcfile /etc/bash.bashrc'
 

@@ -32,6 +32,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
         # you can add some ubuntu packages here \
         python3-pip \
         nlohmann-json3-dev \
+        ros-humble-rmw-cyclonedds-cpp \
         libgsl-dev && \
     pip3 install --no-cache-dir \
         # you can add some pip packages here \
