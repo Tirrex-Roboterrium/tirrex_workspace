@@ -1,0 +1,14 @@
+# path: name of the path to follow. The file must be in <config_dir>/paths.
+#       This parameter is not used if the path file is directly specified as a launch argument.
+path: cezeaux_slam1.traj
+
+# prediction_time_horizon: time to look forward on the trajectory. unit: s
+prediction_time_horizon: 1.0
+
+# path_frame_id: frame used to publish markers
+# autostart: if enabled, automatically start matching after initialisation
+# display: if enabled, publish rviz markers
+path_frame_id: map
+autoconfigure: true
+autostart: true
+display: true

@@ -1,0 +1,37 @@
+sampling_period: 10.0
+
+# configuration of longitudinal control
+longitudinal_control:
+  minimal_linear_speed: 0.3
+
+# configuration for classic and predictive lateral control laws
+lateral_control:
+  selected: predictive
+  classic:
+    gains:
+      front_kd: 0.7
+      rear_kd: 0.5
+  predictive:
+    gains:
+      front_kd: 0.7
+      rear_kd: 0.4
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+
+# control setpoint
+setpoint:
+  desired_linear_speed: 1.0
+  desired_lateral_deviation: 0.0
+  desired_course_deviation: 0.0
+
+#configuration for cmd_mux auto connection
+cmd_output:
+  message_type: romea_mobile_base_msgs/TwoAxleSteeringCommand
+  priority: 10
+  rate: 10.
+
+debug: true

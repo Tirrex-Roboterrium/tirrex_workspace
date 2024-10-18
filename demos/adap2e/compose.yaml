@@ -1,20 +1,49 @@
-x-extends: &x11  # Create 'x11' aliases that can be referenced using '*x11'
-  file: ../../docker/common.yaml
-  service: x11_base
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  x11: &x11
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    environment:
+      - ROS_DOMAIN_ID=28
+      - ROS_LOCALHOST_ONLY=0  # overwrite value of x11_base
+    volumes:
+      - ./config:/config
+    devices:
+      - /dev/imu:/dev/imu
 
 services:
   bash:
-    extends: *x11
+    <<: [*x11]
     profiles: [no]
     command: 'bash --rcfile /etc/bash.bashrc'
 
   robot:
-    extends: *x11
-    command: ros2 launch adap2e_bringup adap2e_test.launch.py mode:=live
+    <<: [*x11]
+    profiles: [no]
+    command: >-
+      ros2 launch adap2e_bringup adap2e_test.launch.py
+        demo_config_directory:=/config
+        mode:=live
 
   path_following:
-    extends: *x11
+    <<: [*x11]
     command: >-
       ros2 launch tirrex_path_following path_following.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        launch_robot:=true
         robot:=adap2e
-        path:=field.txt
+        path:=cezeaux_line.traj
+        mode:=live
+
+  path_recorder:
+    <<: [*x11]
+    profiles: [no]
+    command: >-
+      ros2 launch tirrex_path_following path_recorder.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        launch_robot:=true
+        robot:=adap2e
+        mode:=live
+        path:=/config/paths/recorded.traj

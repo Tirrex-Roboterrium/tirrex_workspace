@@ -1,0 +1,27 @@
+remote_controller:
+  type: joystick
+  available_mode: all
+lms151:
+  type: lidar
+  available_mode: none
+# drotek:
+#   type: gps
+#   available_mode: all
+septentrio:
+  type: gps
+  available_mode: all
+xsens:
+  type: imu
+  available_mode: all
+ur10:
+  type: arm
+  available_mode: none
+axis:
+  type: camera
+  available_mode: none
+zed1:
+  type: stereo_camera
+  available_mode: none
+realsense:
+  type: rgbd_camera
+  available_mode: none
