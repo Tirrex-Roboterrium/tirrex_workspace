@@ -1,0 +1,21 @@
+{
+  "version": "2",
+  "origin": {
+    "type": "WGS84",
+    "coordinates": [
+      45.762875,
+      3.110256,
+      402.117
+    ]
+  },
+  "points": {
+    "columns": [
+      "x",
+      "y",
+      "speed"
+    ],
+    "values": []
+  },
+  "sections": [],
+  "annotations": []
+}
