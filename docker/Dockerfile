@@ -29,19 +29,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN --mount=type=cache,target=/var/lib/apt/lists \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-        # you can add some ubuntu packages here \
-        python3-pip \
-        nlohmann-json3-dev \
         ros-humble-rmw-cyclonedds-cpp \
-        libgsl-dev && \
-    pip3 install --no-cache-dir \
+        python3-pip && \
+    # pip3 install --no-cache-dir \
         # you can add some pip packages here \
-        numpy \
-        matplotlib \
-        geojson \
-        pyserial \
-        transforms3d \
-        pymap3d && \
+        # && \
     rm -rf /var/lib/apt/lists/*
 
 ARG WORKSPACE
