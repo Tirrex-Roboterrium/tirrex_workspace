@@ -3,6 +3,22 @@ project](https://tirrex.fr/plateforme/roboterrium/).
 It allows installing every ROS packages to run experiments and simulation with several robots
 models.
 
+
+## Contents
+
+* [Installation](#installation)
+* [Installation(for INRAE developers)](#installation-only-for-inrae-developers)
+* [Usage](#usage)
+* [Architecture of the workspace](#architecture-of-the-workspace)
+* [FAQ](#faq)
+
+Other documents available:
+
+* [Configuration of the robot](/doc/robot_configuration.md)
+* [Configuration of the devices](/doc/devices_configuration.md)
+* [Description of the robot control node](/doc/robot_control.md)
+
+
 ## Installation
 
 ### Create workspace
