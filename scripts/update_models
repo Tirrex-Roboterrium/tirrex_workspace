@@ -1,0 +1,35 @@
+#!/bin/bash
+MODELS_ARCHIVE='tirrex.tar.xz'
+
+set -e
+cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
+
+import_gazebo_models() {
+    echo 'Import gazebo models'
+    mkdir -p gazebo
+    
+    nextcloud_download='https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download'
+    archive_hash="${MODELS_ARCHIVE}.sha1"
+    remote_hash="/tmp/${archive_hash}"
+    local_hash="gazebo/${archive_hash}"
+    archive="/tmp/${MODELS_ARCHIVE}"
+
+    echo "  download hash (${archive_hash})"
+    wget -q -O "${remote_hash}" "${nextcloud_download}?path=%2F&files=${archive_hash}"
+
+    # download archive only if the remote hash differs from the local one
+    if [[ ! -r "${local_hash}" ]] || ! cmp -s "${remote_hash}" "${local_hash}" ; then
+        wget -O "${archive}" "${nextcloud_download}?path=%2F&files=${MODELS_ARCHIVE}"
+        if tar -C gazebo -xvf "${archive}" ; then
+            mv -f "${remote_hash}" "${local_hash}"
+        else
+            rm "${remote_hash}"
+        fi
+        rm "${archive}"
+    else
+        echo "  models are up-to-date"
+        rm "${remote_hash}"
+    fi
+}
+
+import_gazebo_models

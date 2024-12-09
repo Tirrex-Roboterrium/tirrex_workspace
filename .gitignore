@@ -4,7 +4,9 @@
 /install/
 /log/
 /gazebo/
-.cache/
-.venv/
+/.cache/
+/.venv/
+
 .env
 *.dat
+recorded.traj

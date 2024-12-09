@@ -1,15 +1,16 @@
 #!/bin/bash
+REPOS_FILE='repositories'
+
 set -e
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 
-MODELS_FILE='fira_hackathon_models.zip'
-REPOS_FILE='repositories'
-
+# load variables in .env to set correct value of REPOS_FILE
 if [[ -r '.env' ]] ; then
     eval $(grep -v '^[UG]ID=' .env)
 fi
 
 
+# only add non-existing variables in '.env' file
 add_variable_to_env_file() {
     if ! grep -q "$1=" .env 2>/dev/null ; then
         echo "  - Add $1=$2 to .env"
@@ -27,21 +28,11 @@ initialize_env_file() {
 
 import_packages() {
     echo 'Import packages'
-    vcs import --force --recursive -w6 <"docker/$REPOS_FILE"
-}
-
-import_gazebo_models() {
-    echo 'Import gazebo models'
-    mkdir -p gazebo
-    url="https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download?path=%2F&files=$MODELS_FILE"
-    if wget -O "/tmp/$MODELS_FILE" "$url" ; then
-        unzip -u "/tmp/$MODELS_FILE" -d gazebo
-    fi
-    rm "/tmp/$MODELS_FILE"
+    vcs import --recursive -w6 <"docker/$REPOS_FILE"
 }
 
 
 initialize_env_file
 import_packages
-import_gazebo_models
+./scripts/update_models
 echo 'Installation completed successfully'
