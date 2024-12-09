@@ -1,11 +1,27 @@
+This project corresponds to the ROS2 workspace of the [roboterrium_ platform of the TIRREX
+project](https://tirrex.fr/plateforme/roboterrium/).
+It allows installing every ROS packages to run experiments and simulation with several robots
+models.
+
 ## Installation
 
 ### Create workspace
 
 You need to install `vcstool`. You can install it using pip:
 ```
-pip install vcstool
+pip3 install vcstool
 vcs --version
+```
+
+If the `vcs` command is not found, you can follow [these
+instructions](#the-vcs-command-is-not-found).
+Alternatively, if you use Ubuntu 20 or 22, you can install `vcs` using `apt`:
+```
+sudo apt install python3-vcstool
+```
+and for Ubuntu 24, the package is now named `vcstool`:
+```
+sudo apt install vcstool
 ```
 
 Clone this project and go to the root:
@@ -35,6 +51,21 @@ command:
 docker compose version
 ```
 
+By default, running docker is only available for root user.
+You have to add your user to the `docker` group (and create it if it does not exist) to execute
+docker commands with your own user.
+```
+sudo groupadd docker
+sudo usermod -aG docker $USER
+```
+Bear in mind that by executing these commands, you are giving your user privileges equivalent to
+those of root using docker commands.
+For more details, see [Docker Daemon Attack
+Surface](https://docs.docker.com/engine/security/#docker-daemon-attack-surface)
+
+Once your user is added to the `docker` group, you need to reboot (or log out / log in and restart
+the docker daemon).
+
 Since the docker image is hosted in a private repository, you must first log docker in to the
 registry server.
 You can do it using this access token:
@@ -52,6 +83,9 @@ This command will:
   user in order to execute every command using the same user as the host system
 * run the `compile` service that execute a `catkin build` command to compile everything
 
+If you modify some packages of the workspace, you need to re-execute this command regularly.
+
+
 ## Installation (only for INRAE developers)
 
 If you are an INRAE developer with an access to the projects on gitlab.irstea.fr, you can use
@@ -68,7 +102,7 @@ docker login gitlab-registry.irstea.fr -u tirrex -p v2_neDvAkk3qeZEg6ABz
 docker compose run --rm --build compile
 ```
 
-## Running
+## Usage
 
 You can run a simple simulation test that spawn a robot in Gazebo and can be controlled using a
 joypad.
@@ -110,6 +144,23 @@ docker compose run --rm bash
 
 The option `--rm` allows to automatically delete the container when the command finishes.
 
+### Updating
+
+You can update the ROS packages using:
+```
+./scripts/pull
+```
+or simply
+```
+vcs pull -nw6
+```
+
+If you want to load repositories, switch to the correct branches and update gazebo models, you
+can re-run the installation script
+```
+./scripts/create_ws
+```
+
 
 ## Architecture of the workspace
 
@@ -146,15 +197,65 @@ In the `src` directory, the packages are organized in several sub-folders:
 
 For more details about this packages, read their README.
 
-## Updating
 
-You can update the ROS packages using:
-```
-vcs pull -nw6
+## FAQ
+
+### The `vcs` command is not found
+
+If you have installed this tools using `pip` or `pip3` outside a virtual env, then the executable
+are located in the `~/.local/bin` directory.
+You can make them available by adding this path into your `PATH` environment variable:
+```bash
+export PATH="$PATH:$HOME/.local/bin"
 ```
 
-If you want to update projects and re-download the gazebo models, you can re-run the installation
-script
+
+### The service `compile` does not exist
+
+If you are in a subdirectory that contains a `compose.yaml` file, the `docker compose` command will
+load this file instead of the `compose.yaml` at the root of the workspace.
+The `compile` service is only defined in the one at the root, so you need to move to the root before
+executing `docker compose run --rm compile`.
+
+### How to use NVIDIA GPU?
+
+You need to install the [NVIDIA container
+toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html).
+
+After that, edit the file `compose.yaml` of your demo to replace the service `x11_base` by
+`x11_gpu`.
+For example, the beginning of `demos/simu_montoldre_pom_path/compose.yaml` should look like to this:
+```yaml
+x-yaml-anchors:
+  x11-base: &x11-base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_gpu
+    ...
 ```
-./scripts/create_ws
-```
+These services are defined in the file `docker/common.yaml` of the workspace and provide all the
+required docker options.
+The `x11_gpu` service add special options to use the NVIDIA GPUs.
+
+### Gazebo is slow
+
+Gazebo comprises a physics engine (`gzserver` program) and a rendering engine (`gzclient` program).
+You can check the rendering performance by looking at the _FPS_ (frame per seconds) value at the
+bottom of the gazebo window, and the physics performance by looking at the _real time factor_.
+The rendering engine is configured to run at 60 FPS and a real time factor of 1.0, but you may
+experience slow down if your computer is not powerful enough.
+By default, the docker does not use NVIDIA GPU, but it can significantly improve gazebo performance
+to use it.
+If you have one, you can refer to [How to use NVIDIA GPU?](#how-to-use-nvidia-gpu).
+If you do not have one, you can increase FPS by disabling shadows by following instructions of
+[Gazebo is dark](#gazebo-is-dark).
+You can also improve the _real time factor_ by increasing `max_step_size` in the `Physics` component
+of gazebo, but it will also degrade its behavior.
+
+### Gazebo is dark
+
+When using Gazebo with no GPU, you may experience a graphical bug that seems to cause rendering to
+be darker than it should be.
+This is due to the fact that shadow calculation is buggy with Intel graphics chipsets.
+You can disable shadow rendering by clicking on `Scene`, then unchecking `shadows`.
+If it is already unchecked, check it and uncheck it again (this is another bug).
