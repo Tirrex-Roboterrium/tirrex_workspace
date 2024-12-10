@@ -13,6 +13,7 @@ RUN --mount=type=ssh \
     mkdir -pm 700 ~/.ssh && \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
     ssh-keyscan gitlab-ssh.irstea.fr >>~/.ssh/known_hosts && \
+    ssh-keyscan forgemia.inra.fr >>~/.ssh/known_hosts && \
     vcs import --recursive -w6 <repos
 
 # copy manifests for caching
@@ -28,12 +29,7 @@ FROM $FROM_IMAGE AS installer
 ENV DEBIAN_FRONTEND=noninteractive
 RUN --mount=type=cache,target=/var/lib/apt/lists \
     apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ros-humble-rmw-cyclonedds-cpp \
-        python3-pip && \
-    # pip3 install --no-cache-dir \
-        # you can add some pip packages here \
-        # && \
+    apt-get install -y --no-install-recommends ros-humble-rmw-cyclonedds-cpp python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
 ARG WORKSPACE
@@ -45,6 +41,10 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     apt-get update && \
     rosdep install -iyr --from-paths src && \
     rm -rf /var/lib/apt/lists/*
+
+# fix a bug when rendering shadows in gazebo
+RUN sed -i '7i \ \ depth += 0.001;  // added to fix a bug' \
+   /usr/share/gazebo-11/media/materials/programs/shadow_caster_fp.glsl
 
 # multi-stage for developing
 FROM installer as dever
@@ -58,11 +58,3 @@ RUN rm -rf "$WORKSPACE"
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
-
-# add the host user in the docker image
-# ARG USER
-# ARG GID
-# ARG UID
-# ARG HOME
-# RUN groupadd -g $GID $USER && \
-#     useradd -u $UID -g $GID -s /bin/bash -d $HOME -G dialout $USER

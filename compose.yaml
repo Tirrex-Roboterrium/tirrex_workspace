@@ -1,58 +1,72 @@
-x-extends: &x11  # Create 'x11' aliases that can be referenced using '*x11'
-  file: docker/common.yaml
-  service: x11_base
+x-extends:
+  x11: &x11  # Create 'x11' aliases that can be referenced using '*x11'
+    extends:
+      file: docker/common.yaml
+      service: x11_base
+    profiles: [optional]
 
-services:
-  compile:
+  base: &base
     extends:
       file: docker/common.yaml
       service: base
+    profiles: [optional]
+
+
+services:
+  compile:
+    <<: *base
+    environment:  # remove annoying warning of setuptools
+      - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
+    command: 'colcon --log-base /dev/null build --symlink-install --event-handlers event_log- log-'
+
+  compile_with_log:
+    <<: *base
+    environment:  # remove annoying warning of setuptools
+      - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
     command: 'colcon build --symlink-install'
 
   bash:
-    environment:
-      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-    extends: *x11
+    <<: *x11
     command: 'bash --rcfile /etc/bash.bashrc'
 
   adap2e_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch adap2e_bringup adap2e_test.launch.py'
 
   alpo_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch alpo_bringup alpo_test.launch.py'
     
   campero_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch campero_bringup campero_test.launch.py'
     
   ceol_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch ceol_bringup ceol_test.launch.py'
     
   cinteo_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch cinteo_bringup cinteo_test.launch.py'
   
   hunter_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch hunter_bringup hunter_test.launch.py'
 
   husky_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch husky_bringup husky_test.launch.py'
     
   scout_mini_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch scout_bringup scout_test.launch.py model:=mini'
     
   robufast_test:
-    extends: *x11
+    <<: *x11
     command: 'ros2 launch robucar_bringup robucar_test.launch.py'
 
   path_following:
-    extends: *x11
+    <<: *x11
     command: >-
       ros2 launch tirrex_path_following path_following.launch.py
         robot:=adap2e path:=field.txt

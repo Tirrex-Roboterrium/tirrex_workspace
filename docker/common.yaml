@@ -4,10 +4,12 @@ services:
       dockerfile_inline: |
         FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:devel
         RUN groupadd -g ${GID-} $USER && \
-            useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -G dialout $USER
+            useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -m -G dialout $USER
     image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
     volumes:
-      - $HOME:$HOME
+      - $HOME/.ros:$HOME/.ros:Z  # for logs and records
+      - $WORKSPACE:$WORKSPACE:Z
+      - $HOME/.config/ros.org:$HOME/.config/ros.org:Z  # for rqt tools
     env_file:
       - ../.env
     environment:
@@ -22,9 +24,8 @@ services:
     extends:
       service: base
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
-      - $HOME:$HOME
+      - /tmp/.X11-unix:/tmp/.X11-unix:Z
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
     environment:
       - DISPLAY
       - XDG_RUNTIME_DIR
@@ -32,14 +33,14 @@ services:
       - GAZEBO_MODEL_PATH
     devices:
       - /dev/input/  # for joypads
+      - /dev/dri/    # for graphic card
   
   x11_gpu:
     extends:
       service: base
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR
-      - $HOME:$HOME
+      - /tmp/.X11-unix:/tmp/.X11-unix:Z
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
     environment:  # these variables allows to use the GPU when the nvidia profile is 'on-demand'
       - __NV_PRIME_RENDER_OFFLOAD=1
       - __GLX_VENDOR_LIBRARY_NAME=nvidia
