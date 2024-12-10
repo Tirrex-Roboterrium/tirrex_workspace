@@ -8,6 +8,11 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
 
 
 services:
+  bash:
+    <<: [*x11-base]
+    profiles: [optional]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
   robot:
     <<: [*x11-base]
     command: >-

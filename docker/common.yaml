@@ -5,15 +5,22 @@ services:
         FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:devel
         RUN groupadd -g ${GID-} $USER && \
             useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -m -G dialout $USER
+        RUN sudo -u $USER touch $HOME/.bash_history && \
+            sudo -u $USER mkdir -p $HOME/.config/ros.org
+        VOLUME $HOME/.config/ros.org
+        VOLUME $HOME/.gazebo
     image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
     volumes:
       - $HOME/.ros:$HOME/.ros:Z  # for logs and records
+      - $HOME/.bash_history:$HOME/.bash_history:Z  # to remember commands
       - $WORKSPACE:$WORKSPACE:Z
-      - $HOME/.config/ros.org:$HOME/.config/ros.org:Z  # for rqt tools
+      # - ./cyclonedds_localhost.xml:/dds_config/cyclonedds.xml:ro,Z
     env_file:
       - ../.env
     environment:
       - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
+      # - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      # - CYCLONEDDS_URI=file:///dds_config/cyclonedds.xml
     network_mode: host
     pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
     ipc: host  # used by ROS2 and X11 (for shared memory)
