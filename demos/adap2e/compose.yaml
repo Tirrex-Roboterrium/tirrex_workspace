@@ -11,15 +11,16 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
 services:
   bash:
     <<: [*x11]
-    profiles: [no]
+    profiles: [optional]
     command: 'bash --rcfile /etc/bash.bashrc'
 
   robot:
     <<: [*x11]
-    profiles: [no]
     command: >-
-      ros2 launch adap2e_bringup adap2e_test.launch.py
+      ros2 launch tirrex_demo robot.launch.py
         demo_config_directory:=/config
+        robot_configuration_directory:=/config/robot
+        robot_namespace:=adap2e
         mode:=live
 
   path_following:
@@ -28,19 +29,19 @@ services:
       ros2 launch tirrex_path_following path_following.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        launch_robot:=true
+        launch_robot:=false
         robot:=adap2e
         path:=cezeaux_line.traj
         mode:=live
 
   path_recorder:
     <<: [*x11]
-    profiles: [no]
+    profiles: [optional]
     command: >-
       ros2 launch tirrex_path_following path_recorder.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        launch_robot:=true
+        launch_robot:=false
         robot:=adap2e
         mode:=live
         path:=/config/paths/recorded.traj

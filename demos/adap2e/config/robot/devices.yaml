@@ -1,9 +1,12 @@
 remote_controller:
   type: joystick
   available_mode: all
-lms151:
+lms_front:
   type: lidar
-  available_mode: none
+  available_mode: all
+lms_back:
+  type: lidar
+  available_mode: all
 # drotek:
 #   type: gps
 #   available_mode: all
