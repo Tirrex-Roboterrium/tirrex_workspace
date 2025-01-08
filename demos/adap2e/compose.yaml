@@ -25,6 +25,7 @@ services:
 
   path_following:
     <<: [*x11]
+    depends_on: [robot]
     command: >-
       ros2 launch tirrex_path_following path_following.launch.py
         demo_config_directory:=/config
@@ -37,6 +38,7 @@ services:
   path_recorder:
     <<: [*x11]
     profiles: [optional]
+    depends_on: [robot]
     command: >-
       ros2 launch tirrex_path_following path_recorder.launch.py
         demo_config_directory:=/config
@@ -45,3 +47,9 @@ services:
         robot:=adap2e
         mode:=live
         path:=/config/paths/recorded.traj
+
+  rviz:
+    <<: [*x11]
+    profiles: [optional]
+    depends_on: [robot]
+    command: rviz2 -d /config/config.rviz
