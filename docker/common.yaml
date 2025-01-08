@@ -1,12 +1,12 @@
 services:
-  base:
+  base:  # used by services which uses ROS without GUI
     build: # use tirrex_workspace image but add the host user in it
       dockerfile_inline: |
         FROM gitlab-registry.irstea.fr/romea_projects/tirrex/tirrex_workspace:devel
         RUN groupadd -g ${GID-} $USER && \
             useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -m -G dialout $USER
         RUN sudo -u $USER touch $HOME/.bash_history && \
-            sudo -u $USER mkdir -p $HOME/.config/ros.org
+            sudo -u $USER mkdir -p $HOME/.config/ros.org $HOME/.gazebo
         VOLUME $HOME/.config/ros.org
         VOLUME $HOME/.gazebo
     image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
@@ -27,7 +27,7 @@ services:
     privileged: false
     stop_signal: SIGINT  # Correctly forward SIGINT on services started with 'compose up'
 
-  x11_base:
+  x11_base:  # used by services which requires GUI
     extends:
       service: base
     volumes:
@@ -42,23 +42,13 @@ services:
       - /dev/input/  # for joypads
       - /dev/dri/    # for graphic card
   
-  x11_gpu:
+  x11_gpu:  # used by services which requires GPU (and GUI)
     extends:
-      service: base
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:Z
-      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
+      service: x11_base
     environment:  # these variables allows to use the GPU when the nvidia profile is 'on-demand'
       - __NV_PRIME_RENDER_OFFLOAD=1
       - __GLX_VENDOR_LIBRARY_NAME=nvidia
       - NVIDIA_DRIVER_CAPABILITIES=all
-      - DISPLAY
-      - XDG_RUNTIME_DIR
-      - GAZEBO_RESOURCE_PATH
-      - GAZEBO_MODEL_PATH
-    devices:
-      - /dev/input/  # for joypads
-      - /dev/dri/    # for graphic card
     deploy:
       resources:
         reservations:
@@ -66,3 +56,13 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+
+  x11_robot:  # used by services started on a robot
+    extends:
+      service: x11_base
+    volumes:
+      - $HOME/.Xauthority:$HOME/.Xauthority:Z  # used to forward X11 apps through SSH
+    environment:
+      - ROS_LOCALHOST_ONLY=0  # multicast enabled outside of the robot
+    devices:
+      - /dev/imu:/dev/imu
