@@ -175,6 +175,10 @@ repositories:
     type: git
     url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_following2.git
     version: main
+  src/romea_ros2/algorithms/control/romea_control_switcher:
+    type: git
+    url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/romea_control_switcher.git
+    version: main
 
 
   # -------- tirrex --------------------------
