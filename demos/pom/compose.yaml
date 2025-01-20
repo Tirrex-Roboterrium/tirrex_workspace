@@ -8,7 +8,6 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
     volumes:
       - ./config:/config
 
-
   env-robot: &env-robot
     environment:
       - ROS_IP=192.168.100.2

@@ -2,9 +2,24 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
   base: &base
     extends:
       file: ../../docker/common.yaml
-      service: x11_base
+      service: x11_robot
     volumes:
       - ./config:/config
+    environment:
+      - ROS_DOMAIN_ID=29
+
+  env-robot: &env-robot
+    environment:
+      - ROS_IP=192.168.100.2
+      - ROS_MASTER_URI=http://192.168.100.1:11311
+      - ROS_DOMAIN_ID=29
+      - ROS_LOCALHOST_ONLY=0
+    network_mode: host
+    dns:
+      # Manually specifying the robot DNS prevents docker from using local DNS server such as
+      # systemd-resolved, which causes problems when resolving local domains (like alpo.local)
+      - 192.168.0.10
+      - 1.1.1.1
 
 
 services:
@@ -13,23 +28,33 @@ services:
     profiles: [optional]
     command: bash
 
-  simulator:  # start the simulator and spawn the robot
+  bridge:
+    <<: [*env-robot]
+    image: gitlab-registry.irstea.fr/romea_ros2/interfaces/vehicles/alpo/alpo_bridge
+    command: >-
+      ros2 run alpo_bridge alpo_bridge 
+        --ros-args 
+        -r __ns:=/robot/base
+        -p override_ros1_master:=false
+
+  robot:
     <<: [*base]
+    depends_on: [bridge]
     command: >-
       ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        mode:=simulation_gazebo_classic
         robot_namespace:=robot
+        mode:=live
 
   localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
     <<: [*base]
-    depends_on: [simulator]
+    depends_on: [robot]
     command: >-
       ros2 launch tirrex_demo robot_localisation.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        mode:=simulation_gazebo_classic
+        mode:=live
         robot_namespace:=robot
 
   path_following:  # control the robot to follow the specified trajectory file
@@ -39,9 +64,9 @@ services:
       ros2 launch tirrex_demo robot_path_following.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        mode:=simulation_gazebo_classic
+        mode:=live
         robot_namespace:=robot
-        trajectory_filename:=test01_annotated.traj
+        trajectory_filename:=test01.traj
 
   switcher:  # state machine to select robot control algorithm based on various events
     <<: [*base]
@@ -59,11 +84,10 @@ services:
       ros2 launch tirrex_demo robot_path_recorder.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        mode:=simulation_gazebo_classic
+        mode:=live
         robot_namespace:=robot
         trajectory_filename:=/config/paths/recorded.traj
 
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]
-    depends_on: [simulator]
     command: rviz2 -d /config/default.rviz

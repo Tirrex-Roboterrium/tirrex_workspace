@@ -1,9 +1,7 @@
-# control
 remote_controller:
   type: joystick
   available_mode: all
 
-# sensors
 septentrio:
   type: gps
   available_mode: all
