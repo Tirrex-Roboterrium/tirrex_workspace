@@ -1,0 +1,67 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ./config:/config
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [optional]
+    command: bash
+
+  simulator:  # start the simulator and spawn the robot
+    <<: [*base]
+    command: >-
+      ros2 launch tirrex_demo core.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
+
+  localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
+    <<: [*base]
+    depends_on: [simulator]
+    command: >-
+      ros2 launch tirrex_demo robot_localisation.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
+
+  path_following:  # control the robot to follow the specified trajectory file
+    <<: [*base]
+    depends_on: [localisation]
+    command: >-
+      ros2 launch tirrex_demo robot_path_following.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
+        trajectory_filename:=test01_annotated.traj
+
+  switcher:  # state machine to select robot control algorithm based on various events
+    <<: [*base]
+    depends_on: [path_following]
+    command: >-
+      ros2 launch romea_control_switcher switcher.launch.py
+        config_file:=/config/robot/control_switcher.yaml
+        robot_namespace:=robot
+
+  path_recorder:  # record a trajectory file from the current localization
+    <<: [*base]
+    depends_on: [localisation]
+    profiles: [optional]
+    command: >-
+      ros2 launch tirrex_demo robot_path_recorder.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
+        trajectory_filename:=/config/paths/recorded.traj
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    command: rviz2 -d /config/default.rviz

@@ -1,0 +1,86 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ./config:/config
+
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [optional]
+    command: bash
+
+  simulator:  # start the simulator and spawn the robots
+    <<: [*base]
+    command: >-
+      ros2 launch tirrex_platoon simulator_and_robots.launch.py
+        demo_config_directory:=/config
+        leader_config_directory:=/config/pom
+        follower_config_directory:=/config/adap2e
+        simulator:=gazebo_classic
+        demo:=simu_coop
+        leader_namespace:=leader
+        follower_namespace:=follower
+
+  leader:  # start algos of the leader robot
+    <<: [*base]
+    depends_on: [simulator]
+    command: >-
+      ros2 launch tirrex_platoon leader.launch.py
+        demo_config_directory:=/config
+        mode:=simulation_gazebo_classic
+        demo:=simu_coop
+        robot_namespace:=leader
+        robot:=pom
+        launch_robot:=false
+        record:=false
+        path:=loop3.traj
+
+  follower:  # start algos of the follower robot
+    <<: [*base]
+    depends_on: [simulator]
+    command: >-
+      ros2 launch tirrex_platoon follower.launch.py
+        demo_config_directory:=/config
+        mode:=simulation_gazebo_classic
+        demo:=simu_coop
+        robot_namespace:=follower
+        next_robot_namespace:=leader
+        robot:=adap2e
+        launch_robot:=false
+        record:=false
+        path:=loop4.traj
+
+  leader_task:  # state machine to switch between behaviors
+    <<: [*base]
+    depends_on: [leader]
+    command: >-
+      ros2 launch romea_control_switcher switcher.launch.py
+        mode:=simulation_gazebo_classic
+        config_file:=/config/pom/control_switcher.yaml
+        robot_namespace:=leader
+
+  follower_task:  # state machine to switch between behaviors
+    <<: [*base]
+    depends_on: [follower]
+    command: >-
+      ros2 launch romea_control_switcher switcher.launch.py
+        mode:=simulation_gazebo_classic
+        config_file:=/config/adap2e/control_switcher.yaml
+        robot_namespace:=follower
+
+  uturn:  # node that manage locking uturn area and synchronize robots
+    <<: [*base]
+    depends_on: [follower_task, leader_task]
+    command: >-
+      ros2 run romea_path_following uturn_manager --ros-args
+        -p nb_robots:=2
+        -p use_sim_time:=true
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    depends_on: [simulator]
+    command: rviz2 -d /config/default.rviz

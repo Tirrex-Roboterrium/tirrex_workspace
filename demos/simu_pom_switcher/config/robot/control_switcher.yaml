@@ -12,7 +12,11 @@
     # enable_marker: if enabled, publish rviz marker
     # marker_frame: frame used for the marker
     enable_marker: true
-    marker_frame: robot_base_link
+    marker_frame: base_link
+
+    implement_frame_id: implement_link
+    implement_point: [-0.7, 0.0, 0.0]
+    implement_inverted: true
 
     cmd_output:
       message_type: romea_mobile_base_msgs/OneAxleSteeringCommand

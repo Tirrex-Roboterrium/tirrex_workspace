@@ -2,9 +2,8 @@
   ros__parameters:
     # the statechart filename (without extension) to use in the package romea_control_switcher
     # (in the 'fsm' directory).
-    statechart: path
-    # statechart: path_furrow
-    # statechart: furrow
+    # statechart: path
+    statechart: coop_path
 
     # edge_side: side to follow using edge_following for some specific state machine
     edge_side: right
@@ -15,5 +14,5 @@
     marker_frame: base_link
 
     cmd_output:
-      message_type: romea_mobile_base_msgs/SkidSteeringCommand
+      message_type: romea_mobile_base_msgs/TwoAxleSteeringCommand
       priority: 10

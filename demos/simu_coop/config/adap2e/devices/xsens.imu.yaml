@@ -1,0 +1,19 @@
+name: "imu"
+driver:
+  package: "xsens_driver"
+  executable: mtnode.py
+  #  package: "bluespace_ai_xsens_mti_driver"
+  #  executable xsens_mti_node
+  parameters:
+    device: "/dev/ttyUSB0"
+    baudrate: 115200
+configuration:
+  type: xsens
+  model: mti
+  rate: 100
+geometry:
+  parent_link: "base_link"
+  xyz: [0.0, 0.0, 0.7]
+  rpy: [0.0, 0.0, 0.0]
+records:
+  data: true
