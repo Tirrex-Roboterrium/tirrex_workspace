@@ -1,0 +1,15 @@
+remote_controller:
+  type: joystick
+  available_mode: all
+
+septentrio:
+  type: gps
+  available_mode: all
+xsens:
+  type: imu
+  available_mode: all
+
+# implements
+cultivator:
+  type: implement
+  available_mode: all

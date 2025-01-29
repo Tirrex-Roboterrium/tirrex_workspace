@@ -5,6 +5,10 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
       service: x11_base
     volumes:
       - ./config:/config
+    environment:
+      - ROS_LOCALHOST_ONLY=0
+      - ROS_DOMAIN_ID=29
+      - CYCLONEDDS_URI=file:///config/cyclone_dds.xml
 
 
 services:
@@ -84,3 +88,7 @@ services:
     <<: [*base]
     depends_on: [simulator]
     command: rviz2 -d /config/default.rviz
+
+  domain_bridge:
+    <<: [*base]
+    command: ros2 run domain_bridge domain_bridge /config/domain_bridge.yaml

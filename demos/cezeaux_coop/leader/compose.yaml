@@ -1,0 +1,87 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ../config:/config
+
+  env-robot: &env-robot
+    environment:
+      - ROS_IP=192.168.100.2
+      - ROS_MASTER_URI=http://192.168.100.1:11311
+      - ROS_LOCALHOST_ONLY=1
+      - ROS_DOMAIN_ID=29
+      - CYCLONEDDS_URI=file:///config/cyclone_dds_bridge.xml
+    network_mode: host
+    dns:
+      # Manually specifying the robot DNS prevents docker from using local DNS server such as
+      # systemd-resolved, which causes problems when resolving local domains (like alpo.local)
+      - 192.168.0.10
+      - 1.1.1.1
+    volumes:
+      - ../config:/config
+
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [no]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
+  bridge:
+    <<: [*env-robot]
+    image: gitlab-registry.irstea.fr/romea_ros2/interfaces/vehicles/alpo/alpo_bridge
+    command: >-
+      ros2 run alpo_bridge alpo_bridge 
+        --ros-args 
+        -r __ns:=/leader/base
+        -p override_ros1_master:=false
+
+  robot:
+    <<: [*base]
+    # profiles: [no]
+    depends_on: [bridge]
+    command: >-
+      ros2 launch tirrex_demo core.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/pom
+        robot_namespace:=leader
+        mode:=live
+
+  algos:  # start algos of the leader robot
+    <<: [*base]
+    depends_on: [robot]
+    command: >-
+      ros2 launch tirrex_platoon leader.launch.py
+        demo_config_directory:=/config
+        mode:=live
+        demo:=cezeaux_coop
+        robot_namespace:=leader
+        robot:=pom
+        launch_robot:=false
+        record:=false
+        path:=cezeaux_loop_pom.traj
+
+  switcher:  # state machine to switch between behaviors
+    <<: [*base]
+    depends_on: [algos]
+    command: >-
+      ros2 launch romea_control_switcher switcher.launch.py
+        config_file:=/config/pom/control_switcher.yaml
+        mode:=live
+        robot_namespace:=leader
+
+  uturn:  # node that manage locking uturn area and synchronize robots
+    <<: [*base]
+    command: >-
+      ros2 run romea_path_following uturn_manager --ros-args
+        -p nb_robots:=2
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    command: rviz2 -d /config/default.rviz
+
+  zenoh:
+    <<: [*base]
+    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge.json5

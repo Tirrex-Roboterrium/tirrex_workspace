@@ -26,10 +26,17 @@ RUN mkdir -p /tmp/opt && \
 # multi-stage for installing dependencies
 FROM $FROM_IMAGE AS installer
 
+# install some dependencies
 ENV DEBIAN_FRONTEND=noninteractive
 RUN --mount=type=cache,target=/var/lib/apt/lists \
+    echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" \
+        >/etc/apt/sources.list.d/zenoh.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends ros-humble-rmw-cyclonedds-cpp python3-pip && \
+    apt-get install -y --no-install-recommends \
+      ros-humble-rmw-cyclonedds-cpp \
+      ros-humble-rmw-zenoh-cpp \
+      zenoh-bridge-ros2dds \
+      python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
 ARG WORKSPACE

@@ -1,0 +1,27 @@
+name: share
+from_domain: 29
+to_domain: 42
+
+topics:
+  /leader/localisation/filtered_odom:
+    type: nav_msgs/msg/Odometry
+
+
+services:
+  /uturn_manager/lock:
+    type: std_srvs/srv/SetBool
+
+  /uturn_manager/uturn_done:
+    type: std_srvs/srv/SetBool
+
+
+actions:
+  /uturn_manager/lock:
+    type: romea_path_msgs/action/Lock
+    from_domain: 42
+    to_domain: 29
+
+  /uturn_manager/uturn_done:
+    type: romea_path_msgs/action/UturnDone
+    from_domain: 42
+    to_domain: 29

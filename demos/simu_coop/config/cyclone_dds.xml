@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CycloneDDS xmlns="https://cdds.io/config"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+
+  <!-- internal domain of the robot -->
+  <Domain Id="29">
+    <General>
+      <Interfaces>
+        <NetworkInterface name="lo" multicast="true"/>
+      </Interfaces>
+      <MaxMessageSize>65500B</MaxMessageSize>
+      <FragmentSize>4000B</FragmentSize>
+    </General>
+    <Internal>
+      <Watermarks>
+        <WhcHigh>500kB</WhcHigh>
+      </Watermarks>
+    </Internal>
+  </Domain>
+
+  <!-- domain used to share interfaces with other robots -->
+  <Domain Id="42">
+    <General>
+      <Interfaces>
+        <!-- <NetworkInterface name="enp0s31f6" multicast="true"/> -->
+        <NetworkInterface name="lo" multicast="true"/>
+      </Interfaces>
+      <MaxMessageSize>65500B</MaxMessageSize>
+      <FragmentSize>4000B</FragmentSize>
+    </General>
+    <Internal>
+      <Watermarks>
+        <WhcHigh>500kB</WhcHigh>
+      </Watermarks>
+    </Internal>
+  </Domain>
+
+  <!-- <Domain Id="any"> -->
+  <!--   <General> -->
+  <!--     <Interfaces> -->
+  <!--       <NetworkInterface name="enp0s31f6" autodetermine="false" multicast="false"/> -->
+  <!--     </Interfaces> -->
+  <!--     <AllowMulticast>false</AllowMulticast> -->
+  <!--     <MaxMessageSize>65500B</MaxMessageSize> -->
+  <!--   </General> -->
+  <!--   <Discovery> -->
+  <!--     <Peers> -->
+  <!--       <Peer address="192.168.42.11"/> -->
+  <!--       <Peer address="192.168.42.14"/> -->
+  <!--     </Peers> -->
+  <!--   </Discovery> -->
+  <!-- </Domain> -->
+</CycloneDDS>

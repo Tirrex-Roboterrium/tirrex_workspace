@@ -14,13 +14,13 @@ services:
       - $HOME/.ros:$HOME/.ros:Z  # for logs and records
       - $HOME/.bash_history:$HOME/.bash_history:Z  # to remember commands
       - $WORKSPACE:$WORKSPACE:Z
-      # - ./cyclonedds_localhost.xml:/dds_config/cyclonedds.xml:ro,Z
+      - ./cyclonedds_localhost.xml:/dds_config/cyclonedds.xml:ro,Z
     env_file:
       - ../.env
     environment:
-      - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
+      # - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-      # - CYCLONEDDS_URI=file:///dds_config/cyclonedds.xml
+      - CYCLONEDDS_URI=file:///dds_config/cyclonedds.xml
     network_mode: host
     pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
     ipc: host  # used by ROS2 and X11 (for shared memory)
@@ -62,7 +62,5 @@ services:
       service: x11_base
     volumes:
       - $HOME/.Xauthority:$HOME/.Xauthority:Z  # used to forward X11 apps through SSH
-    environment:
-      - ROS_LOCALHOST_ONLY=0  # multicast enabled outside of the robot
     devices:
       - /dev/imu:/dev/imu
