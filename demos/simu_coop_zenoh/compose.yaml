@@ -84,7 +84,3 @@ services:
     <<: [*base]
     depends_on: [simulator]
     command: rviz2 -d /config/default.rviz
-
-  domain_bridge:
-    <<: [*base]
-    command: ros2 run domain_bridge domain_bridge /config/domain_bridge.yaml

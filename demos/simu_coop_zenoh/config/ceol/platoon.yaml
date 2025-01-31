@@ -1,0 +1,13 @@
+sampling_period: 0.1
+
+# distance between the robot and the next one (the leader)
+# if this value is negative, the follower is in front of the leader
+desired_interdistance: 5.0
+
+maximal_linear_speed: 1.5
+minimal_linear_acceleration: -1.0
+maximal_linear_acceleration: 1.0
+
+autoconfigure: True
+autostart: True
+debug: True

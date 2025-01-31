@@ -230,6 +230,10 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_projects/tirrex/path_following.git
     version: main
+  src/romea_ros2/demos/tirrex/platoon:
+    type: git
+    url: git@gitlab-ssh.irstea.fr:romea_projects/tirrex/platoon.git
+    version: main
 
   # -------- ros2 tools --------------------------
   src/romea_ros2/tools/romea_common:

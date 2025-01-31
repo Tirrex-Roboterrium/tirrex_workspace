@@ -1,0 +1,32 @@
+name: "gps"
+driver:
+  package: romea_gps_driver
+  executable: tcp_client_node
+  parameters:
+    ip: 192.168.0.50
+    nmea_port: 1003
+    rtcm_port: 1002
+    # ip: 127.0.0.1
+    # nmea_port: 2001
+    # rtcm_port: 2002
+ntrip:
+  package: ntrip_client
+  executable: ntrip_ros.py
+  parameters:
+    host: caster.centipede.fr
+    port: 2101
+    username: centipede
+    password: centipede
+    mountpoint: MAGC
+configuration:
+  type: drotek
+  model: f9p
+  rate: 10
+  dual_antenna: true
+geometry:
+  parent_link: "base_link"
+  xyz: [0.0, 0.3, 1.5]
+records:
+  nmea_sentence: true
+  gps_fix: false
+  vel: false

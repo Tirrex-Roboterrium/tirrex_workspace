@@ -1,0 +1,64 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ../config:/config
+    environment:
+      - ROS_DOMAIN_ID=2
+
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [no]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
+  zenoh:
+    <<: [*base]
+    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge_leader.json5
+
+  robot:
+    <<: [*base]
+    # profiles: [no]
+    depends_on: [zenoh]
+    command: >-
+      ros2 launch tirrex_demo core.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/pom
+        robot_namespace:=leader
+        mode:=simulation_gazebo_classic
+
+  algos:  # start algos of the leader robot
+    <<: [*base]
+    depends_on: [robot]
+    command: >-
+      ros2 launch tirrex_platoon leader.launch.py
+        demo_config_directory:=/config
+        mode:=simulation_gazebo_classic
+        demo:=cezeaux_coop
+        robot_namespace:=leader
+        robot:=pom
+        launch_robot:=false
+        record:=false
+        path:=cezeaux_loop_pom.traj
+
+  switcher:  # state machine to switch between behaviors
+    <<: [*base]
+    depends_on: [algos]
+    command: >-
+      ros2 launch romea_control_switcher switcher.launch.py
+        config_file:=/config/pom/control_switcher.yaml
+        mode:=simulation_gazebo_classic
+        robot_namespace:=leader
+
+  uturn:  # node that manage locking uturn area and synchronize robots
+    <<: [*base]
+    command: >-
+      ros2 run romea_path_following uturn_manager --ros-args
+        -p nb_robots:=2
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    command: rviz2 -d /config/default.rviz
