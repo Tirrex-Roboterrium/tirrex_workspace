@@ -2,7 +2,7 @@ sampling_period: 0.1
 
 # control setpoint
 setpoint:
-  desired_linear_speed: 0.7
+  desired_linear_speed: 0.5
   desired_lateral_deviation: 0.0
   desired_course_deviation: 0.0
 
@@ -20,13 +20,35 @@ lateral_control:
 
   predictive:
     gains:
-      front_kd: 0.4
+      front_kd: 0.7
     prediction:
       horizon: 10
       a0: 0.1642
       a1: 0.1072
       b1: 1.0086
       b2: -0.2801
+
+sliding_observer:
+  selected: none
+
+  extended_cinematic:
+    gains:
+      lateral_deviation: -4.0
+      course_deviation: -2.0
+    filter_weights:
+      lateral_deviation: 0.9
+      course_deviation: 0.9
+      front_sliding_angle: 0.98
+      rear_sliding_angle: 0.96
+
+  extended_lyapunov:
+    gains:
+      x_deviation: -3.
+      y_deviation: -3.
+      course_deviation: -3.
+      front_sliding_angle: -1.8
+      rear_sliding_angle: -1.22
+
 
 # other options
 stop_at_the_end: false

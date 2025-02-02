@@ -1,19 +1,21 @@
 x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
   base: &base
     extends:
-      file: ../../docker/common.yaml
+      file: ../../../docker/common.yaml
       service: x11_robot
     volumes:
-      - ./config:/config
+      - ../config:/config
     environment:
-      - ROS_DOMAIN_ID=29
+      - ROS_DOMAIN_ID=2
 
   env-robot: &env-robot
+    volumes:
+      - ../config:/config
     environment:
       - ROS_IP=192.168.100.2
       - ROS_MASTER_URI=http://192.168.100.1:11311
-      - ROS_DOMAIN_ID=29
-      - ROS_LOCALHOST_ONLY=0
+      - ROS_DOMAIN_ID=2
+      - CYCLONEDDS_URI=file:///config/cyclone_dds_bridge.xml
     network_mode: host
     dns:
       # Manually specifying the robot DNS prevents docker from using local DNS server such as
@@ -25,8 +27,12 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
 services:
   bash:
     <<: [*base]
-    profiles: [optional]
-    command: bash
+    profiles: [no]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
+  zenoh:
+    <<: [*base]
+    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge.json5
 
   bridge:
     <<: [*env-robot]
@@ -34,61 +40,61 @@ services:
     command: >-
       ros2 run alpo_bridge alpo_bridge 
         --ros-args 
-        -r __ns:=/robot/base
+        -r __ns:=/leader/base
         -p override_ros1_master:=false
 
   robot:
     <<: [*base]
-    depends_on: [bridge]
+    # profiles: [no]
+    depends_on: [bridge, zenoh]
     command: >-
       ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/robot
-        robot_namespace:=robot
+        robot_config_directory:=/config/pom
+        robot_namespace:=leader
         mode:=live
 
-  localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
+  algos:  # start algos of the leader robot
     <<: [*base]
     depends_on: [robot]
     command: >-
-      ros2 launch tirrex_demo robot_localisation.launch.py
+      ros2 launch tirrex_platoon leader.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/robot
         mode:=live
-        robot_namespace:=robot
+        demo:=fira_coop_leader
+        robot_namespace:=leader
+        robot:=pom
+        launch_robot:=false
+        record:=false
+        path:=mg_pom2_line.traj
 
-  path_following:  # control the robot to follow the specified trajectory file
+  switcher:  # state machine to switch between behaviors
     <<: [*base]
-    depends_on: [localisation]
-    command: >-
-      ros2 launch tirrex_demo robot_path_following.launch.py
-        demo_config_directory:=/config
-        robot_config_directory:=/config/robot
-        mode:=live
-        robot_namespace:=robot
-        trajectory_filename:=test01.traj
-
-  switcher:  # state machine to select robot control algorithm based on various events
-    <<: [*base]
-    depends_on: [path_following]
+    depends_on: [algos]
     command: >-
       ros2 launch romea_control_switcher switcher.launch.py
-        config_file:=/config/robot/control_switcher.yaml
+        config_file:=/config/pom/control_switcher.yaml
         mode:=live
-        robot_namespace:=robot
+        robot_namespace:=leader
 
-  path_recorder:  # record a trajectory file from the current localization
+  uturn:  # node that manage locking uturn area and synchronize robots
     <<: [*base]
-    depends_on: [localisation]
-    profiles: [optional]
     command: >-
-      ros2 launch tirrex_demo robot_path_recorder.launch.py
-        demo_config_directory:=/config
-        robot_config_directory:=/config/robot
-        mode:=live
-        robot_namespace:=robot
-        trajectory_filename:=/config/paths/recorded.traj
+      ros2 run romea_path_following uturn_manager --ros-args
+        -p nb_robots:=2
 
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]
     command: rviz2 -d /config/default.rviz
+
+  path_recorder:  # record a trajectory file from the current localization
+    <<: [*base]
+    depends_on: [algos]
+    profiles: [optional]
+    command: >-
+      ros2 launch tirrex_demo robot_path_recorder.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/leader
+        mode:=live
+        robot_namespace:=leader
+        trajectory_filename:=/config/paths/recorded.traj

@@ -27,6 +27,9 @@ services:
 
   bash:
     <<: *x11
+    image: tirrex_workspace:cyrille_dev
+    volumes:
+      - $HOME/data:$HOME/data
     command: 'bash --rcfile /etc/bash.bashrc'
 
   adap2e_test:

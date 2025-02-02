@@ -1,4 +1,4 @@
-sampling_period: 10.0
+sampling_period: 0.1
 
 # control setpoint
 setpoint:

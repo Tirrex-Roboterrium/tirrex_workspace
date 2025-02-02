@@ -1,8 +1,8 @@
-sampling_period: 10.0
+sampling_period: 0.1
 
 # control setpoint
 setpoint:
-  desired_linear_speed: 0.5
+  desired_linear_speed: 1.0
   desired_lateral_deviation: 0.0
   desired_course_deviation: 0.0
 
@@ -12,7 +12,7 @@ longitudinal_control:
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
-  selected: predictive
+  selected: classic
 
   classic:
     gains:
@@ -27,6 +27,27 @@ lateral_control:
       a1: 0.1072
       b1: 1.0086
       b2: -0.2801
+
+sliding_observer:
+  selected: extended_cinematic
+
+  extended_cinematic:
+    gains:
+      lateral_deviation: -4.0
+      course_deviation: -2.0
+    filter_weights:
+      lateral_deviation: 0.9
+      course_deviation: 0.9
+      front_sliding_angle: 0.98
+      rear_sliding_angle: 0.96
+
+  extended_lyapunov:
+    gains:
+      x_deviation: -3.
+      y_deviation: -3.
+      course_deviation: -3.
+      front_sliding_angle: -1.8
+      rear_sliding_angle: -1.22
 
 # other options
 stop_at_the_end: false  # not implemented
