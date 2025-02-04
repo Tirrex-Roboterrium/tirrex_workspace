@@ -41,7 +41,7 @@ services:
         robot:=ceol
         launch_robot:=false
         record:=false
-        path:=mg_ceol2_line.traj
+        path:=mg_ceol3_line.traj
 
   switcher:  # state machine to switch between behaviors
     <<: [*base]
@@ -55,3 +55,15 @@ services:
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]
     command: rviz2 -d /config/default.rviz
+
+  record:
+    <<: [*base]
+    depends_on: [algos]
+    profiles: [optional]
+    command: >-
+      ros2 launch tirrex_demo record.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/ceol
+        mode:=live
+        demo:=fira_coop_follower_record
+        robot_namespace:=follower

@@ -2,7 +2,7 @@ sampling_period: 0.1
 
 # control setpoint
 setpoint:
-  desired_linear_speed: 0.5
+  desired_linear_speed: 0.7
   desired_lateral_deviation: 0.0
   desired_course_deviation: 0.0
 
@@ -29,7 +29,7 @@ lateral_control:
       b2: -0.2801
 
 sliding_observer:
-  selected: none
+  selected: extended_cinematic
 
   extended_cinematic:
     gains:

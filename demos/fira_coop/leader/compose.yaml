@@ -66,7 +66,7 @@ services:
         robot:=pom
         launch_robot:=false
         record:=false
-        path:=mg_pom2_line.traj
+        path:=mg_pom3_line.traj
 
   switcher:  # state machine to switch between behaviors
     <<: [*base]
@@ -98,3 +98,15 @@ services:
         mode:=live
         robot_namespace:=leader
         trajectory_filename:=/config/paths/recorded.traj
+
+  record:
+    <<: [*base]
+    depends_on: [algos]
+    profiles: [optional]
+    command: >-
+      ros2 launch tirrex_demo record.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/pom
+        mode:=live
+        demo:=fira_coop_leader_record
+        robot_namespace:=leader

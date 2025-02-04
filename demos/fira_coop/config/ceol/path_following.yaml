@@ -20,8 +20,8 @@ lateral_control:
   #   - kd: inverse of the time to converge to the traj for the angular dev (unit: 1/s)
   back_stepping:
     gains:
-      kp: -0.5
-      kd: -1.0
+      kp: -0.7
+      kd: -1.2
     maximal_omega_d: 0.5
 
 

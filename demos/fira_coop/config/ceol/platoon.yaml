@@ -7,7 +7,7 @@ desired_interdistance: 1.0
 # speed when platoon is deactivated
 deactivated_linear_speed: 0.5
 
-maximal_linear_speed: 1.5
+maximal_linear_speed: 1.0
 minimal_linear_acceleration: -1.0
 maximal_linear_acceleration: 1.0
 
