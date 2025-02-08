@@ -68,3 +68,15 @@ services:
     <<: [*base]
     depends_on: [simulator]
     command: rviz2 -d /config/default.rviz
+
+  record:
+    <<: [*base]
+    depends_on: [simulator]
+    # profiles: [optional]
+    command: >-
+      ros2 launch tirrex_demo record.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=live
+        demo:=simu_pom_switcher
+        robot_namespace:=robot
