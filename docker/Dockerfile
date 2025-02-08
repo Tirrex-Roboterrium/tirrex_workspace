@@ -58,3 +58,7 @@ RUN rm -rf "$WORKSPACE"
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
+
+LABEL org.opencontainers.image.source=https://github.com/Tirrex-Roboterrium/tirrex_workspace
+LABEL org.opencontainers.image.description="ROS2 workspace of the Tirrex roboterrium"
+LABEL org.opencontainers.image.licenses=Apache-2.0
