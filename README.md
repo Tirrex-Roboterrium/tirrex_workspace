@@ -82,13 +82,6 @@ Surface](https://docs.docker.com/engine/security/#docker-daemon-attack-surface)
 Once your user is added to the `docker` group, you need to reboot (or log out / log in and restart
 the docker daemon).
 
-Since the docker image is hosted in a private repository, you must first log docker in to the
-registry server.
-You can do it using this access token:
-```
-docker login gitlab-registry.irstea.fr -u tirrex -p v2_neDvAkk3qeZEg6ABz
-```
-
 After that, you can build the image (the first time) and compile the workspace:
 ```
 docker compose run --rm compile
@@ -114,7 +107,6 @@ git clone git@gitlab-ssh.irstea.fr:romea_projects/tirrex/tirrex_workspace.git
 cd tirrex_workspace
 echo 'REPOS_FILE=repositories.private' >> .env
 ./scripts/create_ws
-docker login gitlab-registry.irstea.fr -u tirrex -p v2_neDvAkk3qeZEg6ABz
 docker compose run --rm --build compile
 ```
 
