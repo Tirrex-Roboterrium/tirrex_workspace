@@ -1,5 +1,5 @@
 x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
-  x11-base: &x11-base
+  base: &base
     extends:
       file: ../../docker/common.yaml
       service: x11_base
@@ -9,23 +9,40 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
 
 services:
   bash:
-    <<: [*x11-base]
+    <<: [*base]
     profiles: [optional]
     command: 'bash --rcfile /etc/bash.bashrc'
 
-  robot:
-    <<: [*x11-base]
+  simulator:  # start the simulator and spawn the robot
+    <<: [*base]
     command: >-
-      ros2 launch tirrex_alpo alpo.launch.py
+      ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
-        mode:=simulation
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
 
-  path_following:
-    <<: [*x11-base]
+  localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
+    <<: [*base]
+    depends_on: [simulator]
     command: >-
-      ros2 launch tirrex_path_following path_following.launch.py
+      ros2 launch tirrex_demo robot_localisation.launch.py
         demo_config_directory:=/config
-        launch_robot:=false
-        mode:=simulation
-        robot:=alpo
-        path:=montoldre_demo4_cc.traj
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
+
+  path_following:  # control the robot to follow the specified trajectory file
+    <<: [*base]
+    depends_on: [localisation]
+    command: >-
+      ros2 launch tirrex_demo robot_path_following.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=simulation_gazebo_classic
+        robot_namespace:=robot
+        trajectory_filename:=montoldre_demo4_cc.traj
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    command: rviz2 -d /config/default.rviz
