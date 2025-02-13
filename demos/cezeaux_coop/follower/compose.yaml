@@ -12,8 +12,13 @@ services:
     profiles: [optional]
     command: bash
 
+  zenoh:
+    <<: [*base]
+    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge.json5
+
   robot:
     <<: [*base]
+    depends_on: [zenoh]
     command: >-
       ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
@@ -54,7 +59,3 @@ services:
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]
     command: rviz2 -d /config/default.rviz
-
-  zenoh:
-    <<: [*base]
-    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge.json5

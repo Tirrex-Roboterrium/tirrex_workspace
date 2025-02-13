@@ -9,11 +9,12 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
       - ROS_DOMAIN_ID=29
 
   env-robot: &env-robot
+    volumes:
+      - ../config:/config
     environment:
       - ROS_IP=192.168.100.2
       - ROS_MASTER_URI=http://192.168.100.1:11311
-      - ROS_DOMAIN_ID=29
-      - ROS_LOCALHOST_ONLY=0
+      - CYCLONEDDS_URI=file:///config/cyclone_dds_bridge.xml
     network_mode: host
     dns:
       # Manually specifying the robot DNS prevents docker from using local DNS server such as

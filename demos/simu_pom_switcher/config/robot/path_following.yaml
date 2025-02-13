@@ -50,8 +50,8 @@ sliding_observer:
       rear_sliding_angle: -1.22
 
 # other options
-stop_at_the_end: false  # not implemented
-enable_joystick: false
+stop_at_the_end: true
+enable_joystick: true
 autoconfigure: true
 autostart: true
 debug: true
