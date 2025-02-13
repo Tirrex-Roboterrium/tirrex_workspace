@@ -20,7 +20,7 @@ repositories:
   src/romea_core/romea_mobile_base:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_mobile_base.git
-    version: remove_nan
+    version: main
   src/romea_core/romea_filtering:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_filtering.git
@@ -48,11 +48,11 @@ repositories:
   src/romea_core/romea_path_matching:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_matching.git
-    version: reset_end
+    version: main
   src/romea_core/romea_path_following:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_following.git
-    version: platoon
+    version: main
 
   # -------- ros2 interfaces --------------------------
   src/romea_ros2/interfaces/manipulators/romea_arm:
@@ -100,7 +100,7 @@ repositories:
   src/romea_ros2/interfaces/vehicles/romea_mobile_base:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/romea_mobile_base.git
-    version: angular_speed_topic
+    version: main
   src/romea_ros2/interfaces/vehicles/adap2e:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/adap2e.git
@@ -116,7 +116,7 @@ repositories:
   src/romea_ros2/interfaces/vehicles/ceol:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/ceol.git
-    version: implement
+    version: main
   src/romea_ros2/interfaces/vehicles/cinteo:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/vehicles/cinteo.git
@@ -174,11 +174,11 @@ repositories:
   src/romea_ros2/algorithms/control/path_following/romea_path_matching:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_matching.git
-    version: platoon
+    version: main
   src/romea_ros2/algorithms/control/path_following/romea_path_following:
     type: git
     url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/path_following/romea_path_following2.git
-    version: platoon
+    version: main
   src/romea_ros2/algorithms/control/romea_control_switcher:
     type: git
     url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/romea_control_switcher.git
