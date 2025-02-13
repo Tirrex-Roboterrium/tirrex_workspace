@@ -48,6 +48,7 @@ services:
     command: >-
       ros2 launch romea_control_switcher switcher.launch.py
         config_file:=/config/robot/control_switcher.yaml
+        mode:=simulation_gazebo_classic
         robot_namespace:=robot
 
   path_recorder:  # record a trajectory file from the current localization

@@ -59,8 +59,8 @@ services:
     depends_on: [leader]
     command: >-
       ros2 launch romea_control_switcher switcher.launch.py
-        mode:=simulation_gazebo_classic
         config_file:=/config/pom/control_switcher.yaml
+        mode:=simulation_gazebo_classic
         robot_namespace:=leader
 
   follower_task:  # state machine to switch between behaviors
@@ -68,8 +68,8 @@ services:
     depends_on: [follower]
     command: >-
       ros2 launch romea_control_switcher switcher.launch.py
-        mode:=simulation_gazebo_classic
         config_file:=/config/adap2e/control_switcher.yaml
+        mode:=simulation_gazebo_classic
         robot_namespace:=follower
 
   uturn:  # node that manage locking uturn area and synchronize robots
