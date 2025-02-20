@@ -21,8 +21,8 @@ lateral_control:
 
   predictive:
     gains:
-      front_kd: 1.5
-      rear_kd: 0.7
+      front_kd: 1.2
+      rear_kd: 0.6
     prediction:
       horizon: 10
       a0: 0.1642
@@ -31,7 +31,7 @@ lateral_control:
       b2: -0.2801
 
 sliding_observer:
-  selected: none
+  selected: extended_lyapunov
 
   extended_cinematic:
     gains:
@@ -52,7 +52,7 @@ sliding_observer:
       rear_sliding_angle: -1.22
 
 # other options
-stop_at_the_end: false
+stop_at_the_end: true
 enable_joystick: true
 autoconfigure: true
 autostart: false
