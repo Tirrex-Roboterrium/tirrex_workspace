@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
+
+# only add non-existing variables in '.env' file
+add_variable_to_env_file() {
+    if ! grep -q "$1=" .env 2>/dev/null ; then
+        echo "  - Add $1=$2 to .env"
+        echo "$1=$2" >>.env
+    fi
+}
+
+initialize_env_file() {
+    echo 'Initialize ".env" file'
+    add_variable_to_env_file UID "$(id -u)"
+    add_variable_to_env_file GID "$(id -g)"
+    add_variable_to_env_file USER "$(whoami)"
+    add_variable_to_env_file WORKSPACE "$(pwd)"
+}
+
+initialize_env_file
