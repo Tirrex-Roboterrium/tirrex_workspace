@@ -1,0 +1,5 @@
+directory: data
+config: true
+debug: true
+log: true
+vcs: true

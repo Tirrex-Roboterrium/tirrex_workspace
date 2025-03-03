@@ -9,7 +9,7 @@ Panels:
         - /odom1
         - /odom1/Shape1
       Splitter Ratio: 0.5
-    Tree Height: 680
+    Tree Height: 193
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -60,8 +60,6 @@ Visualization Manager:
           Value: true
         robot_base_link:
           Value: true
-        robot_front_axle_steering_link:
-          Value: true
         robot_front_left_wheel_spinning_link:
           Value: true
         robot_front_left_wheel_steering_link:
@@ -75,8 +73,6 @@ Visualization Manager:
         robot_imu_link:
           Value: true
         robot_inertial_link:
-          Value: true
-        robot_rear_axle_steering_link:
           Value: true
         robot_rear_left_wheel_spinning_link:
           Value: true
@@ -95,8 +91,6 @@ Visualization Manager:
         map:
           robot_base_footprint:
             robot_base_link:
-              robot_front_axle_steering_link:
-                {}
               robot_front_left_wheel_steering_link:
                 robot_front_left_wheel_spinning_link:
                   {}
@@ -108,8 +102,6 @@ Visualization Manager:
               robot_imu_link:
                 {}
               robot_inertial_link:
-                {}
-              robot_rear_axle_steering_link:
                 {}
               robot_rear_left_wheel_steering_link:
                 robot_rear_left_wheel_spinning_link:
@@ -146,10 +138,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        robot_front_axle_steering_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         robot_front_left_wheel_spinning_link:
           Alpha: 1
           Show Axes: false
@@ -181,10 +169,6 @@ Visualization Manager:
           Show Trail: false
           Value: true
         robot_inertial_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robot_rear_axle_steering_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -260,7 +244,7 @@ Visualization Manager:
           Value: true
         Value: true
       Enabled: true
-      Keep: 100
+      Keep: 150
       Name: odom
       Position Tolerance: 0.10000000149011612
       Shape:
@@ -326,26 +310,21 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz_default_plugins/ThirdPersonFollower
-      Distance: 27.346019744873047
+      Angle: -1.5699989795684814
+      Class: rviz_default_plugins/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: -1.3031601905822754
-        Y: -0.04485186189413071
-        Z: 2.86102294921875e-06
-      Focal Shape Fixed Size: false
-      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5697963237762451
+      Scale: 42.97101593017578
       Target Frame: <Fixed Frame>
-      Value: ThirdPersonFollower (rviz_default_plugins)
-      Yaw: 3.1504011154174805
+      Value: TopDownOrtho (rviz_default_plugins)
+      X: 4.034035682678223
+      Y: 0.6593674421310425
     Saved:
       - Class: rviz_default_plugins/ThirdPersonFollower
         Distance: 10
@@ -367,6 +346,21 @@ Visualization Manager:
         Target Frame: robot_base_footprint
         Value: ThirdPersonFollower (rviz_default_plugins)
         Yaw: 3.1704020500183105
+      - Angle: -1.5699989795684814
+        Class: rviz_default_plugins/TopDownOrtho
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Invert Z Axis: false
+        Name: TopDownOrtho
+        Near Clip Distance: 0.009999999776482582
+        Scale: 42.97101593017578
+        Target Frame: <Fixed Frame>
+        Value: TopDownOrtho (rviz_default_plugins)
+        X: 3.568958282470703
+        Y: 0.21683812141418457
 Window Geometry:
   Displays:
     collapsed: true
