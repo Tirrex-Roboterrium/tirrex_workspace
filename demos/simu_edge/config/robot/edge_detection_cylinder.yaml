@@ -1,0 +1,11 @@
+inc_trans: 0.05
+inc_thetaRotate: 0.5
+scope_mini: 0.1
+scope_maxi: 50.0
+angle_limit_rotate: 90.0
+offset_scan: 20
+alpha_detection: 0
+radois: 0.6
+snake_length_max_left : 10.0
+snake_length_max_right : 10.0
+z_areas: [0.5, 1.2, 1.5]

@@ -1,0 +1,63 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ./config:/config:Z
+    environment:
+      - ROBOT_NAMESPACE=robot
+      - DEMO_MODE=simulation_gazebo_classic
+      - DEMO_CONFIG_DIR=/config
+      - ROBOT_CONFIG_DIR=/config/robot
+
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [optional]
+    command: 'bash --rcfile /etc/bash.bashrc'
+
+  simulator:  # start the simulator and spawn the robot
+    <<: [*base]
+    command: >-
+      ros2 launch tirrex_demo core.launch.py
+        demo_config_directory:=$$DEMO_CONFIG_DIR
+        robot_config_directory:=$$ROBOT_CONFIG_DIR
+        mode:=$$DEMO_MODE
+        robot_namespace:=$$ROBOT_NAMESPACE
+
+  localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
+    <<: [*base]
+    depends_on: [simulator]
+    command: >-
+      ros2 launch tirrex_demo robot_localisation.launch.py
+        demo_config_directory:=$$DEMO_CONFIG_DIR
+        robot_config_directory:=$$ROBOT_CONFIG_DIR
+        mode:=$$DEMO_MODE
+        robot_namespace:=$$ROBOT_NAMESPACE
+
+  edge_detection_circle:  # detects the trajectory to follow
+    <<: [*base]
+    # depends_on: [localisation]
+    command: >-
+      ros2 launch edge_following_demo edge_detection.launch.py
+        demo_config_directory:=$$DEMO_CONFIG_DIR
+        robot_config_directory:=$$ROBOT_CONFIG_DIR
+        mode:=$$DEMO_MODE
+        robot_namespace:=$$ROBOT_NAMESPACE
+
+  # edge_detection_cylinder:  # detects the trajectory to follow
+  #   <<: [*base]
+  #   # depends_on: [localisation]
+  #   command: >-
+  #     ros2 launch edge_demo robot_edge_detection_cylinder.launch.py
+  #       demo_config_directory:=$$DEMO_CONFIG_DIR
+  #       robot_config_directory:=$$ROBOT_CONFIG_DIR
+  #       mode:=$$DEMO_MODE
+  #       robot_namespace:=$$ROBOT_NAMESPACE
+  #       sensor_name:=lms151
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    command: rviz2 -d /config/default.rviz
