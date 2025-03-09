@@ -1,0 +1,32 @@
+core:
+  pkg: romea_robot_to_world_localisation_core
+  launch: robot_to_world_localisation.launch.py
+  # configuration:
+  #   filter_type: kalman
+  #   state_pool_size: 1000
+  #   number_of_particle: 200
+  #   maximal_dead_recknoning_travelled_distance: 2.
+  #   maximal_dead_recknoning_elapsed_time: 10.
+  #   publish_rate: 10
+  #   debug: true
+plugins:
+  odo:
+    pkg: romea_localisation_odo_plugin
+    launch: odo_plugin.launch.py
+    # configuration:
+    #   controller_topic: kinematic
+    #   restamping: false
+  imu:
+    pkg: romea_localisation_imu_plugin
+    launch: imu_plugin.launch.py
+    input_sensor_meta_description_filename: xsens
+    # configuration:
+    #   restamping: false
+  gps:
+    pkg: romea_localisation_gps_plugin
+    launch: gps_plugin.launch.py
+    input_sensor_meta_description_filename: ublox
+    # configuration:
+    #   restamping: false
+    #   minimal_fix_quality: 4
+    #   minimal_speed_over_ground: 0.5

@@ -1,0 +1,33 @@
+name: arm
+driver:
+  pkg: ur_robot_driver
+  ip: "192.168.1.101"
+control:
+  controller_manager:
+    update_rate: 500
+    configuration:
+      pkg: romea_arm_bringup
+      file: config/ur_controller_manager.yaml
+  controllers:
+    selected: [forward_position_controller]
+    configuration:
+      pkg: romea_arm_bringup
+      file: config/ur_controllers.yaml
+configuration:
+  type: ur
+  model: "10"
+  calibration:
+    pkg: ur_description
+    file: config/ur10/default_kinematics.yaml
+  joint_limits:
+    pkg: ur_description
+    file: config/ur10/joint_limits.yaml
+  initial_joint_positions:
+    pkg: tirrex_campero
+    file: config/robot/devices/ur10/initial_joint_positions.yaml
+geometry:
+  parent_link: "base_link"
+  xyz: [0.215, 0.0, 0.6]
+  rpy: [0.0, 0.0, 0.0]
+records:
+  joint_states: true

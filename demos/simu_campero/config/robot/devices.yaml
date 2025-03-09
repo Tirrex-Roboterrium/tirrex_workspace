@@ -1,0 +1,18 @@
+remote_controller:
+  type: joystick
+  available_mode: all
+front_sick:
+  type: lidar
+  available_mode: simulation
+rear_sick:
+  type: lidar
+  available_mode: simulation
+ublox:
+  type: gps
+  available_mode: all
+xsens:
+  type: imu
+  available_mode: all
+ur10:
+  type: arm
+  available_mode: none

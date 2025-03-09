@@ -1,0 +1,15 @@
+name: "imu"
+driver:
+  package: "xsens_driver"
+  executable: mtnode.py
+  parameters:
+    device: "/dev/ttyUSB0"
+    baudrate: 115200
+configuration:
+  type: xsens
+  model: mti
+  rate: 100
+geometry:
+  parent_link: "base_footprint"
+  xyz: [-0.40, 0.0, 0.8]
+  rpy: [0.0, 0.0, 0.0]

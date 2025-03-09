@@ -1,0 +1,14 @@
+name: "rear_lidar"
+configuration:
+  type: sick
+  model: lms151
+  rate: 50
+  resolution: 0.5
+geometry:
+  parent_link: "base_link"
+  xyz: [-0.490, 0.300, 0.3513]
+  rpy: [180.0, 0.0, 135.0]
+records:
+  scan: true
+bridge:
+  scan: /campero_bridge/rear_laser/scan
