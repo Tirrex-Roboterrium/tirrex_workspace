@@ -1,0 +1,13 @@
+name: "lidar3d"
+configuration:
+  type: ouster
+  model: os1_32
+  rate: 10
+  resolution: 0.17578125
+geometry:
+  parent_link: "base_link"
+  xyz: [2.50, 0.0, 0.38]
+  rpy: [0.0, 0.0, 0.0]
+records:
+  scan: true
+  cloud: false

@@ -40,23 +40,24 @@ services:
   edge_detection_circle:  # detects the trajectory to follow
     <<: [*base]
     # depends_on: [localisation]
+    profiles: [circle]
     command: >-
-      ros2 launch edge_following_demo edge_detection.launch.py
+      ros2 launch tirrex_demo edge_detection_circle.launch.py
         demo_config_directory:=$$DEMO_CONFIG_DIR
         robot_config_directory:=$$ROBOT_CONFIG_DIR
         mode:=$$DEMO_MODE
         robot_namespace:=$$ROBOT_NAMESPACE
 
-  # edge_detection_cylinder:  # detects the trajectory to follow
-  #   <<: [*base]
-  #   # depends_on: [localisation]
-  #   command: >-
-  #     ros2 launch edge_demo robot_edge_detection_cylinder.launch.py
-  #       demo_config_directory:=$$DEMO_CONFIG_DIR
-  #       robot_config_directory:=$$ROBOT_CONFIG_DIR
-  #       mode:=$$DEMO_MODE
-  #       robot_namespace:=$$ROBOT_NAMESPACE
-  #       sensor_name:=lms151
+  edge_detection_cylinder:  # detects the trajectory to follow
+    <<: [*base]
+    # depends_on: [localisation]
+    profiles: [cylinder]
+    command: >-
+      ros2 launch tirrex_demo edge_detection_cylinder.launch.py
+        demo_config_directory:=$$DEMO_CONFIG_DIR
+        robot_config_directory:=$$ROBOT_CONFIG_DIR
+        mode:=$$DEMO_MODE
+        robot_namespace:=$$ROBOT_NAMESPACE
 
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]

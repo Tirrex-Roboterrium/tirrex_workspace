@@ -4,6 +4,9 @@ remote_controller:
 lms151:
   type: lidar
   available_mode: simulation
+ouster:
+  type: lidar
+  available_mode: all
 # ublox:
 #   type: gps
 #   available_mode: all
