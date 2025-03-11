@@ -16,9 +16,16 @@ services:
 
   ceol_test:
     <<: [*base]
+    profiles: [optional]
     command: 'ros2 launch ceol_bringup ceol_test.launch.py mode:=live'
+
+  zenoh:
+    <<: [*base]
+    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge.json5
+
   robot:
     <<: [*base]
+    depends_on: [zenoh]
     command: >-
       ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
@@ -45,7 +52,7 @@ services:
         robot_config_directory:=/config/robot
         mode:=live
         robot_namespace:=robot
-        trajectory_filename:=test02.traj
+        trajectory_filename:=ceol1.traj
 
   switcher:  # state machine to select robot control algorithm based on various events
     <<: [*base]
@@ -69,4 +76,5 @@ services:
 
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]
+    profiles: [optional]
     command: rviz2 -d /config/default.rviz

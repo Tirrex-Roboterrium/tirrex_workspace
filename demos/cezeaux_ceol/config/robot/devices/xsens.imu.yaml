@@ -3,7 +3,7 @@ driver:
   package: "xsens_driver"
   executable: mtnode.py
   parameters:
-    device: "/dev/ttyUSB0"
+    device: "/dev/imu"
     baudrate: 115200
 configuration:
   type: xsens

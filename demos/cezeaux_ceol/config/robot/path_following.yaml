@@ -13,36 +13,31 @@ longitudinal_control:
 # configuration for classic and predictive lateral control laws
 lateral_control:
   selected: back_stepping
+  # selected: skid_sliding
 
   back_stepping:
     gains:
-      kp: -0.5
-      kd: -1.0
+      kp: -0.7
+      kd: -1.2
     maximal_omega_d: 0.5
 
-  classic:
+  skid_sliding:
     gains:
-      front_kd: 0.7
+      lateral_kp: -0.7
+      course_kp: -1.2
 
-  predictive:
-    gains:
-      front_kd: 0.4
-    prediction:
-      horizon: 10
-      a0: 0.1642
-      a1: 0.1072
-      b1: 1.0086
-      b2: -0.2801
 
 # other options
 stop_at_the_end: false # not implemented
+enable_joystick: true
 autoconfigure: true
-autostart: true
+autostart: false
+debug: true
 
 # configuration for cmd_mux auto connection
 cmd_output:
   message_type: romea_mobile_base_msgs/SkidSteeringCommand
-  priority: -1 # if -1, disable registering to cmd_mux
+  priority: 10 # if -1, disable registering to cmd_mux
   rate: 10.
 
 debug: true

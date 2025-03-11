@@ -4,7 +4,7 @@ driver:
   executable: tcp_client_node
   parameters:
     ip: 192.168.0.50
-    nmea_port: 1001
+    nmea_port: 1003
     rtcm_port: 1002
 ntrip:
   package: ntrip_client

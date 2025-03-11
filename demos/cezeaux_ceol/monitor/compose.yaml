@@ -1,0 +1,29 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ../config:/config
+    environment:
+      - ROS_DOMAIN_ID=29
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [optional]
+    command: bash
+
+  zenoh:
+    <<: [*base]
+    command: zenoh-bridge-ros2dds -c /config/zenoh_bridge.json5
+
+  monitor:
+    <<: [*base]
+    depends_on: [zenoh]
+    command: ros2 run rqt_runtime_monitor rqt_runtime_monitor
+
+  rviz:
+    <<: [*base]
+    depends_on: [zenoh]
+    command: rviz2 -d /config/default.rviz
