@@ -10,9 +10,14 @@ setpoint:
 longitudinal_control:
   minimal_linear_speed: 0.3
 
-# configuration for classic and predictive lateral control laws
+# other options
+stop_at_the_end: false
+autoconfigure: true
+autostart: true
+
 lateral_control:
-  selected: back_stepping
+  # selected: back_stepping
+  selected: skid_sliding
 
   back_stepping:
     gains:
@@ -22,13 +27,24 @@ lateral_control:
 
   skid_sliding:
     gains:
-      lateral_kp: -1.5
-      course_kp: -3.0
+      lateral_kp: -1.0  # (unit: 1/m) negative, proportional, spatial diff. eq.
+      course_kp: -2.0   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
+    maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
 
-# other options
-stop_at_the_end: false
-autoconfigure: true
-autostart: true
+sliding_observer:
+  # selected: none
+  selected: picard_backstepping
+
+  picard_backstepping: # values are taken from the the Guillaume Picard configuration
+    gains:
+      lateral_kp: -6.0
+      course_kp: -6.0  # maybe 8
+      longitudinal_kp: -4.0
+      longitudinal_ki: 0.0
+    filter_weights:  # the following variable are smoothed using a 1st order Butterworth filter
+      slip_angle: 0.9
+      linear_speed_disturb: 0.9
+      angular_speed_disturb: 0.8
 
 # configuration for cmd_mux auto connection
 cmd_output:
