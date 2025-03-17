@@ -3,6 +3,8 @@ project](https://tirrex.fr/plateforme/roboterrium/).
 It allows installing every ROS packages to run experiments and simulation with several robots
 models.
 
+![rendering of the simulator with several robots](/doc/media/simu_robots.png)
+
 
 ## Contents
 
