@@ -53,6 +53,14 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_core/romea_path_following.git
     version: main
+  src/romea_core/romea_edge_following:
+    type: git
+    url: git@gitlab-ssh.irstea.fr:romea_core/romea_edge_following.git
+    version: main
+  src/romea_core/romea_edge_detection:
+    type: git
+    url: git@gitlab-ssh.irstea.fr:romea_core/romea_edge_detection.git
+    version: main
 
   # -------- ros2 interfaces --------------------------
   src/romea_ros2/interfaces/manipulators/romea_arm:
@@ -182,6 +190,14 @@ repositories:
   src/romea_ros2/algorithms/control/romea_control_switcher:
     type: git
     url:  git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/romea_control_switcher.git
+    version: main
+  src/romea_ros2/algorithms/control/edge_following/romea_edge_following:
+    type: git
+    url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/edge_following/romea_edge_following.git
+    version: main
+  src/romea_ros2/algorithms/control/edge_following/romea_edge_detection:
+    type: git
+    url: git@gitlab-ssh.irstea.fr:romea_ros2/algorithms/control/edge_following/romea_edge_detection.git
     version: main
 
 
