@@ -10,6 +10,7 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
       - ROBOT_CONFIG_DIR=/config/robot
       - DEMO_MODE=simulation_gazebo_classic
       - ROBOT_NAMESPACE=robot
+      - ROS_LOG_DIR=data/simu_campero/log
 
 services:
   bash:

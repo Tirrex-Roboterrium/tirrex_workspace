@@ -17,7 +17,7 @@ autostart: true
 
 lateral_control:
   # selected: back_stepping
-  selected: skid_sliding
+  selected: skid_backstepping
 
   back_stepping:
     gains:
@@ -25,7 +25,7 @@ lateral_control:
       kd: -3.0
     maximal_omega_d: 0.5
 
-  skid_sliding:
+  skid_backstepping:
     gains:
       lateral_kp: -1.0  # (unit: 1/m) negative, proportional, spatial diff. eq.
       course_kp: -2.0   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
@@ -33,18 +33,29 @@ lateral_control:
 
 sliding_observer:
   # selected: none
-  selected: picard_backstepping
+  # selected: picard_skid_backstepping
+  selected: picard_skid_lyapunov
 
-  picard_backstepping: # values are taken from the the Guillaume Picard configuration
+  picard_skid_backstepping: # values are taken from the the Guillaume Picard PhD
     gains:
       lateral_kp: -6.0
-      course_kp: -6.0  # maybe 8
-      longitudinal_kp: -4.0
-      longitudinal_ki: 0.0
+      course_kp: -6.0
+      longitudinal_kp: -8.5
+      longitudinal_ki: 0.0  # integral
     filter_weights:  # the following variable are smoothed using a 1st order Butterworth filter
       slip_angle: 0.9
       linear_speed_disturb: 0.9
       angular_speed_disturb: 0.8
+
+  picard_skid_lyapunov: # values are taken from the the Guillaume Picard PhD
+    gains:
+      position_x_kp: -5.0
+      position_x_ki: 0.0  # integral
+      position_y_kp: -5.0
+      course_kp: -5.0
+      slip_angle_kp: -3.0
+      linear_speed_disturb_kp: -3.0
+      angular_speed_disturb_kp: -3.0
 
 # configuration for cmd_mux auto connection
 cmd_output:

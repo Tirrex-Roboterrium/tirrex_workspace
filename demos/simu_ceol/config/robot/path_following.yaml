@@ -12,7 +12,7 @@ longitudinal_control:
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
-  selected: skid_sliding
+  selected: skid_backstepping
 
   back_stepping:
     gains:
@@ -20,10 +20,11 @@ lateral_control:
       kd: -3.0
     maximal_omega_d: 0.5
 
-  skid_sliding:
+  skid_backstepping:
     gains:
-      lateral_kp: -1.5
-      course_kp: -3.0
+      lateral_kp: -1.0  # (unit: 1/m) negative, proportional, spatial diff. eq.
+      course_kp: -2.0   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
+    maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
 
 # other options
 stop_at_the_end: false
