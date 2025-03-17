@@ -9,4 +9,4 @@ radius: 1.0
 snake_length_max_left: 10.0
 snake_length_max_right: 10.0
 z_layers: [0.2,0.4,0.6]
-visualization_lifetime: 0.01
+visualization_lifetime: 0.00

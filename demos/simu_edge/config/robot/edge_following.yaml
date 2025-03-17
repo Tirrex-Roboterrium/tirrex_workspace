@@ -1,0 +1,17 @@
+autostart: true
+debug: false
+
+desired_linear_speed: 0.8
+desired_lateral_deviation: -1.35
+
+gains:
+  kp: -0.2
+  ki: 0.45
+  kd: 0.45
+  kdd: 0.6
+
+#configuration for cmd_mux auto connection
+cmd_output:
+  message_type: romea_mobile_base_msgs/OneAxleSteeringCommand
+  priority: 10
+  rate: 10.

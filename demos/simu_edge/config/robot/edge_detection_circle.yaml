@@ -8,4 +8,4 @@ alpha_detection: 20.0
 radius: 1.0
 snake_length_max_left: 10.0
 snake_length_max_right: 10.0
-visualization_lifetime: 0.5
+visualization_lifetime: 0.0
