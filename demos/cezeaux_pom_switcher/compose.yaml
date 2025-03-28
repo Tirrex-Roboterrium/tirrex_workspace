@@ -6,11 +6,11 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
     volumes:
       - ./config:/config
     environment:
-      - ROS_DOMAIN_ID=29
+      - ROS_LOG_DIR=data/cezeaux_pom_switcher/log
 
   env-robot: &env-robot
     volumes:
-      - ../config:/config
+      - ./config:/config
     environment:
       - ROS_IP=192.168.100.2
       - ROS_MASTER_URI=http://192.168.100.1:11311
