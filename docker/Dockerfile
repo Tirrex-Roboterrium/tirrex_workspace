@@ -33,8 +33,9 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
         >/etc/apt/sources.list.d/zenoh.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-      ros-humble-rmw-cyclonedds-cpp \
-      ros-humble-rmw-zenoh-cpp \
+      ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+      ros-${ROS_DISTRO}-rmw-zenoh-cpp \
+      ros-${ROS_DISTRO}-plotjuggler-ros \
       zenoh-bridge-ros2dds \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
@@ -54,7 +55,13 @@ RUN sed -i '7i \ \ depth += 0.001;  // added to fix a bug' \
    /usr/share/gazebo-11/media/materials/programs/shadow_caster_fp.glsl
 
 # multi-stage for developing
-FROM installer as dever
+FROM installer AS dever
+
+RUN --mount=type=cache,target=/var/lib/apt/lists \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+      gdb gdbserver valgrind strace && \
+    rm -rf /var/lib/apt/lists/*
 
 ARG WORKSPACE
 WORKDIR $WORKSPACE
@@ -66,6 +73,4 @@ COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
 
-LABEL org.opencontainers.image.source=https://github.com/Tirrex-Roboterrium/tirrex_workspace
-LABEL org.opencontainers.image.description="ROS2 workspace of the Tirrex roboterrium"
-LABEL org.opencontainers.image.licenses=Apache-2.0
+FROM dever AS debug
