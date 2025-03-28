@@ -20,22 +20,8 @@ lateral_control:
       kd: -3.0
     maximal_omega_d: 0.5
 
-  classic:
-    gains:
-      front_kd: 0.7
-
-  predictive:
-    gains:
-      front_kd: 0.4
-    prediction:
-      horizon: 10
-      a0: 0.1642
-      a1: 0.1072
-      b1: 1.0086
-      b2: -0.2801
-
 # other options
-stop_at_the_end: false  # not implemented
+stop_at_the_end: false
 enable_joystick: false
 autoconfigure: true
 autostart: true

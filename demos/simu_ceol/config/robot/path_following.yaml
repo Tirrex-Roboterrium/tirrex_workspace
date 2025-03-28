@@ -1,4 +1,8 @@
 sampling_period: 0.1
+stop_at_the_end: false
+autoconfigure: true
+autostart: true
+debug: true
 
 # control setpoint
 setpoint:
@@ -12,6 +16,7 @@ longitudinal_control:
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
+  # selected: back_stepping
   selected: skid_backstepping
 
   back_stepping:
@@ -26,15 +31,34 @@ lateral_control:
       course_kp: -2.0   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
     maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
 
-# other options
-stop_at_the_end: false
-autoconfigure: true
-autostart: true
+sliding_observer:
+  # selected: none
+  selected: picard_skid_backstepping
+  # selected: picard_skid_lyapunov
+
+  picard_skid_backstepping: # values are taken from the the Guillaume Picard PhD
+    gains:
+      lateral_kp: -6.0
+      course_kp: -6.0
+      longitudinal_kp: -8.5
+      longitudinal_ki: 0.0  # integral
+    filter_weights:  # the following variable are smoothed using a 1st order Butterworth filter
+      slip_angle: 0.9
+      linear_speed_disturb: 0.9
+      angular_speed_disturb: 0.8
+
+  picard_skid_lyapunov: # values are taken from the the Guillaume Picard PhD
+    gains:
+      position_x_kp: -5.0
+      position_x_ki: 0.0  # integral
+      position_y_kp: -5.0
+      course_kp: -5.0
+      slip_angle_kp: -3.0
+      linear_speed_disturb_kp: -3.0
+      angular_speed_disturb_kp: -3.0
 
 # configuration for cmd_mux auto connection
 cmd_output:
   message_type: romea_mobile_base_msgs/SkidSteeringCommand
   priority: -1 # if -1, disable registering to cmd_mux
   rate: 10.
-
-debug: true
