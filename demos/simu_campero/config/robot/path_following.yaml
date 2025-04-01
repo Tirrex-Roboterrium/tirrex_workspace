@@ -14,6 +14,7 @@ longitudinal_control:
 stop_at_the_end: false
 autoconfigure: true
 autostart: true
+debug: true
 
 lateral_control:
   # selected: back_stepping
@@ -62,5 +63,3 @@ cmd_output:
   message_type: romea_mobile_base_msgs/SkidSteeringCommand
   priority: 10 # if -1, disable registering to cmd_mux
   rate: 10.
-
-debug: true

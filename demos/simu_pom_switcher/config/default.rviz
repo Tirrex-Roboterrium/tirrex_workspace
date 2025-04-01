@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /switcher state1/Status1
       Splitter Ratio: 0.5
     Tree Height: 680
   - Class: rviz_common/Selection
@@ -73,6 +72,10 @@ Visualization Manager:
           Value: true
         robot_half_leg_right_link:
           Value: true
+        robot_implement_hitch_link:
+          Value: true
+        robot_implement_link:
+          Value: true
         robot_imu_link:
           Value: true
         robot_initial_link:
@@ -102,6 +105,9 @@ Visualization Manager:
                 {}
               robot_half_leg_right_link:
                 {}
+              robot_implement_link:
+                robot_implement_hitch_link:
+                  {}
               robot_imu_link:
                 {}
               robot_initial_link:
@@ -172,6 +178,15 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        robot_implement_hitch_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_implement_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         robot_imu_link:
           Alpha: 1
           Show Axes: false

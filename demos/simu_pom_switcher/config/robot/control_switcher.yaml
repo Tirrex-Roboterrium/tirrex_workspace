@@ -6,6 +6,8 @@
     # statechart: path_furrow
     # statechart: furrow
 
+    autostart: true
+
     # edge_side: side to follow using edge_following for some specific state machine
     edge_side: right
 
