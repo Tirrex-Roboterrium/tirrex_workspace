@@ -1,14 +1,5 @@
 services:
   base:  # used by services which uses ROS without GUI
-    build: # use tirrex_workspace image but add the host user in it
-      dockerfile_inline: |
-        FROM ghcr.io/tirrex-roboterrium/tirrex_workspace:devel
-        RUN groupadd -g ${GID-} $USER && \
-            useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -m -G dialout $USER
-        RUN sudo -u $USER touch $HOME/.bash_history && \
-            sudo -u $USER mkdir -p $HOME/.config/ros.org $HOME/.gazebo
-        VOLUME $HOME/.config/ros.org
-        VOLUME $HOME/.gazebo
     image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
     volumes:
       - $HOME/.ros:$HOME/.ros:Z  # for logs and records
@@ -18,6 +9,8 @@ services:
     env_file:
       - ../.env
     environment:
+      - WORKSPACE  # addd explicit WORKSPACE and USER to fix a bug in compose v2.34.0
+      - USER
       # - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
       - CYCLONEDDS_URI=file:///dds_config/cyclonedds.xml
@@ -26,6 +19,19 @@ services:
     ipc: host  # used by ROS2 and X11 (for shared memory)
     privileged: false
     stop_signal: SIGINT  # Correctly forward SIGINT on services started with 'compose up'
+
+  build:
+    extends:
+      service: base
+    build: # use tirrex_workspace image but add the host user in it
+      dockerfile_inline: |
+        FROM ghcr.io/tirrex-roboterrium/tirrex_workspace:devel
+        RUN groupadd -g ${GID-} $USER && \
+            useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -m -G dialout $USER
+        RUN sudo -u $USER touch $HOME/.bash_history && \
+            sudo -u $USER mkdir -p $HOME/.config/ros.org $HOME/.gazebo
+        VOLUME $HOME/.config/ros.org
+        VOLUME $HOME/.gazebo
 
   x11_base:  # used by services which requires GUI
     extends:
