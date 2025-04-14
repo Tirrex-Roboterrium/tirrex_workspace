@@ -6,7 +6,7 @@ configuration:
   resolution: 0.17578125
 geometry:
   parent_link: "base_link"
-  xyz: [2.50, 0.0, 0.38]
+  xyz: [2.50, 0.0, 0.58]
   rpy: [0.0, 0.0, 0.0]
 records:
   scan: true

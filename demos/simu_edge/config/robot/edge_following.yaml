@@ -2,7 +2,7 @@ autostart: true
 debug: false
 
 desired_linear_speed: 0.8
-desired_lateral_deviation: -1.35
+desired_lateral_deviation: -1.2
 
 gains:
   kp: -0.2

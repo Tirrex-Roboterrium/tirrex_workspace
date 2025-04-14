@@ -39,8 +39,6 @@ services:
 
   edge_following:  # detects the trajectory to follow
     <<: [*base]
-    # depends_on: [localisation]
-    profiles: [following_circle]
     command: >-
       ros2 launch tirrex_demo edge_following.launch.py
         demo_config_directory:=$$DEMO_CONFIG_DIR
@@ -50,8 +48,6 @@ services:
 
   edge_detection_circle:  # detects the trajectory to follow
     <<: [*base]
-    # depends_on: [localisation]
-    profiles: [circle]
     command: >-
       ros2 launch tirrex_demo edge_detection_circle.launch.py
         demo_config_directory:=$$DEMO_CONFIG_DIR
@@ -61,7 +57,6 @@ services:
 
   edge_detection_cylinder:  # detects the trajectory to follow
     <<: [*base]
-    # depends_on: [localisation]
     profiles: [cylinder]
     command: >-
       ros2 launch tirrex_demo edge_detection_cylinder.launch.py

@@ -9,3 +9,6 @@ radius: 1.0
 snake_length_max_left: 10.0
 snake_length_max_right: 10.0
 visualization_lifetime: 0.0
+
+autostart: true  # disable it on real experiments (dangerous)
+autoconfigure: true

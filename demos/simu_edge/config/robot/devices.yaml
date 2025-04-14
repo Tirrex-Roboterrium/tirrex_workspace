@@ -3,13 +3,10 @@ remote_controller:
   available_mode: all
 lms151:
   type: lidar
-  available_mode: simulation
+  available_mode: all
 ouster:
   type: lidar
   available_mode: all
-# ublox:
-#   type: gps
-#   available_mode: all
 septentrio:
   type: gps
   available_mode: all
