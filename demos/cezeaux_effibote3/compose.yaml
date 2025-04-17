@@ -1,0 +1,65 @@
+x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
+  base: &base
+    extends:
+      file: ../../docker/common.yaml
+      service: x11_base
+    volumes:
+      - ./config:/config
+    devices:
+      # - /dev/ttyUSB0:/dev/imu
+      - /dev/ttyUSB1:/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0
+      - /dev/ttyACM0:/dev/wire
+      - /dev/ttyACM1:/dev/gnss
+
+services:
+  bash:
+    <<: [*base]
+    profiles: [optional]
+    command: bash
+
+  robot:
+    <<: [*base]
+    command: >-
+      ros2 launch tirrex_demo core.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        robot_namespace:=robot
+        mode:=live
+
+  localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
+    <<: [*base]
+    depends_on: [robot]
+    command: >-
+      ros2 launch tirrex_demo robot_localisation.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=live
+        robot_namespace:=robot
+
+  path_following:  # control the robot to follow the specified trajectory file
+    <<: [*base]
+    depends_on: [localisation]
+    command: >-
+      ros2 launch tirrex_demo robot_path_following.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=live
+        robot_namespace:=robot
+        trajectory_filename:=ceol1.traj
+
+  path_recorder:  # record a trajectory file from the current localization
+    <<: [*base]
+    depends_on: [localisation]
+    profiles: [optional]
+    command: >-
+      ros2 launch tirrex_demo robot_path_recorder.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=live
+        robot_namespace:=robot
+        trajectory_filename:=/config/paths/recorded.traj
+
+  rviz:  # start evaluation nodes and publish information for rviz
+    <<: [*base]
+    profiles: [optional]
+    command: rviz2 -d /config/default.rviz
