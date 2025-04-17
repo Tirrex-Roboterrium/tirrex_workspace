@@ -137,6 +137,10 @@ repositories:
     type: git
     url: https://github.com/Romea/scout.git
     version: main
+  src/romea_ros2/interfaces/vehicles/effibote3:
+    type: git
+    url: https://github.com/Romea/effibote3.git
+    version: main
 
   # -------- algorithms--------------------------
   src/romea_ros2/algorithms/localisation/romea_localisation_bringup:
@@ -221,6 +225,10 @@ repositories:
   src/romea_ros2/demos/tirrex/robots/scout_mini:
     type: git
     url: https://github.com/Tirrex-Roboterrium/tirrex_scout_mini.git
+    version: main
+  src/romea_ros2/demos/tirrex/robots/effibote3:
+    type: git
+    url: https://github.com/Tirrex-Roboterrium/tirrex_effibote3.git
     version: main
   src/romea_ros2/demos/tirrex/path_following:
     type: git

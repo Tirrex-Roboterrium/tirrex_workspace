@@ -9,7 +9,7 @@ services:
     env_file:
       - ../.env
     environment:
-      - WORKSPACE  # addd explicit WORKSPACE and USER to fix a bug in compose v2.34.0
+      - WORKSPACE  # add explicit WORKSPACE and USER to fix a bug in compose v2.34.0
       - USER
       # - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
