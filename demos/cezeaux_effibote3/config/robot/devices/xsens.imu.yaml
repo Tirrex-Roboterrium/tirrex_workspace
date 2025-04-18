@@ -4,7 +4,7 @@ driver:
   executable: mtnode.py
   parameters:
     device: "/dev/imu"
-    baudrate: 115200
+    baudrate: 921600
 configuration:
   type: xsens
   model: mti

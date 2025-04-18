@@ -2,13 +2,11 @@ name: "gps"
 driver:
   package: romea_gps_driver
   executable: serial_node
-  # pkg: romea_gps_driver
-  # executable: serial_node
   parameters:
-    device: /dev/robot
+    device: /dev/gnss
     baudrate: 115200
 ntrip:
-  pkg: ntrip_client
+  package: ntrip_client
   executable: ntrip_ros.py
   parameters:
     host: caster.centipede.fr

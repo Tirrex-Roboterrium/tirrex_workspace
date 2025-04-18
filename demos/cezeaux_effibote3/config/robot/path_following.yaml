@@ -2,7 +2,7 @@ sampling_period: 0.1
 
 # control setpoint
 setpoint:
-  desired_linear_speed: 0.5
+  desired_linear_speed: 0.4
   desired_lateral_deviation: 0.0
   desired_course_deviation: 0.0
 
@@ -33,9 +33,9 @@ lateral_control:
     maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
 
 sliding_observer:
-  selected: none
+  # selected: none
   # selected: picard_skid_backstepping
-  # selected: picard_skid_lyapunov
+  selected: picard_skid_lyapunov
 
   picard_skid_backstepping: # values are taken from the the Guillaume Picard PhD
     gains:

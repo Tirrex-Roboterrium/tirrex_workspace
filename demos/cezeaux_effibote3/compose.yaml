@@ -6,10 +6,9 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
     volumes:
       - ./config:/config
     devices:
-      # - /dev/ttyUSB0:/dev/imu
-      - /dev/ttyUSB1:/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0
-      - /dev/ttyACM0:/dev/wire
-      - /dev/ttyACM1:/dev/gnss
+      - /dev/serial/by-id/usb-Xsens_MTi_USB_Converter_DB78D98V-if00-port0:/dev/imu
+      - /dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0
+      - /dev/serial/by-id/usb-u-blox_AG_-_www.u-blox.com_u-blox_GNSS_receiver-if00:/dev/gnss
 
 services:
   bash:
@@ -45,7 +44,7 @@ services:
         robot_config_directory:=/config/robot
         mode:=live
         robot_namespace:=robot
-        trajectory_filename:=ceol1.traj
+        trajectory_filename:=effibot_test1.traj
 
   path_recorder:  # record a trajectory file from the current localization
     <<: [*base]

@@ -2,9 +2,9 @@ remote_controller:
   type: joystick
   available_mode: all
 
-septentrio:
+drotek:
   type: gps
   available_mode: all
 xsens:
   type: imu
-  available_mode: none
+  available_mode: all
