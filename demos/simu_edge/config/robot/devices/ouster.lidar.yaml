@@ -1,4 +1,10 @@
 name: "lidar3d"
+driver:
+  package: "ouster_ros"
+  executable: 
+  parameters:
+    hostname: "192.168.1.112"
+    port: 2112
 configuration:
   type: ouster
   model: os1_32

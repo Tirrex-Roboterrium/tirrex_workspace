@@ -1,0 +1,19 @@
+name: "lidar3d"
+driver:
+  package: ouster_ros
+  executable: none  #  use launch file instead
+  parameters:  # you can directly give the parameters of the ouster params_file
+    sensor_hostname: 192.168.0.25
+    # proc_mask: IMU|PCL|SCAN|IMG|RAW|TLM  # if you want to enable all topics
+configuration:
+  type: ouster
+  model: os1_32
+  rate: 10  # unit: Hz, available: [5, 10, 20]
+  resolution: 0.3515625  # unit: °, available: [0.703125, 0.3515625, 0.17578125, 0.087890625]
+geometry:
+  parent_link: "base_link"
+  xyz: [2.50, 0.0, 0.4]
+  rpy: [0.0, 0.0, 0.0]
+records:
+  scan: false
+  points: true

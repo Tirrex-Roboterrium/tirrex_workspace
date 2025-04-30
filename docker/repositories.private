@@ -310,3 +310,7 @@ repositories:
     type: git
     url: https://github.com/Romea-Third-Party/clearpath_config
     version: main
+  src/third_party/ouster_ros:
+    type: git
+    url: https://github.com/ouster-lidar/ouster-ros.git
+    version: ros2

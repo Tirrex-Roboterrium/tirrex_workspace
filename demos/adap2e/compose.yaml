@@ -3,8 +3,6 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
     extends:
       file: ../../docker/common.yaml
       service: x11_robot
-    environment:
-      - ROS_DOMAIN_ID=28
     volumes:
       - ./config:/config
 
@@ -17,7 +15,7 @@ services:
   robot:
     <<: [*x11]
     command: >-
-      ros2 launch tirrex_demo robot.launch.py
+      ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
         robot_configuration_directory:=/config/robot
         robot_namespace:=adap2e
@@ -32,7 +30,7 @@ services:
         robot_config_directory:=/config/robot
         launch_robot:=false
         robot:=adap2e
-        path:=cezeaux_line.traj
+        path:=cezeaux_loop.traj
         mode:=live
 
   path_recorder:
