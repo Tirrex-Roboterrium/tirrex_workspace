@@ -25,7 +25,7 @@ configuration:
   dual_antenna: true
 geometry:
   parent_link: "base_link"
-  xyz: [0.0, 0.3, 1.5]
+  xyz: [-0.150, -0.276, 1.417]
 records:
   nmea_sentence: true
   gps_fix: false

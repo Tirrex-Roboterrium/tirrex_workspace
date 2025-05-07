@@ -1,53 +1,69 @@
 x-yaml-anchors:  # create anchors "&something" that can be referenced using "*something"
-  x11: &x11
+  base: &base
     extends:
       file: ../../docker/common.yaml
       service: x11_robot
     volumes:
       - ./config:/config
+    environment:
+      - ROS_LOG_DIR=data/adap2e/log
 
 services:
   bash:
-    <<: [*x11]
+    <<: [*base]
     profiles: [optional]
     command: 'bash --rcfile /etc/bash.bashrc'
 
   robot:
-    <<: [*x11]
+    <<: [*base]
     command: >-
       ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
         robot_configuration_directory:=/config/robot
-        robot_namespace:=adap2e
+        robot_namespace:=robot
         mode:=live
 
-  path_following:
-    <<: [*x11]
+  localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
+    <<: [*base]
     depends_on: [robot]
     command: >-
-      ros2 launch tirrex_path_following path_following.launch.py
+      ros2 launch tirrex_demo robot_localisation.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        launch_robot:=false
-        robot:=adap2e
-        path:=cezeaux_loop.traj
         mode:=live
+        robot_namespace:=robot
 
-  path_recorder:
-    <<: [*x11]
+  path_following:  # control the robot to follow the specified trajectory file
+    <<: [*base]
+    depends_on: [localisation]
+    command: >-
+      ros2 launch tirrex_demo robot_path_following.launch.py
+        demo_config_directory:=/config
+        robot_config_directory:=/config/robot
+        mode:=live
+        robot_namespace:=robot
+        trajectory_filename:=test01.traj
+
+  path_recorder:  # record a trajectory file from the current localization
+    <<: [*base]
+    depends_on: [localisation]
     profiles: [optional]
-    depends_on: [robot]
     command: >-
-      ros2 launch tirrex_path_following path_recorder.launch.py
+      ros2 launch tirrex_demo robot_path_recorder.launch.py
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
-        launch_robot:=false
-        robot:=adap2e
         mode:=live
-        path:=/config/paths/recorded.traj
+        robot_namespace:=robot
+        trajectory_filename:=/config/paths/recorded.traj
 
   rviz:
-    <<: [*x11]
+    <<: [*base]
     profiles: [optional]
     depends_on: [robot]
     command: rviz2 -d /config/config.rviz
+
+  record:
+    <<: [*base]
+    depends_on: [robot]
+    profiles: [optional]
+    command: /config/record.sh

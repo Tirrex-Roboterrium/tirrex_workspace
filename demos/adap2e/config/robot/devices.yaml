@@ -21,7 +21,7 @@ lms_back:
   available_mode: none
 ouster:
   type: lidar
-  available_mode: all
+  available_mode: none
 
 # cameras
 axis:

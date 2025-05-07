@@ -1,4 +1,4 @@
-directory: /home/jeanlaneurit/dev/records
+directory: data/adap2e
 config: true
 debug: true
 log: true
