@@ -6,7 +6,7 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
     volumes:
       - ./config:/config
     environment:
-      - ROS_LOG_DIR=data/adap2e/log
+      - ROS_LOG_DIR=data/cezeaux_adap2e/log
 
 services:
   bash:
