@@ -35,6 +35,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     apt-get install -y --no-install-recommends \
       ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
       ros-${ROS_DISTRO}-rmw-zenoh-cpp \
+      ros-${ROS_DISTRO}-rosbag2-storage-mcap \
       ros-${ROS_DISTRO}-plotjuggler-ros \
       zenoh-bridge-ros2dds \
       python3-pip && \
