@@ -16,9 +16,15 @@ autoconfigure: true
 autostart: true
 debug: true
 
+# enable this if you want to use Ackermann controls (classic, predictive)
+# one_steering_equivalence: true
+one_steering_equivalence: true
+
 lateral_control:
   # selected: back_stepping
-  selected: skid_backstepping
+  # selected: skid_backstepping
+  # selected: classic
+  selected: predictive
 
   back_stepping:
     gains:
@@ -32,10 +38,26 @@ lateral_control:
       course_kp: -2.0   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
     maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
 
+  classic:
+    gains:
+      front_kd: 2.0
+
+  predictive:
+    gains:
+      front_kd: 4.
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+
 sliding_observer:
   # selected: none
   # selected: picard_skid_backstepping
-  selected: picard_skid_lyapunov
+  # selected: picard_skid_lyapunov
+  # selected: extended_cinematic
+  selected: extended_lyapunov
 
   picard_skid_backstepping: # values are taken from the the Guillaume Picard PhD
     gains:
@@ -57,6 +79,24 @@ sliding_observer:
       slip_angle_kp: -3.0
       linear_speed_disturb_kp: -3.0
       angular_speed_disturb_kp: -3.0
+
+  extended_cinematic:
+    gains:
+      lateral_deviation: -4.
+      course_deviation: -2.
+    filter_weights:
+      lateral_deviation: 0.9
+      course_deviation: 0.9
+      front_sliding_angle: 0.96
+      rear_sliding_angle: 0.9
+
+  extended_lyapunov:
+    gains:
+      x_deviation: -2.
+      y_deviation: -2.1
+      course_deviation: -2.
+      front_sliding_angle: -1.5
+      rear_sliding_angle: -0.8
 
 # configuration for cmd_mux auto connection
 cmd_output:
