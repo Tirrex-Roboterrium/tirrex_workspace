@@ -2,13 +2,13 @@ autostart: true
 debug: false
 
 desired_linear_speed: 0.8
-desired_lateral_deviation: -1.2
+desired_lateral_deviation: -1.05
 
 gains:
-  kp: -0.2
-  ki: 0.45
-  kd: 0.45
-  kdd: 0.6
+  kp: -1.0
+  ki: 0.0
+  kd: 1.0
+  kdd: 1.0
 
 #configuration for cmd_mux auto connection
 cmd_output:

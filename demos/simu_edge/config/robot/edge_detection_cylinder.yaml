@@ -5,8 +5,8 @@ scope_maxi: 50.0
 angle_limit_rotate: 90.0
 offset_scan: 45.0
 alpha_detection: 10.0
-radius: 1.0
+radius: 0.6
 snake_length_max_left: 10.0
 snake_length_max_right: 10.0
-z_layers: [0.2,0.4,0.6]
+z_layers: [-0.4, -0.1, 0.2, 0.5]
 visualization_lifetime: 0.00

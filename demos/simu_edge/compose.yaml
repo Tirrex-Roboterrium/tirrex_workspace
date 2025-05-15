@@ -46,8 +46,9 @@ services:
         mode:=$$DEMO_MODE
         robot_namespace:=$$ROBOT_NAMESPACE
 
-  edge_detection_circle:  # detects the trajectory to follow
+  edge_detection_circle:  # detects the trajectory to follow (2D lidar)
     <<: [*base]
+    depends_on: [simulator]
     command: >-
       ros2 launch tirrex_demo edge_detection_circle.launch.py
         demo_config_directory:=$$DEMO_CONFIG_DIR
@@ -55,8 +56,9 @@ services:
         mode:=$$DEMO_MODE
         robot_namespace:=$$ROBOT_NAMESPACE
 
-  edge_detection_cylinder:  # detects the trajectory to follow
+  edge_detection_cylinder:  # detects the trajectory to follow (3D lidar)
     <<: [*base]
+    depends_on: [simulator]
     profiles: [cylinder]
     command: >-
       ros2 launch tirrex_demo edge_detection_cylinder.launch.py
