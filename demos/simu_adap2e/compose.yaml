@@ -71,5 +71,5 @@ services:
         demo_config_directory:=/config
         robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
-        demo:=montoldre_robufast
+        demo:=simu_adap2e
         robot_namespace:=robot

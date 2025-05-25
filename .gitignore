@@ -7,6 +7,6 @@
 /.devcontainer/
 /.vscode/
 
-.env
+/.env
 *.dat
 recorded.traj
