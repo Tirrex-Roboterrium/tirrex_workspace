@@ -12,10 +12,5 @@ if [[ -z "$USER" ]] ; then
   exit 2
 fi
 
-# joy_node needs to access joysticks via event interface
-if [[ -d "/dev/input" ]] ; then
-  chmod -R o+rw /dev/input
-fi
-
 # execute command as USER
 exec sudo -snEHu "$USER" -- /ros_setup.sh $@

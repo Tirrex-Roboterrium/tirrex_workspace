@@ -13,10 +13,10 @@ services:
       - USER
       # - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
       - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
-      - CYCLONEDDS_URI=file:///dds_config/cyclonedds.xml
+      - CYCLONEDDS_URI=file:///dds_config/cyclonedds.xml  # this replaces ROS_LOCALHOST_ONLY=1
     network_mode: host
     pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
-    ipc: host  # used by ROS2 and X11 (for shared memory)
+    ipc: host  # used by ROS2, Qt and X11 (for shared memory)
     privileged: false
     stop_signal: SIGINT  # Correctly forward SIGINT on services started with 'compose up'
 
@@ -33,20 +33,22 @@ services:
         VOLUME $HOME/.config/ros.org
         VOLUME $HOME/.gazebo
 
-  x11_base:  # used by services which requires GUI
+  x11_base:  # used by services which requires GUI and device access
     extends:
       service: base
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:Z
       - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
+      - /dev:/dev:Z  # bind all devices
     environment:
       - DISPLAY
       - XDG_RUNTIME_DIR
       - GAZEBO_RESOURCE_PATH
       - GAZEBO_MODEL_PATH
-    devices:
-      - /dev/input/  # for joypads
-      - /dev/dri/    # for graphic card
+    device_cgroup_rules:  # read/write access to device files
+      - 'c 13:* rmw'   # joystick
+      - 'c 81:* rmw'   # video4linux (realsense)
+      - 'c 189:* rmw'  # alternative USB serial converter (realsense)
   
   x11_gpu:  # used by services which requires GPU (and GUI)
     extends:
@@ -68,5 +70,3 @@ services:
       service: x11_base
     volumes:
       - $HOME/.Xauthority:$HOME/.Xauthority:Z  # used to forward X11 apps through SSH
-    devices:
-      - /dev/imu:/dev/imu
