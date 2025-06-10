@@ -2,8 +2,30 @@ services:
   base:  # used by services which uses ROS without GUI
     image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
     volumes:
-      - $HOME/.ros:$HOME/.ros:Z  # for logs and records
-      - $HOME/.bash_history:$HOME/.bash_history:Z  # to remember commands
+      - type: bind
+        source: $HOME/.ros  # for logs and records
+        target: $HOME/.ros
+        bind:
+          create_host_path: false  # avoid to create the path with the root user
+          selinux: Z  # keep the file owner on SELinux
+      - type: bind
+        source: $HOME/.bash_history  # to remember commands
+        target: $HOME/.bash_history
+        bind:
+          create_host_path: false
+          selinux: Z
+      - type: bind
+        source: $HOME/.config/ros.org  # to remember rqt configuration
+        target: $HOME/.config/ros.org
+        bind:
+          create_host_path: false
+          selinux: Z
+      - type: bind
+        source: $HOME/.gazebo
+        target: $HOME/.gazebo
+        bind:
+          create_host_path: false
+          selinux: Z
       - $WORKSPACE:$WORKSPACE:Z
       - ./cyclonedds_localhost.xml:/dds_config/cyclonedds.xml:ro,Z
     env_file:
@@ -69,4 +91,9 @@ services:
     extends:
       service: x11_base
     volumes:
-      - $HOME/.Xauthority:$HOME/.Xauthority:Z  # used to forward X11 apps through SSH
+      - type: bind
+        source: $HOME/.Xauthority
+        target: $HOME/.Xauthority
+        bind:
+          create_host_path: false
+          selinux: Z
