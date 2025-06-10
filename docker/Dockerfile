@@ -36,7 +36,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
       ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
       ros-${ROS_DISTRO}-rmw-zenoh-cpp \
       ros-${ROS_DISTRO}-rosbag2-storage-mcap \
-      ros-${ROS_DISTRO}-plotjuggler-ros \
+      ros-${ROS_DISTRO}-plotjuggler \
       zenoh-bridge-ros2dds \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
