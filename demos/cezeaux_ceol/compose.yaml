@@ -5,8 +5,6 @@ x-yaml-anchors:  # create anchors "&something" that can be referenced using "*so
       service: x11_robot
     volumes:
       - ./config:/config
-    environment:
-      - ROS_DOMAIN_ID=29
 
 services:
   bash:

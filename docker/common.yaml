@@ -70,6 +70,7 @@ services:
     device_cgroup_rules:  # read/write access to device files
       - 'c 13:* rmw'   # joystick
       - 'c 81:* rmw'   # video4linux (realsense)
+      - 'c 188:* rmw'  # USB serial converter (xsens, Drotek, ...)
       - 'c 189:* rmw'  # alternative USB serial converter (realsense)
   
   x11_gpu:  # used by services which requires GPU (and GUI)
