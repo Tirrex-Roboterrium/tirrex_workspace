@@ -27,8 +27,6 @@ services:
 
   bash:
     <<: *x11
-    volumes:
-      - $HOME/data:$HOME/data
     command: 'bash --rcfile /etc/bash.bashrc'
 
   adap2e_test:
