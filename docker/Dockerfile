@@ -13,7 +13,7 @@ RUN --mount=type=ssh \
     mkdir -pm 700 ~/.ssh && \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
     ssh-keyscan gitlab-ssh.irstea.fr >>~/.ssh/known_hosts && \
-    ssh-keyscan forgemia.inra.fr >>~/.ssh/known_hosts && \
+    ssh-keyscan forge.inrae.fr >>~/.ssh/known_hosts && \
     vcs import --recursive -w6 <repos
 
 # copy manifests for caching
@@ -55,6 +55,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 RUN sed -i '7i \ \ depth += 0.001;  // added to fix a bug' \
    /usr/share/gazebo-11/media/materials/programs/shadow_caster_fp.glsl
 
+
 # multi-stage for developing
 FROM installer AS dever
 
@@ -73,5 +74,3 @@ RUN rm -rf "$WORKSPACE"
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
-
-FROM dever AS debug
