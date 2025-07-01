@@ -17,9 +17,9 @@ services:
     command: >-
       ros2 launch tirrex_demo core.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/pom
+        robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
-        robot_namespace:=pom
+        robot_namespace:=robot
 
   localisation:  # compute absolute localization using GNSS, IMU and odometry measurements
     <<: [*base]
@@ -27,9 +27,9 @@ services:
     command: >-
       ros2 launch tirrex_demo robot_localisation.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/pom
+        robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
-        robot_namespace:=pom
+        robot_namespace:=robot
 
   path_following:  # control the robot to follow the specified trajectory file
     <<: [*base]
@@ -37,9 +37,9 @@ services:
     command: >-
       ros2 launch tirrex_demo robot_path_following.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/pom
+        robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
-        robot_namespace:=pom
+        robot_namespace:=robot
         trajectory_filename:=loop_montoldre.traj
 
   path_recorder:  # record a trajectory file from the current localization
@@ -49,9 +49,9 @@ services:
     command: >-
       ros2 launch tirrex_demo robot_path_recorder.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/pom
+        robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
-        robot_namespace:=pom
+        robot_namespace:=robot
         trajectory_filename:=/config/paths/recorded.traj
 
   rviz:  # start evaluation nodes and publish information for rviz
@@ -66,7 +66,7 @@ services:
     command: >-
       ros2 launch tirrex_demo record.launch.py
         demo_config_directory:=/config
-        robot_config_directory:=/config/pom
+        robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
         demo:=simu_adap2e
-        robot_namespace:=pom
+        robot_namespace:=robot

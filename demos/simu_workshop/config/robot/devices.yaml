@@ -1,0 +1,23 @@
+remote_controller:
+  type: joystick
+  available_mode: all
+
+# for localisation
+septentrio:
+  type: gps
+  available_mode: all
+xsens:
+  type: imu
+  available_mode: all
+
+# perception
+lms_front:
+  type: lidar
+  available_mode: none
+lms_back:
+  type: lidar
+  available_mode: none
+
+ur10:
+  type: arm
+  available_mode: none

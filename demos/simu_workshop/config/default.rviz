@@ -6,7 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /RobotModel1
         - /RobotModel1/Description Topic1
+        - /Path1
       Splitter Ratio: 0.5
     Tree Height: 544
   - Class: rviz_common/Selection
@@ -55,31 +57,31 @@ Visualization Manager:
         All Enabled: true
         map:
           Value: true
-        pom_base_footprint:
+        robot_base_footprint:
           Value: true
-        pom_base_link:
+        robot_base_link:
           Value: true
-        pom_front_left_wheel_spinning_link:
+        robot_front_left_wheel_spinning_link:
           Value: true
-        pom_front_left_wheel_steering_link:
+        robot_front_left_wheel_steering_link:
           Value: true
-        pom_front_right_wheel_spinning_link:
+        robot_front_right_wheel_spinning_link:
           Value: true
-        pom_front_right_wheel_steering_link:
+        robot_front_right_wheel_steering_link:
           Value: true
-        pom_gps_link:
+        robot_gps_link:
           Value: true
-        pom_half_leg_left_link:
+        robot_imu_link:
           Value: true
-        pom_half_leg_right_link:
+        robot_inertial_link:
           Value: true
-        pom_imu_link:
+        robot_rear_left_wheel_spinning_link:
           Value: true
-        pom_initial_link:
+        robot_rear_left_wheel_steering_link:
           Value: true
-        pom_rear_left_wheel_spinning_link:
+        robot_rear_right_wheel_spinning_link:
           Value: true
-        pom_rear_right_wheel_spinning_link:
+        robot_rear_right_wheel_steering_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -88,28 +90,26 @@ Visualization Manager:
       Show Names: false
       Tree:
         map:
-          pom_base_footprint:
-            pom_base_link:
-              pom_front_left_wheel_steering_link:
-                pom_front_left_wheel_spinning_link:
+          robot_base_footprint:
+            robot_base_link:
+              robot_front_left_wheel_steering_link:
+                robot_front_left_wheel_spinning_link:
                   {}
-              pom_front_right_wheel_steering_link:
-                pom_front_right_wheel_spinning_link:
+              robot_front_right_wheel_steering_link:
+                robot_front_right_wheel_spinning_link:
                   {}
-              pom_gps_link:
+              robot_gps_link:
                 {}
-              pom_half_leg_left_link:
+              robot_imu_link:
                 {}
-              pom_half_leg_right_link:
+              robot_inertial_link:
                 {}
-              pom_imu_link:
-                {}
-              pom_initial_link:
-                {}
-              pom_rear_left_wheel_spinning_link:
-                {}
-              pom_rear_right_wheel_spinning_link:
-                {}
+              robot_rear_left_wheel_steering_link:
+                robot_rear_left_wheel_spinning_link:
+                  {}
+              robot_rear_right_wheel_steering_link:
+                robot_rear_right_wheel_spinning_link:
+                  {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -122,7 +122,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /pom/robot_description
+        Value: /robot/robot_description
       Enabled: true
       Links:
         All Links Enabled: true
@@ -130,63 +130,65 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        pom_base_footprint:
+        robot_base_footprint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        pom_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        pom_front_left_wheel_spinning_link:
+        robot_base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_front_left_wheel_steering_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        pom_front_right_wheel_spinning_link:
+        robot_front_left_wheel_spinning_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_front_right_wheel_steering_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        pom_gps_link:
+        robot_front_left_wheel_steering_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_half_leg_left_link:
+        robot_front_right_wheel_spinning_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_half_leg_right_link:
+        robot_front_right_wheel_steering_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_imu_link:
+        robot_gps_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_initial_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        pom_rear_left_wheel_spinning_link:
+        robot_imu_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        pom_rear_right_wheel_spinning_link:
+        robot_inertial_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        robot_rear_left_wheel_spinning_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_rear_left_wheel_steering_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_rear_right_wheel_spinning_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        robot_rear_right_wheel_steering_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -210,7 +212,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /pom/path_matching/markers
+        Value: /robot/path_matching/markers
       Value: true
   Enabled: true
   Global Options:
