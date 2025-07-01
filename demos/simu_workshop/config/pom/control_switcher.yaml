@@ -1,0 +1,20 @@
+/**:
+  ros__parameters:
+    # the statechart filename (without extension) to use in the package romea_control_switcher
+    # (in the 'fsm' directory).
+    # statechart: path
+    statechart: coop_path
+
+    autostart: true
+
+    # edge_side: side to follow using edge_following for some specific state machine
+    edge_side: right
+
+    # enable_marker: if enabled, publish rviz marker
+    # marker_frame: frame used for the marker
+    enable_marker: true
+    marker_frame: base_link
+
+    cmd_output:
+      message_type: romea_mobile_base_msgs/OneAxleSteeringCommand
+      priority: 10
