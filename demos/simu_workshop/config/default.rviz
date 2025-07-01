@@ -6,12 +6,9 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /leader1
-        - /follower1
-        - /follower1/switcher state1/Topic1
-        - /follower1/leader match1
+        - /RobotModel1/Description Topic1
       Splitter Ratio: 0.5
-    Tree Height: 193
+    Tree Height: 544
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -56,67 +53,33 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        follower_base_footprint:
-          Value: true
-        follower_base_link:
-          Value: true
-        follower_front_left_idler_right_spinning_link:
-          Value: true
-        follower_front_left_idler_wheel_spinning_link:
-          Value: true
-        follower_gps_link:
-          Value: true
-        follower_implement_hitch_link:
-          Value: true
-        follower_implement_link:
-          Value: true
-        follower_imu_link:
-          Value: true
-        follower_inertial_link:
-          Value: true
-        follower_left_sprocket_wheel_spinning_link:
-          Value: true
-        follower_left_wheel_model:
-          Value: true
-        follower_rear_left_idler_right_spinning_link:
-          Value: true
-        follower_rear_left_idler_wheel_spinning_link:
-          Value: true
-        follower_right_sprocket_wheel_spinning_link:
-          Value: true
-        follower_right_wheel_model:
-          Value: true
-        leader_base_footprint:
-          Value: true
-        leader_base_link:
-          Value: true
-        leader_front_left_wheel_spinning_link:
-          Value: true
-        leader_front_left_wheel_steering_link:
-          Value: true
-        leader_front_right_wheel_spinning_link:
-          Value: true
-        leader_front_right_wheel_steering_link:
-          Value: true
-        leader_gps_link:
-          Value: true
-        leader_half_leg_left_link:
-          Value: true
-        leader_half_leg_right_link:
-          Value: true
-        leader_implement_hitch_link:
-          Value: true
-        leader_implement_link:
-          Value: true
-        leader_imu_link:
-          Value: true
-        leader_initial_link:
-          Value: true
-        leader_rear_left_wheel_spinning_link:
-          Value: true
-        leader_rear_right_wheel_spinning_link:
-          Value: true
         map:
+          Value: true
+        pom_base_footprint:
+          Value: true
+        pom_base_link:
+          Value: true
+        pom_front_left_wheel_spinning_link:
+          Value: true
+        pom_front_left_wheel_steering_link:
+          Value: true
+        pom_front_right_wheel_spinning_link:
+          Value: true
+        pom_front_right_wheel_steering_link:
+          Value: true
+        pom_gps_link:
+          Value: true
+        pom_half_leg_left_link:
+          Value: true
+        pom_half_leg_right_link:
+          Value: true
+        pom_imu_link:
+          Value: true
+        pom_initial_link:
+          Value: true
+        pom_rear_left_wheel_spinning_link:
+          Value: true
+        pom_rear_right_wheel_spinning_link:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -125,326 +88,130 @@ Visualization Manager:
       Show Names: false
       Tree:
         map:
-          follower_base_footprint:
-            follower_base_link:
-              follower_front_left_idler_right_spinning_link:
-                {}
-              follower_front_left_idler_wheel_spinning_link:
-                {}
-              follower_gps_link:
-                {}
-              follower_implement_link:
-                follower_implement_hitch_link:
+          pom_base_footprint:
+            pom_base_link:
+              pom_front_left_wheel_steering_link:
+                pom_front_left_wheel_spinning_link:
                   {}
-              follower_imu_link:
-                {}
-              follower_inertial_link:
-                {}
-              follower_left_sprocket_wheel_spinning_link:
-                {}
-              follower_left_wheel_model:
-                {}
-              follower_rear_left_idler_right_spinning_link:
-                {}
-              follower_rear_left_idler_wheel_spinning_link:
-                {}
-              follower_right_sprocket_wheel_spinning_link:
-                {}
-              follower_right_wheel_model:
-                {}
-          leader_base_footprint:
-            leader_base_link:
-              leader_front_left_wheel_steering_link:
-                leader_front_left_wheel_spinning_link:
+              pom_front_right_wheel_steering_link:
+                pom_front_right_wheel_spinning_link:
                   {}
-              leader_front_right_wheel_steering_link:
-                leader_front_right_wheel_spinning_link:
-                  {}
-              leader_gps_link:
+              pom_gps_link:
                 {}
-              leader_half_leg_left_link:
+              pom_half_leg_left_link:
                 {}
-              leader_half_leg_right_link:
+              pom_half_leg_right_link:
                 {}
-              leader_implement_link:
-                leader_implement_hitch_link:
-                  {}
-              leader_imu_link:
+              pom_imu_link:
                 {}
-              leader_initial_link:
+              pom_initial_link:
                 {}
-              leader_rear_left_wheel_spinning_link:
+              pom_rear_left_wheel_spinning_link:
                 {}
-              leader_rear_right_wheel_spinning_link:
+              pom_rear_right_wheel_spinning_link:
                 {}
       Update Interval: 0
       Value: true
-    - Class: rviz_common/Group
-      Displays:
-        - Class: rviz_default_plugins/MarkerArray
-          Enabled: true
-          Name: path
-          Namespaces:
-            curve: true
-            path: true
-          Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /leader/path_matching/markers
-          Value: true
-        - Alpha: 0.4000000059604645
-          Class: rviz_default_plugins/RobotModel
-          Collision Enabled: false
-          Description File: ""
-          Description Source: Topic
-          Description Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /leader/robot_description
-          Enabled: true
-          Links:
-            All Links Enabled: true
-            Expand Joint Details: false
-            Expand Link Details: false
-            Expand Tree: false
-            Link Tree Style: Links in Alphabetic Order
-            leader_base_footprint:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            leader_base_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_front_left_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_front_left_wheel_steering_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            leader_front_right_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_front_right_wheel_steering_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            leader_gps_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_half_leg_left_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_half_leg_right_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_implement_hitch_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_implement_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            leader_imu_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_initial_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            leader_rear_left_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            leader_rear_right_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-          Mass Properties:
-            Inertia: false
-            Mass: false
-          Name: model
-          TF Prefix: ""
-          Update Interval: 0
-          Value: true
-          Visual Enabled: true
-        - Class: rviz_default_plugins/Marker
-          Enabled: true
-          Name: switcher state
-          Namespaces:
-            {}
-          Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            Filter size: 10
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /leader/control_switcher/marker
-          Value: true
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /pom/robot_description
       Enabled: true
-      Name: leader
-    - Class: rviz_common/Group
-      Displays:
-        - Class: rviz_default_plugins/MarkerArray
-          Enabled: false
-          Name: path
-          Namespaces:
-            {}
-          Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /follower/path_matching/markers
-          Value: false
-        - Alpha: 0.4000000059604645
-          Class: rviz_default_plugins/RobotModel
-          Collision Enabled: false
-          Description File: ""
-          Description Source: Topic
-          Description Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /follower/robot_description
-          Enabled: true
-          Links:
-            All Links Enabled: true
-            Expand Joint Details: false
-            Expand Link Details: false
-            Expand Tree: false
-            Link Tree Style: Links in Alphabetic Order
-            follower_base_footprint:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            follower_base_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_front_left_idler_right_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_front_left_idler_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_gps_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_implement_hitch_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_implement_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            follower_imu_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_inertial_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-            follower_left_sprocket_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_left_wheel_model:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_rear_left_idler_right_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_rear_left_idler_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_right_sprocket_wheel_spinning_link:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-            follower_right_wheel_model:
-              Alpha: 1
-              Show Axes: false
-              Show Trail: false
-              Value: true
-          Mass Properties:
-            Inertia: false
-            Mass: false
-          Name: model
-          TF Prefix: ""
-          Update Interval: 0
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        pom_base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        pom_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
           Value: true
-          Visual Enabled: true
-        - Class: rviz_default_plugins/Marker
-          Enabled: true
-          Name: switcher state
-          Namespaces:
-            {}
-          Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            Filter size: 10
-            History Policy: Keep Last
-            Reliability Policy: Best Effort
-            Value: /follower/control_switcher/marker
+        pom_front_left_wheel_spinning_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
           Value: true
-        - Class: rviz_default_plugins/MarkerArray
-          Enabled: true
-          Name: leader match
-          Namespaces:
-            curve: true
-            path: true
-          Topic:
-            Depth: 5
-            Durability Policy: Volatile
-            History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /follower/next_vehicle/path_matching/markers
+        pom_front_left_wheel_steering_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        pom_front_right_wheel_spinning_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
           Value: true
+        pom_front_right_wheel_steering_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        pom_gps_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pom_half_leg_left_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pom_half_leg_right_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pom_imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pom_initial_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        pom_rear_left_wheel_spinning_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        pom_rear_right_wheel_spinning_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz_default_plugins/MarkerArray
       Enabled: true
-      Name: follower
+      Name: Path
+      Namespaces:
+        curve: true
+        path: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /pom/path_matching/markers
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
@@ -491,16 +258,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/ThirdPersonFollower
-      Distance: 16.846782684326172
+      Distance: 18.134185791015625
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.7602324485778809
-        Y: 3.0656542778015137
-        Z: -4.1558785596862435e-05
+        X: 10.208253860473633
+        Y: -5.979856014251709
+        Z: -3.7744088331237435e-05
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -533,11 +300,11 @@ Visualization Manager:
         Yaw: 3.1704020500183105
 Window Geometry:
   Displays:
-    collapsed: true
-  Height: 1143
-  Hide Left Dock: true
+    collapsed: false
+  Height: 1016
+  Hide Left Dock: false
   Hide Right Dock: true
-  QMainWindow State: 000000ff00000000fd000000040000000000000156000003d4fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073000000003b000003d4000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003d4fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b000003d4000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000003b600000047fc0100000002fb0000000800540069006d00650100000000000003b60000025300fffffffb0000000800540069006d00650100000000000004500000000000000000000003b6000003d400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000355fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b00000355000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003d4fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b000003d4000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000003b600000047fc0100000002fb0000000800540069006d00650100000000000003b60000025300fffffffb0000000800540069006d006501000000000000045000000000000000000000025a0000035500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -548,4 +315,4 @@ Window Geometry:
     collapsed: true
   Width: 950
   X: 0
-  Y: 23
+  Y: 27
