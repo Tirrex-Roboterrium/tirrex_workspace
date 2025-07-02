@@ -20,3 +20,10 @@ initialize_env_file() {
 }
 
 initialize_env_file
+
+# create files and directories that are binded by docker services
+mkdir -p "${HOME}/.gazebo"
+mkdir -p "${HOME}/.ros"
+mkdir -p "${HOME}/.config/ros.org"
+touch -a "${HOME}/.bash_history"
+touch -a "${HOME}/.Xauthority"  # used to open GUI by ssh
