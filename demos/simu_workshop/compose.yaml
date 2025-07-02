@@ -40,7 +40,7 @@ services:
         robot_config_directory:=/config/robot
         mode:=simulation_gazebo_classic
         robot_namespace:=robot
-        trajectory_filename:=loop_montoldre.traj
+        trajectory_filename:=loop_pixel.traj
 
   path_recorder:  # record a trajectory file from the current localization
     <<: [*base]

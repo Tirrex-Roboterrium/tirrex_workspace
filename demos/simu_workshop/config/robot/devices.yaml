@@ -1,8 +1,9 @@
+# control
 remote_controller:
   type: joystick
   available_mode: all
 
-# for localisation
+# sensors
 septentrio:
   type: gps
   available_mode: all
@@ -10,14 +11,7 @@ xsens:
   type: imu
   available_mode: all
 
-# perception
-lms_front:
-  type: lidar
-  available_mode: none
-lms_back:
-  type: lidar
-  available_mode: none
-
-ur10:
-  type: arm
+# implements
+cultivator:
+  type: implement
   available_mode: none

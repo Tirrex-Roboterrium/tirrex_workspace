@@ -1,5 +1,6 @@
 sampling_period: 0.1
 
+# control setpoint
 setpoint:
   desired_linear_speed: 1.0
   desired_lateral_deviation: 0.0
@@ -11,19 +12,15 @@ longitudinal_control:
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
-  # selected: classic
-  # selected: predictive
-  selected: front_rear_decoupled
+  selected: classic
 
   classic:
     gains:
-      front_kd: 1.0
-      rear_kd: 1.0
+      front_kd: 0.7
 
   predictive:
     gains:
-      front_kd: 0.7
-      rear_kd: 0.4
+      front_kd: 0.4
     prediction:
       horizon: 10
       a0: 0.1642
@@ -31,15 +28,8 @@ lateral_control:
       b1: 1.0086
       b2: -0.2801
 
-  front_rear_decoupled:
-    gains:
-      front_kp: 1.0
-      rear_kp: 1.0
-
 sliding_observer:
-  selected: none
-  # selected: extended_cinematic
-  # selected: extended_lyapunov
+  selected: extended_cinematic
 
   extended_cinematic:
     gains:
@@ -60,16 +50,14 @@ sliding_observer:
       rear_sliding_angle: -1.22
 
 # other options
-stop_at_the_end: false
+stop_at_the_end: true
 enable_joystick: true
 autoconfigure: true
 autostart: true
 debug: true
 
-#configuration for cmd_mux auto connection
+# configuration for cmd_mux auto connection
 cmd_output:
-  message_type: romea_mobile_base_msgs/TwoAxleSteeringCommand
-  priority: 10
+  message_type: romea_mobile_base_msgs/OneAxleSteeringCommand
+  priority: 10  # if -1, disable registering to cmd_mux
   rate: 10.
-
-debug: true
