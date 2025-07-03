@@ -103,6 +103,10 @@ repositories:
     type: git
     url: git@gitlab-ssh.irstea.fr:romea_ros2/interfaces/implements/romea_implement.git
     version: main
+  src/romea_ros2/interfaces/teleoperation/pynput_teleop:
+    type: git
+    url: git@forge.inrae.fr:tscf/ros2/pynput_teleop.git
+    version: main
 
   # -------- ros2 vehicle interfaces --------------------------
   src/romea_ros2/interfaces/vehicles/romea_mobile_base:

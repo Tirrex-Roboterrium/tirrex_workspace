@@ -3,6 +3,10 @@ remote_controller:
   type: joystick
   available_mode: all
 
+# keyboard:
+#   type: joystick
+#   available_mode: all
+
 # sensors
 septentrio:
   type: gps
