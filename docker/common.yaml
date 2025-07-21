@@ -28,6 +28,8 @@ services:
           selinux: Z
       - $WORKSPACE:$WORKSPACE:Z
       - ./cyclonedds_localhost.xml:/dds_config/cyclonedds.xml:ro,Z
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     env_file:
       - ../.env
     environment:
