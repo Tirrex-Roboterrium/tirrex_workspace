@@ -14,7 +14,7 @@ RUN --mount=type=ssh \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
     ssh-keyscan gitlab-ssh.irstea.fr >>~/.ssh/known_hosts && \
     ssh-keyscan forge.inrae.fr >>~/.ssh/known_hosts && \
-    vcs import --recursive -w6 <repos
+    vcs import --recursive --shallow -w6 <repos
 
 # copy manifests for caching
 WORKDIR /opt
@@ -23,7 +23,7 @@ RUN mkdir -p /tmp/opt && \
     find . -name "COLCON_IGNORE" | xargs cp --parents -t /tmp/opt 2>/dev/null || true
 
 
-# multi-stage for installing dependencies
+# multi-stage to install dependencies
 FROM $FROM_IMAGE AS installer
 
 # install some dependencies
@@ -74,3 +74,14 @@ RUN rm -rf "$WORKSPACE"
 COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
+
+
+# multi-stage to compile the workspace inside the image
+FROM installer AS builder
+ARG WORKSPACE
+COPY --from=cacher ${WORKSPACE} ${WORKSPACE}
+
+WORKDIR $WORKSPACE
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
+    colcon build --event-handlers console_direct- log- event_log- log_command- && \
+    rm -rf build log

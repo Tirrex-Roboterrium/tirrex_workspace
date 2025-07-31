@@ -5,6 +5,18 @@ services:
       context: .
       target: dever
       ssh: [default]
+      network: host
+      args:
+        - REPOS_FILE=${REPOS_FILE:-repositories.private}
+      #   - FROM_IMAGE=osrf/ros:galactic-desktop
+   
+  full:
+    image: ghcr.io/tirrex-roboterrium/tirrex_workspace:full
+    build:
+      context: .
+      target: builder
+      ssh: [default]
+      network: host
       args:
         - REPOS_FILE=${REPOS_FILE:-repositories.private}
       #   - FROM_IMAGE=osrf/ros:galactic-desktop
