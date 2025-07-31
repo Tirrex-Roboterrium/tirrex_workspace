@@ -85,3 +85,9 @@ WORKDIR $WORKSPACE
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build --event-handlers console_direct- log- event_log- log_command- && \
     rm -rf build log
+
+COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
+
+RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
+
+ENV TIRREX_IMAGE_FULL=true

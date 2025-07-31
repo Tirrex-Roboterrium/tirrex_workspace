@@ -8,7 +8,7 @@ if [[ -n "$TIRREX_WORKSPACE" ]] ; then
   if [[ -r "$TIRREX_WORKSPACE/install/local_setup.bash" ]] ; then
     source "$TIRREX_WORKSPACE/install/local_setup.bash"
   else
-    echo >&2 "Error: the env variable TIRREX_WORKSPACE is defined but is not compiled."
+    echo >&2 "Error: env TIRREX_WORKSPACE is defined but is not compiled."
     echo >&2 "You have to go in this directory and build it:"
     echo >&2 "  cd $TIRREX_WORKSPACE"
     echo >&2 "  docker compose run --rm compile"
