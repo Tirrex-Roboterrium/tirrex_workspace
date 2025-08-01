@@ -21,4 +21,3 @@ services:
       network: host
       args:
         - REPOS_FILE=${REPOS_FILE:-repositories.private}
-      #   - FROM_IMAGE=osrf/ros:galactic-desktop

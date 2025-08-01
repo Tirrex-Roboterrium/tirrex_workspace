@@ -55,6 +55,10 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 RUN sed -i '7i \ \ depth += 0.001;  // added to fix a bug' \
    /usr/share/gazebo-11/media/materials/programs/shadow_caster_fp.glsl
 
+COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
+
+RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
+
 
 # multi-stage for developing
 FROM installer AS dever
@@ -71,10 +75,6 @@ ENV SHELL=/bin/bash
 # Remove the cloned projects to use a volume instead
 RUN rm -rf "$WORKSPACE"
 
-COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
-
-RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
-
 
 # multi-stage to compile the workspace inside the image
 FROM installer AS builder
@@ -83,13 +83,14 @@ COPY --from=cacher ${WORKSPACE} ${WORKSPACE}
 
 WORKDIR $WORKSPACE
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    colcon build --event-handlers console_direct- log- event_log- log_command- && \
+    colcon build --event-handlers log- event_log- log_command- && \
     rm -rf build log
 
-COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
+COPY demos $WORKSPACE/demos
 RUN --mount=type=bind,source=scripts/update_models,dst=scripts/update_models \
     ./scripts/update_models
 
-RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
-
-ENV TIRREX_IMAGE_FULL=true
+# these variables will be overrided by an overlay workspace (if there is one)
+ENV TIRREX_WORKSPACE=${WORKSPACE} \
+    WORKSPACE=${WORKSPACE} \
+    USER=root
