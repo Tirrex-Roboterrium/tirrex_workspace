@@ -2,7 +2,8 @@ services:
   devel:
     image: ghcr.io/tirrex-roboterrium/tirrex_workspace:devel
     build:
-      context: .
+      context: ..
+      dockerfile: docker/Dockerfile
       target: dever
       ssh: [default]
       network: host
@@ -13,7 +14,8 @@ services:
   full:
     image: ghcr.io/tirrex-roboterrium/tirrex_workspace:full
     build:
-      context: .
+      context: ..
+      dockerfile: docker/Dockerfile
       target: builder
       ssh: [default]
       network: host

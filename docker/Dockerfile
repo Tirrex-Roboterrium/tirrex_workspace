@@ -8,7 +8,7 @@ FROM $FROM_IMAGE AS cacher
 ARG WORKSPACE
 ARG REPOS_FILE
 WORKDIR $WORKSPACE
-COPY $REPOS_FILE repos
+COPY docker/$REPOS_FILE repos
 RUN --mount=type=ssh \
     mkdir -pm 700 ~/.ssh && \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
@@ -71,7 +71,7 @@ ENV SHELL=/bin/bash
 # Remove the cloned projects to use a volume instead
 RUN rm -rf "$WORKSPACE"
 
-COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
+COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
 
@@ -86,7 +86,9 @@ RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
     colcon build --event-handlers console_direct- log- event_log- log_command- && \
     rm -rf build log
 
-COPY --chmod=755 ros_entrypoint.sh ros_setup.sh /
+COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
+RUN --mount=type=bind,source=scripts/update_models,dst=scripts/update_models \
+    ./scripts/update_models
 
 RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
 

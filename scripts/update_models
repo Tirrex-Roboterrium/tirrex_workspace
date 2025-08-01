@@ -15,11 +15,11 @@ import_gazebo_models() {
     archive="/tmp/${MODELS_ARCHIVE}"
 
     echo "  download hash (${archive_hash})"
-    wget -q -O "${remote_hash}" "${nextcloud_download}?path=%2F&files=${archive_hash}"
+    curl -so "${remote_hash}" "${nextcloud_download}?path=%2F&files=${archive_hash}"
 
     # download archive only if the remote hash differs from the local one
     if [[ ! -r "${local_hash}" ]] || ! cmp -s "${remote_hash}" "${local_hash}" ; then
-        wget -O "${archive}" "${nextcloud_download}?path=%2F&files=${MODELS_ARCHIVE}"
+        curl -so "${archive}" "${nextcloud_download}?path=%2F&files=${MODELS_ARCHIVE}"
         if tar -C gazebo -xvf "${archive}" ; then
             mv -f "${remote_hash}" "${local_hash}"
         else
