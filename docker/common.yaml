@@ -52,18 +52,20 @@ services:
         FROM ghcr.io/tirrex-roboterrium/tirrex_workspace:devel
         RUN groupadd -g ${GID-} $USER && \
             useradd -u ${UID-} -g ${GID-} -s /bin/bash -d $HOME -m -G dialout $USER
-        RUN sudo -u $USER touch $HOME/.bash_history && \
-            sudo -u $USER mkdir -p $HOME/.config/ros.org $HOME/.gazebo
-        VOLUME $HOME/.config/ros.org
-        VOLUME $HOME/.gazebo
 
   x11_base:  # used by services which requires GUI and device access
     extends:
       service: base
     volumes:
+      - /dev:/dev:Z  # bind all devices
       - /tmp/.X11-unix:/tmp/.X11-unix:Z
       - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
-      - /dev:/dev:Z  # bind all devices
+      - type: bind
+        source: $HOME/.Xauthority
+        target: $HOME/.Xauthority
+        bind:
+          create_host_path: false
+          selinux: Z
     environment:
       - DISPLAY
       - XDG_RUNTIME_DIR
@@ -91,13 +93,6 @@ services:
               count: 1
               capabilities: [gpu]
 
-  x11_robot:  # used by services started on a robot
+  x11_robot:  # deprecated
     extends:
       service: x11_base
-    volumes:
-      - type: bind
-        source: $HOME/.Xauthority
-        target: $HOME/.Xauthority
-        bind:
-          create_host_path: false
-          selinux: Z

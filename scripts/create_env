@@ -19,11 +19,16 @@ initialize_env_file() {
     add_variable_to_env_file WORKSPACE "$(pwd)"
 }
 
-initialize_env_file
+# Create files and directories that are binded by docker services.
+# If these files does not exist, the docker will not start because the auto creation is disabled.
+# This prevents docker from creating them using root user.
+create_binded_files() {
+  mkdir -p "${HOME}/.gazebo"
+  mkdir -p "${HOME}/.ros"
+  mkdir -p "${HOME}/.config/ros.org"
+  touch -a "${HOME}/.bash_history"
+  touch -a "${HOME}/.Xauthority"  # used to open GUI by ssh
+}
 
-# create files and directories that are binded by docker services
-mkdir -p "${HOME}/.gazebo"
-mkdir -p "${HOME}/.ros"
-mkdir -p "${HOME}/.config/ros.org"
-touch -a "${HOME}/.bash_history"
-touch -a "${HOME}/.Xauthority"  # used to open GUI by ssh
+initialize_env_file
+create_binded_files
