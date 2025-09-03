@@ -1,0 +1,56 @@
+sampling_period: 0.1
+
+# control setpoint
+setpoint:
+  desired_linear_speed: 0.7
+  desired_lateral_deviation: 0.0
+  desired_course_deviation: 0.0
+
+# configuration of longitudinal control
+longitudinal_control:
+  selected: constant
+  # selected: classic
+  # selected: curvature_transition
+
+  constant: {}
+
+  classic:
+    minimal_linear_speed: 0.3
+
+  curvature_transition:
+    minimal_linear_speed: 0.3  # (unit: m/s) minimal speed sent by the command
+    lateral_error_max: 0.20    # (unit: m) maximal admissible error on Y axis 
+    settling_time: 1.0         # (unit: s) settling time on angular speed
+    settling_distance: 5.0     # (unit: m) settling distance for lateral deviation
+    convergence_ratio: 10.0    # (unit: -) ratio between lateral and angular dynamics (>3)
+
+# configuration for classic and predictive lateral control laws
+lateral_control:
+  selected: predictive
+
+  classic:
+    gains:
+      front_kd: 0.7
+
+  predictive:
+    gains:
+      front_kd: 0.4
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+
+# other options
+stop_at_the_end: false
+enable_joystick: false
+autoconfigure: true
+autostart: true
+debug: true
+
+# configuration for cmd_mux auto connection
+cmd_output:
+  message_type: romea_mobile_base_msgs/OneAxleSteeringCommand
+  priority: -1  # if -1, disable registering to cmd_mux
+  rate: 10.

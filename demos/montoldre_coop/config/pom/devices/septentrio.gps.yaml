@@ -1,0 +1,29 @@
+name: "gps"
+driver:
+  package: romea_gps_driver
+  executable: tcp_client_node
+  parameters:
+    ip: 192.168.0.50
+    nmea_port: 1003
+    rtcm_port: 1002
+ntrip:
+  package: ntrip_client
+  executable: ntrip_ros.py
+  parameters:
+    host: crtk.net
+    port: 2101
+    username: centipede
+    password: centipede
+    mountpoint: MTLDR
+configuration:
+  type: drotek
+  model: f9p
+  rate: 10
+  dual_antenna: true
+geometry:
+  parent_link: "base_link"
+  xyz: [-0.08, 0., 1.95]  # taken from tiara ninsar demo (POM4x4)
+records:
+  nmea_sentence: true
+  gps_fix: false
+  vel: false

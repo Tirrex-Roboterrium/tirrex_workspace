@@ -1,0 +1,167 @@
+sampling_period: 0.1
+
+# control setpoint
+setpoint:
+  desired_linear_speed: 0.5
+  desired_lateral_deviation: 0.0
+  desired_course_deviation: 0.0
+
+# other options
+stop_at_the_end: false # not implemented
+enable_joystick: false
+autoconfigure: true
+autostart: true
+debug: true
+
+# configuration of longitudinal control
+longitudinal_control:
+  selected: constant
+  # selected: classic
+  # selected: curvature_transition
+
+  constant: {}
+
+  classic:
+    minimal_linear_speed: 0.3
+
+  curvature_transition:
+    minimal_linear_speed: 0.3  # (unit: m/s) minimal speed sent by the command
+    lateral_error_max: 0.20    # (unit: m) maximal admissible error on Y axis 
+    settling_time: 1.0         # (unit: s) settling time on angular speed
+    settling_distance: 5.0     # (unit: m) settling distance for lateral deviation
+    convergence_ratio: 10.0    # (unit: -) ratio between lateral and angular dynamics (>3)
+
+
+# enable this if you want to use Ackermann controls (classic, predictive)
+# one_steering_equivalence: true
+one_steering_equivalence: false
+
+lateral_control:
+  # selected: back_stepping
+  selected: skid_backstepping
+  # selected: classic
+  # selected: predictive
+  # selected: desbos_generic
+  # selected: desbos_generic_predictive_lmpc
+  # selected: desbos_generic_predictive_hmpc
+
+  back_stepping:
+    gains:
+      kp: -1.5
+      kd: -3.0
+    maximal_omega_d: 0.5
+
+  skid_backstepping:
+    gains:
+      lateral_kp: -0.5  # (unit: 1/m) negative, proportional, spatial diff. eq.
+      course_kp: -1.1   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
+    maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
+
+  classic:
+    gains:
+      front_kd: 2.0
+
+  predictive:
+    gains:
+      front_kd: 4.
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+
+  desbos_generic:  # chained controller, exact linearization
+    gains:
+      kp: 1.0  # positive, (possible value: 1.0)
+      kd: 2.0  # positive, (possible value: 2.0)
+      ks: 1.0  # not used (longitudinal control) 
+    # adaptive_gains is not available. It requires a stiffness observer that is not implemented
+    adaptive_gains: false  # if true, kp and kd are computed from a stiffness observer
+
+  desbos_generic_predictive_lmpc:
+    gains:
+      kp: -0.25  # must be negative
+      kd: -2.0  # must be negative
+      ks: 1.0  # not used (longitudinal control) 
+    prediction:  # do not touch these parameters (used to compute the predicted traj)
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+    alpha: 0.6  # problem: unknown parameter, used to compute reference
+    model_order: 2  # LMPC model order, available: [1, 2]
+    # adaptive_gains is not available. It requires a stiffness observer that is not implemented
+    adaptive_gains: false  # if true, kp and kd are computed from a stiffness observer
+
+  # HMPC version of Luc Desbos' generic predictive command is not completely integrated
+  # Reason: missing curve1 and curve2 params (from path matching)
+  desbos_generic_predictive_hmpc:
+    gains:
+      kp: -1.0  # must be negative
+      kd: -8.0  # must be negative
+      ks: 1.0  # not used (longitudinal control) 
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+    alpha: 0.1  # problem: unknown parameter, used to compute reference
+    # adaptive_gains is not available. It requires a stiffness observer that is not implemented
+    adaptive_gains: true  # if true, kp and kd are computed from a stiffness observer
+
+sliding_observer:
+  # selected: none
+  # selected: picard_skid_backstepping
+  selected: picard_skid_lyapunov
+  # selected: extended_cinematic
+  # selected: extended_lyapunov
+
+  extended_cinematic:
+    gains:
+      lateral_deviation: -1.
+      course_deviation: -2.
+    filter_weights:
+      lateral_deviation: 0.75
+      course_deviation: 0.75
+      front_sliding_angle: 0.98
+      rear_sliding_angle: 0.98
+
+  extended_lyapunov:
+    gains:
+      x_deviation: -2.
+      y_deviation: -2.
+      course_deviation: -1.
+      front_sliding_angle: -0.2
+      rear_sliding_angle: -0.25
+
+  picard_skid_backstepping: # values are taken from the the Guillaume Picard PhD
+    gains:
+      lateral_kp: -1.0
+      course_kp: -2.0
+      longitudinal_kp: -0.9
+      longitudinal_ki: 0.0  # integral
+    filter_weights:  # the following variable are smoothed using a 1st order Butterworth filter
+      slip_angle: 0.98
+      linear_speed_disturb: 0.98
+      angular_speed_disturb: 0.98
+
+  picard_skid_lyapunov:
+    gains:
+      position_x_kp: -2.0
+      position_x_ki: 0.0  # integral
+      position_y_kp: -2.0
+      course_kp: -1.0
+      slip_angle_kp: -1.0
+      linear_speed_disturb_kp: -0.2
+      angular_speed_disturb_kp: -0.5
+
+# configuration for cmd_mux auto connection
+cmd_output:
+  message_type: romea_mobile_base_msgs/SkidSteeringCommand
+  priority: -1 # if -1, disable registering to cmd_mux
+  rate: 10.
+
+debug: true
