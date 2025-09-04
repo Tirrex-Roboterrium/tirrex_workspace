@@ -1,5 +1,7 @@
 sampling_period: 0.1
+
 stop_at_the_end: false
+enable_joystick: false
 autoconfigure: true
 autostart: true
 debug: true
@@ -12,24 +14,93 @@ setpoint:
 
 # configuration of longitudinal control
 longitudinal_control:
-  minimal_linear_speed: 0.3
+  selected: constant
+  # selected: classic
+  # selected: curvature_transition
+
+  classic:
+    minimal_linear_speed: 0.3
+
+  curvature_transition:
+    minimal_linear_speed: 0.3  # (unit: m/s) minimal speed sent by the command
+    lateral_error_max: 0.20    # (unit: m) maximal admissible error on Y axis 
+    settling_time: 1.0         # (unit: s) settling time on angular speed
+    settling_distance: 5.0     # (unit: m) settling distance for lateral deviation
+    convergence_ratio: 10.0    # (unit: -) ratio between lateral and angular dynamics (>3)
+
+# enable this if you want to use Ackermann lateral_controls (classic, predictive)
+# one_steering_equivalence: true
+one_steering_equivalence: false
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
-  # selected: back_stepping
   selected: skid_backstepping
-
-  back_stepping:
-    gains:
-      kp: -1.5
-      kd: -3.0
-    maximal_omega_d: 0.5
+  # selected: classic
+  # selected: predictive
+  # selected: desbos_generic
+  # selected: desbos_generic_predictive_lmpc
+  # selected: desbos_generic_predictive_hmpc
 
   skid_backstepping:
     gains:
       lateral_kp: -1.0  # (unit: 1/m) negative, proportional, spatial diff. eq.
       course_kp: -2.0   # (unit: 1/s) negative, proportional, temporal diff. eq., < lateral_kp
     maximal_target_course_deg: 45.  # control the angle to reach the desired lateral deviation
+
+  classic:
+    gains:
+      front_kd: 1.4
+
+  predictive:
+    gains:
+      front_kd: 1.4
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+
+  desbos_generic:  # chained controller, exact linearization
+    gains:
+      kp: 1.0  # positive, (possible value: 1.0)
+      kd: 2.0  # positive, (possible value: 2.0)
+      ks: 1.0  # not used (longitudinal control) 
+    # adaptive_gains is not available. It requires a stiffness observer that is not implemented
+    adaptive_gains: false  # if true, kp and kd are computed from a stiffness observer
+
+  desbos_generic_predictive_lmpc:
+    gains:
+      kp: -0.25  # must be negative
+      kd: -2.0  # must be negative
+      ks: 1.0  # not used (longitudinal control) 
+    prediction:  # do not touch these parameters (used to compute the predicted traj)
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+    alpha: 0.6  # problem: unknown parameter, used to compute reference
+    model_order: 2  # LMPC model order, available: [1, 2]
+    # adaptive_gains is not available. It requires a stiffness observer that is not implemented
+    adaptive_gains: false  # if true, kp and kd are computed from a stiffness observer
+
+  # HMPC version of Luc Desbos' generic predictive command is not completely integrated
+  # Reason: missing curve1 and curve2 params (from path matching)
+  desbos_generic_predictive_hmpc:
+    gains:
+      kp: -1.0  # must be negative
+      kd: -8.0  # must be negative
+      ks: 1.0  # not used (longitudinal control) 
+    prediction:
+      horizon: 10
+      a0: 0.1642
+      a1: 0.1072
+      b1: 1.0086
+      b2: -0.2801
+    alpha: 0.1  # problem: unknown parameter, used to compute reference
+    # adaptive_gains is not available. It requires a stiffness observer that is not implemented
+    adaptive_gains: true  # if true, kp and kd are computed from a stiffness observer
 
 sliding_observer:
   # selected: none

@@ -13,7 +13,7 @@ ntrip:
   package: ntrip_client
   executable: ntrip_ros.py
   parameters:
-    host: caster.centipede.fr
+    host: crtk.net
     port: 2101
     username: centipede
     password: centipede
@@ -28,5 +28,5 @@ geometry:
   xyz: [-0.150, -0.276, 1.417]
 records:
   nmea_sentence: true
-  gps_fix: false
+  gps/fix: true
   vel: false

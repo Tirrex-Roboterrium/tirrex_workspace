@@ -1,5 +1,11 @@
 sampling_period: 0.1
 
+stop_at_the_end: true
+enable_joystick: true
+autoconfigure: true
+autostart: true
+debug: true
+
 # control setpoint
 setpoint:
   desired_linear_speed: 1.0
@@ -8,11 +14,24 @@ setpoint:
 
 # configuration of longitudinal control
 longitudinal_control:
-  minimal_linear_speed: 0.3
+  selected: constant
+  # selected: classic
+  # selected: curvature_transition
+
+  classic:
+    minimal_linear_speed: 0.3
+
+  curvature_transition:
+    minimal_linear_speed: 0.3  # (unit: m/s) minimal speed sent by the command
+    lateral_error_max: 0.20    # (unit: m) maximal admissible error on Y axis 
+    settling_time: 1.0         # (unit: s) settling time on angular speed
+    settling_distance: 5.0     # (unit: m) settling distance for lateral deviation
+    convergence_ratio: 10.0    # (unit: -) ratio between lateral and angular dynamics (>3)
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
   selected: classic
+  # selected: predictive
 
   classic:
     gains:
@@ -29,7 +48,9 @@ lateral_control:
       b2: -0.2801
 
 sliding_observer:
-  selected: extended_cinematic
+  # selected: none
+  # selected: extended_cinematic
+  selected: extended_lyapunov
 
   extended_cinematic:
     gains:
@@ -48,13 +69,6 @@ sliding_observer:
       course_deviation: -3.
       front_sliding_angle: -1.8
       rear_sliding_angle: -1.22
-
-# other options
-stop_at_the_end: true
-enable_joystick: true
-autoconfigure: true
-autostart: true
-debug: true
 
 # configuration for cmd_mux auto connection
 cmd_output:

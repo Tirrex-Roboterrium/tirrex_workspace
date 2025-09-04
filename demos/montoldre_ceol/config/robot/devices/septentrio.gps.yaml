@@ -1,4 +1,4 @@
-name: "gps"
+name: gps
 driver:
   package: romea_gps_driver
   executable: tcp_client_node
@@ -21,9 +21,9 @@ configuration:
   rate: 10
   dual_antenna: true
 geometry:
-  parent_link: "base_link"
+  parent_link: base_link
   xyz: [-0.36, 0.36, 1.0]
 records:
   nmea_sentence: true
-  gps_fix: false
+  fix: true
   vel: false

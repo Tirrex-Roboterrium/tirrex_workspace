@@ -15,5 +15,5 @@ vcs: true
 # You can add extra topics to record in the following list.
 # It is possible to use regular expression in topic names
 additional_topics:
-  # - .*/gps/.*
-  # - .*/path_matching/info
+  - .*/path_matching/info
+  - .*/filtered_odom

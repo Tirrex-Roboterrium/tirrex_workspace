@@ -1,5 +1,19 @@
-directory: ~/.ros/demos/
+# Specify the directory used to save the records. It can be a relative path (from the root of the
+# workspace) or an absolute path. A subdirectory will be created with the name of the demo.
+directory: data
+
+# In addition to the rosbag file, it is possible to enable some features:
+# * config: copy the config directory into the record directory
+# * vcs: save the commit versions and the git diff of the sources using vcs tools
+# * debug: not available, copy the CSV debug file of the control algorithms
+# * log: not available, copy the output logs of the ROS nodes
 config: true
-debug: true
-log: true
 vcs: true
+# debug: true
+# log: true
+
+# You can add extra topics to record in the following list.
+# It is possible to use regular expression in topic names
+additional_topics:
+  - .*/filtered_odom
+  - .*/path_matching/info

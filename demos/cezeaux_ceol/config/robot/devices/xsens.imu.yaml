@@ -1,16 +1,16 @@
-name: "imu"
+name: imu
 driver:
-  package: "xsens_driver"
+  package: xsens_driver
   executable: mtnode.py
   parameters:
-    device: "/dev/imu"
+    device: /dev/imu
     baudrate: 115200
 configuration:
   type: xsens
   model: mti
   rate: 100
 geometry:
-  parent_link: "base_link"
+  parent_link: base_link
   xyz: [-0.1, 0.0, 0.42]
   rpy: [0.0, 0.0, 0.0]
 records:

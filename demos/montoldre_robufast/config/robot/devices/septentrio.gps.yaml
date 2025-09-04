@@ -1,16 +1,16 @@
-name: "gps"
+name: gps
 driver:
   package: romea_gps_driver
   executable: tcp_client_node
   parameters:
     ip: 192.168.3.1  # no ethernet cable
-    nmea_port: 1003
+    nmea_port: 1001
     rtcm_port: 1002
 ntrip:
   package: ntrip_client
   executable: ntrip_ros.py
   parameters:
-    host: caster.centipede.fr.disabled
+    host: crtk.net
     port: 2101
     username: centipede
     password: centipede
@@ -21,7 +21,7 @@ configuration:
   rate: 10
   dual_antenna: false  # only 1 antenna
 geometry:
-  parent_link: "base_link"
+  parent_link: base_link
   xyz: [-0.1125, -0.3, 1.11]  # calibrated by Guillaume
 records:
   nmea_sentence: true

@@ -1,4 +1,4 @@
-name: "gps"
+name: gps
 driver:
   package: romea_gps_driver
   executable: tcp_client_node
@@ -25,5 +25,5 @@ geometry:
   xyz: [-0.035359, 0.626963, 1.892610]  # calibrated by Guillaume
 records:
   nmea_sentence: true
-  gps_fix: false
+  fix: true
   vel: false

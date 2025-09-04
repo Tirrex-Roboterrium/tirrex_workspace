@@ -59,7 +59,6 @@ services:
 
   rviz:  # start evaluation nodes and publish information for rviz
     <<: [*base]
-    profiles: [optional]
     command: rviz2 -d /config/default.rviz
 
   record:

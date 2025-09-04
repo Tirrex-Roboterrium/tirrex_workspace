@@ -1,5 +1,11 @@
 sampling_period: 0.1
 
+stop_at_the_end: true
+enable_joystick: true
+autoconfigure: true
+autostart: false       # /!\ do not activate on real robot
+debug: true
+
 # control setpoint
 setpoint:
   desired_linear_speed: 1.0
@@ -12,7 +18,9 @@ longitudinal_control:
 
 # configuration for classic and predictive lateral control laws
 lateral_control:
-  selected: predictive
+  # selected: classic
+  # selected: predictive
+  selected: front_rear_decoupled
 
   classic:
     gains:
@@ -30,8 +38,15 @@ lateral_control:
       b1: 1.0086
       b2: -0.2801
 
+  front_rear_decoupled:
+    gains:
+      front_kp: 0.2
+      rear_kp: 0.2
+
 sliding_observer:
-  selected: extended_lyapunov
+  selected: none
+  # selected: extended_cinematic
+  # selected: extended_lyapunov
 
   extended_cinematic:
     gains:
@@ -51,17 +66,8 @@ sliding_observer:
       front_sliding_angle: -1.8
       rear_sliding_angle: -1.22
 
-# other options
-stop_at_the_end: true
-enable_joystick: true
-autoconfigure: true
-autostart: false
-debug: true
-
 # configuration for cmd_mux auto connection
 cmd_output:
   message_type: romea_mobile_base_msgs/TwoAxleSteeringCommand
   priority: 10  # if -1, disable registering to cmd_mux
   rate: 10.
-
-debug: true

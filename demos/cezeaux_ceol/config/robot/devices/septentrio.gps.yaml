@@ -1,4 +1,4 @@
-name: "gps"
+name: gps
 driver:
   package: romea_gps_driver
   executable: tcp_client_node
@@ -10,7 +10,7 @@ ntrip:
   package: ntrip_client
   executable: ntrip_ros.py
   parameters:
-    host: caster.centipede.fr
+    host: crtk.net
     port: 2101
     username: centipede
     password: centipede
@@ -21,9 +21,9 @@ configuration:
   rate: 10
   dual_antenna: true
 geometry:
-  parent_link: "base_link"
+  parent_link: base_link
   xyz: [-0.36, 0.36, 1.0]
 records:
   nmea_sentence: true
-  gps_fix: false
+  fix: true
   vel: false

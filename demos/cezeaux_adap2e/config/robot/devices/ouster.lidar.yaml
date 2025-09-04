@@ -1,4 +1,4 @@
-name: "lidar3d"
+name: lidar3d
 driver:
   package: ouster_ros
   executable: none  #  use launch file instead
@@ -11,7 +11,7 @@ configuration:
   rate: 10  # unit: Hz, available: [5, 10, 20]
   resolution: 0.3515625  # unit: °, available: [0.703125, 0.3515625, 0.17578125, 0.087890625]
 geometry:
-  parent_link: "base_link"
+  parent_link: base_link
   xyz: [2.50, 0.0, 0.4]
   rpy: [0.0, 0.0, 0.0]
 records:

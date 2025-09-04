@@ -70,8 +70,22 @@
       //   specified interfaces. If an interface type is set to an empty list or is not specified at
       //   all, it means that ALL such interface are allowed.
       allow: {
-        publishers: [".*/filtered_odom", "/diagnostics", "/tf", ".*/robot_description"],
-        subscribers: [".*/filtered_odom", "/diagnostics", "/tf", ".*/robot_description"],
+        publishers: [
+          ".*/filtered_odom",
+          "/diagnostics",
+          ".*/path_matching/.*",
+          "/tf",
+          "/tf_static",
+          ".*/robot_description",
+        ],
+        subscribers: [
+          ".*/filtered_odom",
+          "/diagnostics",
+          ".*/path_matching/.*",
+          "/tf",
+          "/tf_static",
+          ".*/robot_description",
+        ],
         service_servers: ["/uturn_manager/.*", ".*/path_matching/reset"],
         service_clients: ["/uturn_manager/.*", ".*/path_matching/reset"],
         action_servers: ["/uturn_manager/.*"],
@@ -92,7 +106,7 @@
       ////                      - "regex" is a regular expression matching a Publisher interface name
       ////                      - "float" is the maximum frequency in Hertz;
       ////                        if publication rate is higher, downsampling will occur when routing.
-      // pub_max_frequencies: [".*/laser_scan=5", "/tf=10"],
+      pub_max_frequencies: ["/tf=15"],
 
       ////
       //// pub_priorities: Specify a list of priorities of publications routing over zenoh for a set of Publishers.

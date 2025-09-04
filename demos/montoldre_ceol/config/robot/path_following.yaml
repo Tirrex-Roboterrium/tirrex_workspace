@@ -1,5 +1,11 @@
 sampling_period: 0.1
 
+stop_at_the_end: false
+enable_joystick: false
+autoconfigure: true
+autostart: false
+debug: true
+
 # control setpoint
 setpoint:
   desired_linear_speed: 1.0
@@ -10,30 +16,17 @@ setpoint:
 longitudinal_control:
   minimal_linear_speed: 0.3
 
-# other options
-stop_at_the_end: false
-autoconfigure: true
-autostart: false
-debug: true
-
 # enable this if you want to use Ackermann lateral_controls (classic, predictive)
 # one_steering_equivalence: true
 one_steering_equivalence: false
 
 lateral_control:
-  # selected: back_stepping
   # selected: skid_backstepping
   # selected: classic
   # selected: predictive
   # selected: desbos_generic
   selected: desbos_generic_predictive_lmpc
   # selected: desbos_generic_predictive_hmpc
-
-  back_stepping:
-    gains:
-      kp: -1.5
-      kd: -3.0
-    maximal_omega_d: 0.5
 
   skid_backstepping:
     gains:

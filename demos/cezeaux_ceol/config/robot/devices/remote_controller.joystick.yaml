@@ -1,7 +1,7 @@
-name: "joystick"
+name: joystick
 driver:
-  package: "joy"
-  executable: "joy_node"
+  package: joy
+  executable: joy_node
   parameters:
     autorepeat_rate: 10.0
     deadzone: 0.1
