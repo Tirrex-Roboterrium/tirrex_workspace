@@ -8,18 +8,25 @@ import_gazebo_models() {
     echo 'Import gazebo models'
     mkdir -p gazebo
     
-    nextcloud_download='https://nextcloud.inrae.fr/s/4PRo8ebgiLyf788/download'
+    nextcloud_download='https://nextcloud.inrae.fr/public.php/dav/files/4PRo8ebgiLyf788'
     archive_hash="${MODELS_ARCHIVE}.sha1"
     remote_hash="/tmp/${archive_hash}"
     local_hash="gazebo/${archive_hash}"
     archive="/tmp/${MODELS_ARCHIVE}"
 
     echo "  download hash (${archive_hash})"
-    curl -so "${remote_hash}" "${nextcloud_download}?path=%2F&files=${archive_hash}"
+    curl -so "${remote_hash}" "${nextcloud_download}/${archive_hash}"
+
+    # check if the hash file is in the correct format
+    if grep -qvE '^[0-9a-f]{40}\s+\S+$' "${remote_hash}" ; then
+        echo >&2 "Failed to download ${remote_hash}." \
+          " The curl request is invalid or the file does not exist."
+        exit 1
+    fi
 
     # download archive only if the remote hash differs from the local one
     if [[ ! -r "${local_hash}" ]] || ! cmp -s "${remote_hash}" "${local_hash}" ; then
-        curl -so "${archive}" "${nextcloud_download}?path=%2F&files=${MODELS_ARCHIVE}"
+        curl -so "${archive}" "${nextcloud_download}/${MODELS_ARCHIVE}"
         if tar -C gazebo -xvf "${archive}" ; then
             mv -f "${remote_hash}" "${local_hash}"
         else
