@@ -10,7 +10,6 @@ models.
 
 * [Installation](#installation)
 * [Installation(for INRAE developers)](#installation-only-for-inrae-developers)
-* [Usage](#usage)
 * [Architecture of the workspace](#architecture-of-the-workspace)
 * [FAQ](#faq)
 
@@ -23,17 +22,25 @@ Other documents available:
 
 ## Installation
 
-### Create workspace
+The tirrex workspace provides a full installation of the ros2 packages included in
+[Tirrex-Roboterrium](https://github.com/orgs/Tirrex-Roboterrium/repositories) and 
+[Romea](https://github.com/orgs/Romea/repositories).
+If you want to use this workspace to make your own development, it is recommended to install
+[template_ws](https://github.com/Tirrex-Roboterrium/template_ws) instead of this one, because the
+template version provides a pre-build version of the tirrex workspace.
+This allows you to avoid recompiling all the packages (there are more that 150).
 
-You need to install `vcstool`. You can install it using pip:
+If you are more interested in an overview of all the work that has been done, you can continue to
+follow these instructions.
+
+### Get all the repositories
+
+You need to install `vcstool`. You can check if it is installed using
 ```
-pip3 install vcstool
 vcs --version
 ```
 
-If the `vcs` command is not found, you can follow [these
-instructions](#the-vcs-command-is-not-found).
-Alternatively, if you use Ubuntu 20 or 22, you can install `vcs` using `apt`:
+If you use Ubuntu 20 or 22, you can install `vcs` using `apt`:
 ```
 sudo apt install python3-vcstool
 ```
@@ -41,6 +48,8 @@ and for Ubuntu 24, the package is now named `vcstool`:
 ```
 sudo apt install vcstool
 ```
+It is also possible to install it using `pip`, but if it is still not found, you can check [these
+instructions](#the-vcs-command-is-not-found).
 
 Clone this project and go to the root:
 ```
@@ -97,22 +106,22 @@ This command will:
 If you modify some packages of the workspace, you need to re-execute this command regularly.
 
 
-## Installation (only for INRAE developers)
+## Installation using forge.inrae.fr
 
-If you are an INRAE developer with an access to the projects on gitlab.irstea.fr, you can use
-alternative repositories with ssh URLs.
+If you are an INRAE developer with an access to the projects on forge.inrae.fr, you can use
+alternative git repositories with ssh URLs.
 To do that, you have to add `REPOS_FILE` in the `.env` file before creating the workspace and
 building the docker image.
 Execute the following commands:
 ```bash
-git clone git@gitlab-ssh.irstea.fr:romea_projects/tirrex/tirrex_workspace.git
+git clone git@forge.inrae.fr:tirrex/tirrex_workspace.git
 cd tirrex_workspace
 echo 'REPOS_FILE=repositories.private' >> .env
 ./scripts/create_ws
 docker compose run --rm --build compile
 ```
 
-## Usage
+## Simple tests
 
 You can run a simple simulation test that spawn a robot in Gazebo and can be controlled using a
 joypad.
