@@ -12,3 +12,6 @@ path_frame_id: map
 autoconfigure: true
 autostart: true
 display: true
+
+path_marker_rgb: [.5, .63, .97]
+curve_marker_rgb: [.07, .23, .85]
