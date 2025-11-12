@@ -281,5 +281,8 @@ If it is already unchecked, check it and uncheck it again (this is another bug).
 
 ### Controller inputs don’t move the robot
 
-The joystick controls for all robots include a dead-man switch: the controller inputs are enabled only while the LB button is held down, or the RB button for fast mode (L1 and R1 respectively on DualShock controllers).
-
+The joystick controls for all robots include a dead-man switch: the controller inputs are enabled
+only while the LB button is held down, or the RB button for fast mode (L1 and R1 respectively on
+DualShock controllers).
+For more information, you can look at the [teleop
+description](/doc/robot_configuration.md#teleop-configuration) that shows the maping of the remote.
