@@ -278,3 +278,8 @@ be darker than it should be.
 This is due to the fact that shadow calculation is buggy with Intel graphics chipsets.
 You can disable shadow rendering by clicking on `Scene`, then unchecking `shadows`.
 If it is already unchecked, check it and uncheck it again (this is another bug).
+
+### Controller inputs don’t move the robot
+
+The joystick controls for all robots include a dead-man switch: the controller inputs are enabled only while the LB button is held down, or the RB button for fast mode (L1 and R1 respectively on DualShock controllers).
+
