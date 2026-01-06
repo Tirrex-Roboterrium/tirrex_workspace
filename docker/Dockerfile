@@ -72,7 +72,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
 
 COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
-RUN echo 'source <(register-python-argcomplete3 ros2)' >>/etc/bash.bashrc
+RUN echo 'source <(register-python-argcomplete ros2)' >>/etc/bash.bashrc && \
+    echo 'source <(register-python-argcomplete colcon)' >>/etc/bash.bashrc
 
 
 # multi-stage for developing
