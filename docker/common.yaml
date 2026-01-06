@@ -1,7 +1,6 @@
 services:
   base:  # used by services which uses ROS without GUI
-    # image: tirrex_workspace:$USER  # add username to avoid image collision on multi-user systems
-    image: ${TIRREX_IMAGE:-ghcr.io/tirrex-roboterrium/tirrex_workspace:devel}
+    image: ${TIRREX_IMAGE:-ghcr.io/tirrex-roboterrium/tirrex_workspace:devel-jazzy}
     volumes:
       - type: bind
         source: $HOME/.ros  # for logs and records

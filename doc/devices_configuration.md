@@ -13,7 +13,7 @@ To activate the driver, specify the ROS 2 driver type you want to use to retriev
 joystick.
 This includes setting the ROS 2 package, executable, and any desired parameters.
 For details on driver options based on joystick type, please refer to the documentation for the
-`romea_joystick_bringup` package.
+`romea_joystick_meta_bringup` package.
 Note that topic remapping for this node are predefined and cannot be changed; the topic provided by
 the driver is named `joystick/joy`.
 Finally, you can specify whether or not this topic should be added in ROS bag during the demo
@@ -67,7 +67,7 @@ directory (see example below).
 
 In this file, it is possible to define the gps `type` and `model`, specified here as `septentrio`
 and `asterx`, along with its configuration parameters.
-For a list of supported types and models, please refer to the `romea_gps_bringup` package
+For a list of supported types and models, please refer to the `romea_gps_meta_bringup` package
 documentation.
 Two key settings are required for gps receiver configuration: `rate` and `dual_antenna` (set here to
 10 Hz and true, respectively).
@@ -82,7 +82,7 @@ Additionally, you can assign a name for the gps receiver, which will also serve 
 namespace under which the driver launches.
 To activate the driver, specify the ROS 2 driver package, executable, and any required parameters,
 note that certain parameters are derived automatically based on the selected configuration.
-For specific driver options based on gps receiver type, please refer to the `romea_gps_bringup`
+For specific driver options based on gps receiver type, please refer to the `romea_gps_meta_bringup`
 package documentation.
 Note that topic remappings for this node are predefined and cannot be modified; the driver publishes
 on the fixed topic `gps/name_sentence`, `gps/fix` and`gps/vel` , which is also the topics published
@@ -131,7 +131,7 @@ directory (see example below).
 
 In this file, it is possible to define the lidar `type` and `model`, specified here as `sick` and
 `lms151`, along with its configuration parameters.
-For a list of supported types and models, please refer to the `romea_lidar_bringup` package
+For a list of supported types and models, please refer to the `romea_lidar_meta_bringup` package
 documentation.
 Two key settings are required for lidar configuration: `rate` and `resolution` (set here to 50 Hz
 and 0.5°, respectively).
@@ -147,7 +147,7 @@ Additionally, you can assign a name for the lidar, which will also serve as the 
 under which the driver launches.
 To activate the driver, specify the ROS 2 driver package, executable, and any required parameters,
 note that certain parameters are derived automatically based on the selected configuration.
-For specific driver options based on lidar type, please refer to the `romea_lidar_bringup` package
+For specific driver options based on lidar type, please refer to the `romea_lidar_meta_bringup` package
 documentation.
 Note that topic remappings for this node are predon efined and cannot be modified; the driver
 publishes on the fixed topic `lidar2d/scan` , which is also the topic published by the simulator.
@@ -184,7 +184,7 @@ directory (see example below).
 
 In this file, it is possible to define the lidar `type` and `model`, specified here as `ouster` and
 `os1_32`, along with its configuration parameters.
-For a list of supported types and models, please refer to the `romea_lidar_bringup` package
+For a list of supported types and models, please refer to the `romea_lidar_meta_bringup` package
 documentation.
 Two key settings are required for lidar configuration: `rate` and `resolution` (set here to 10 Hz
 and 0.17578125°, respectively).
@@ -200,7 +200,7 @@ Additionally, you can assign a name for the lidar, which will also serve as the 
 under which the driver launches.
 To activate the driver, specify the ROS 2 driver package, executable, and any required parameters,
 note that certain parameters are derived automatically based on the selected configuration.
-For specific driver options based on lidar type, please refer to the `romea_lidar_bringup` package
+For specific driver options based on lidar type, please refer to the `romea_lidar_meta_bringup` package
 documentation.
 Note that topic remappings for this node are predefined and cannot be modified; the driver publishes
 on the fixed topic `lidar2d/cloud` , which is also the topic published by the simulator.
@@ -237,7 +237,7 @@ as shown in the example below.
 
 In this configuration file, you can define the camera’s `type` and `model`, here specified as `axis`
 and `p1346`, along with essential configuration parameters.
-For a full list of supported types and models, refer to the `romea_camera_bringup` package
+For a full list of supported types and models, refer to the `romea_camera_ùeta_bringup` package
 documentation.
 Depending on the camera model, several parameters may need to be set, with primary ones including
 `resolution`, `frame_rate`, `horizontal_fov`, `vertical_fov`, and `video_format`.
@@ -253,7 +253,7 @@ Additionally, you may assign a unique name for the camera, which also serves as 
 under which the driver will be launched.
 To activate the driver, specify the ROS 2 driver package, executable, and any required parameters.
 Certain parameters may automatically be derived from the selected configuration.
-For specific driver options based on camera type, please refer to the `romea_camera_bringup`
+For specific driver options based on camera type, please refer to the `romea_camera_meta_bringup`
 package documentation.
 Note that topic remapping for this node are predefined and cannot be modified.
 The driver publishes data on the fixed topics `robot_view/image_raw` and `robot_view/camera_info`,
@@ -316,7 +316,7 @@ Additionally, you may assign a unique name for the camera, which will also serve
 namespace under which the driver will be launched.
 To activate the driver, specify the ROS 2 driver package, executable, and any necessary parameters.
 Certain parameters will automatically be derived from the selected configuration.
-For specific driver options based on camera type, refer to the `romea_camera_bringup` package
+For specific driver options based on camera type, refer to the `romea_camera_meta_bringup` package
 documentation.
 Note that topic remapping for this node are predefined and cannot be modified.
 By default, the driver publishes on fixed topics such as `camera_info` and `image_raw` for each

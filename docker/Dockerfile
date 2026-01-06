@@ -1,4 +1,4 @@
-ARG FROM_IMAGE=docker.io/osrf/ros:humble-desktop
+ARG FROM_IMAGE=docker.io/osrf/ros:jazzy-desktop
 ARG WORKSPACE=/opt/tirrex_ws
 ARG REPOS_FILE=./repositories
 
@@ -31,13 +31,31 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN --mount=type=cache,target=/var/lib/apt/lists \
     echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" \
         >/etc/apt/sources.list.d/zenoh.list && \
+    curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" && \
+      > /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
       ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
       ros-${ROS_DISTRO}-rmw-zenoh-cpp \
       ros-${ROS_DISTRO}-rosbag2-storage-mcap \
-      ros-${ROS_DISTRO}-plotjuggler \
+      ros-${ROS_DISTRO}-plotjuggler-ros \
       zenoh-bridge-ros2dds \
+      # libgz-cmake4-dev \
+      ros-${ROS_DISTRO}-ros-gz \
+      ros-${ROS_DISTRO}-ros2-control \
+      ros-${ROS_DISTRO}-ros2-control-cmake \
+      ros-${ROS_DISTRO}-gz-ros2-control \
+      ros-${ROS_DISTRO}-gz-cmake-vendor \
+      # ros-${ROS_DISTRO}-clearpath-description \
+      # ros-${ROS_DISTRO}-clearpath-common \
+      # ros-${ROS_DISTRO}-clearpath-config \
+      # ros-${ROS_DISTRO}-clearpath-msgs \
+      ros-${ROS_DISTRO}-moveit \
+      # ros-${ROS_DISTRO}-gz-sim \
+      # ros-${ROS_DISTRO}-gz-plugin \
+      # ros-${ROS_DISTRO}-gz-sensors \
+      # ros-${ROS_DISTRO}-gz-tools-vendor \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
@@ -45,15 +63,12 @@ ARG WORKSPACE
 WORKDIR $WORKSPACE
 
 # install package dependencies
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 COPY --from=cacher /tmp/$WORKSPACE/src ./src
 RUN --mount=type=cache,target=/var/lib/apt/lists \
     apt-get update && \
     rosdep install -iyr --from-paths src && \
     rm -rf /var/lib/apt/lists/*
-
-# fix a bug when rendering shadows in gazebo
-RUN sed -i '7i \ \ depth += 0.001;  // added to fix a bug' \
-   /usr/share/gazebo-11/media/materials/programs/shadow_caster_fp.glsl
 
 COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 

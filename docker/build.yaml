@@ -1,6 +1,6 @@
 services:
-  devel:
-    image: ghcr.io/tirrex-roboterrium/tirrex_workspace:devel
+  devel-jazzy:
+    image: ghcr.io/tirrex-roboterrium/tirrex_workspace:devel-jazzy
     build:
       context: ..
       dockerfile: docker/Dockerfile
@@ -9,7 +9,7 @@ services:
       network: host
       args:
         - REPOS_FILE=${REPOS_FILE:-repositories.private}
-      #   - FROM_IMAGE=osrf/ros:galactic-desktop
+        - FROM_IMAGE=osrf/ros:jazzy-desktop
    
   full:
     image: ghcr.io/tirrex-roboterrium/tirrex_workspace:full
