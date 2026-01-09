@@ -284,7 +284,7 @@ repositories:
   src/third_party/clearpath_robot:
     type: git
     url: https://github.com/clearpathrobotics/clearpath_robot.git
-    version: 2.8.4
+    version: jazzy
     # version: jazzy
   src/third_party/clearpath_ros2_socketcan_interface:
     type: git

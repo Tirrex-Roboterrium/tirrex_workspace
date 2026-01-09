@@ -29,11 +29,16 @@ FROM $FROM_IMAGE AS installer
 # install some dependencies
 ENV DEBIAN_FRONTEND=noninteractive
 RUN --mount=type=cache,target=/var/lib/apt/lists \
-    echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" \
-        >/etc/apt/sources.list.d/zenoh.list && \
-    curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
+    curl -L https://download.eclipse.org/zenoh/debian-repo/zenoh-public-key \
+      | gpg --dearmor --yes --output /etc/apt/keyrings/zenoh-public-key.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/zenoh-public-key.gpg] https://download.eclipse.org/zenoh/debian-repo/ /" \
+      >/etc/apt/sources.list.d/zenoh.list && \
+    curl https://packages.osrfoundation.org/gazebo.gpg -o /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" && \
       > /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
+    curl -L https://packages.clearpathrobotics.com/public.key | gpg --dearmor --yes -o /etc/apt/keyrings/clearpathrobotics.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/clearpathrobotics.gpg] https://packages.clearpathrobotics.com/stable/ubuntu $(lsb_release -cs) main" \
+      > /etc/apt/sources.list.d/clearpath-latest.list && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
       ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
@@ -66,7 +71,10 @@ WORKDIR $WORKSPACE
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 COPY --from=cacher /tmp/$WORKSPACE/src ./src
 RUN --mount=type=cache,target=/var/lib/apt/lists \
+    curl -L 'https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/50-clearpath.list' \
+      -o /etc/ros/rosdep/sources.list.d/50-clearpath.list && \
     apt-get update && \
+    rosdep update && \
     rosdep install -iyr --from-paths src && \
     rm -rf /var/lib/apt/lists/*
 
