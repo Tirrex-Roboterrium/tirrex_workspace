@@ -1,4 +1,4 @@
-ARG FROM_IMAGE=osrf/ros:humble-desktop
+ARG FROM_IMAGE=docker.io/osrf/ros:humble-desktop
 ARG WORKSPACE=/opt/tirrex_ws
 ARG REPOS_FILE=./repositories
 
