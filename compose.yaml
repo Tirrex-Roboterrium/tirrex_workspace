@@ -5,22 +5,22 @@ x-extends:
       service: x11_base
     profiles: [optional]
 
-  build: &build
+  base: &base
     extends:
       file: docker/common.yaml
-      service: build
+      service: base
     profiles: [optional]
 
 
 services:
   compile:
-    <<: *build
+    <<: *base
     environment:  # remove annoying warning of setuptools
       - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
     command: 'colcon --log-base /dev/null build --symlink-install --event-handlers event_log- log-'
 
   compile_with_log:
-    <<: *build
+    <<: *base
     environment:  # remove annoying warning of setuptools
       - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
     command: 'colcon build --symlink-install'
