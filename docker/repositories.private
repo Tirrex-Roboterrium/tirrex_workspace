@@ -267,6 +267,10 @@ repositories:
     type: git
     url: git@forge.inrae.fr:romea_ros2/tools/romea_path_tools.git
     version: main
+  src/romea_ros2/tools/romea_robot:
+    type: git
+    url: git@forge.inrae.fr:romea_ros2/tools/romea_robot.git
+    version: main
 
   # -------- third party --------------------------
   src/third_party/bluespace_ai_xsens_ros_mti_driver:
@@ -285,7 +289,6 @@ repositories:
     type: git
     url: https://github.com/clearpathrobotics/clearpath_robot.git
     version: jazzy
-    # version: jazzy
   src/third_party/clearpath_ros2_socketcan_interface:
     type: git
     url: https://github.com/clearpathrobotics/clearpath_ros2_socketcan_interface.git
