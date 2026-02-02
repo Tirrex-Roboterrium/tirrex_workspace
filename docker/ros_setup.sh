@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 source /usr/share/gazebo/setup.sh
 source /opt/ros/$ROS_DISTRO/setup.bash
 

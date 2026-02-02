@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 if [[ -z "$WORKSPACE" ]] ; then 
   echo >&2 "Missing environment variable 'WORKSPACE'"
@@ -8,10 +7,11 @@ fi
 
 cd -- "$WORKSPACE"
 
-ws_uid=$(stat -c "%u" "$WORKSPACE")
+ws_uid=$(stat -c '%u' "$WORKSPACE")
+ws_user=$(stat -c '%U' "$WORKSPACE")
 
 # execute command as USER if it is the owner of $WORKSPACE
-if [[ $(id -u) = 0 && "$ws_uid" != 0 ]] ; then
+if [[ $(id -u) = 0 && "$ws_uid" != 0 && "$ws_user" != 'nobody' ]] ; then
   if [[ -z "$USER" && -z "$HOME" ]] ; then 
     echo >&2 "Missing environment variable 'USER' or 'HOME'"
     exit 2
@@ -19,7 +19,7 @@ if [[ $(id -u) = 0 && "$ws_uid" != 0 ]] ; then
   
   # create user if it does not exist
   if ! id -u "$USER" &>/dev/null ; then
-    ws_gid=$(stat -c "%g" "$WORKSPACE")
+    ws_gid=$(stat -c '%g' "$WORKSPACE")
     groupadd -g "$ws_gid" "$USER"
     useradd -u "$ws_uid" -g "$ws_gid" -s /bin/bash -d "$HOME" -G dialout "$USER"
   fi
