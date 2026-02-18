@@ -190,7 +190,7 @@ repositories:
   src/ros2/algorithms/control/path_following/romea_path_following:
     type: git
     url:  git@forge.inrae.fr:romea_ros2/algorithms/control/path_following/romea_path_following2.git
-    version: main
+    version: meta_bringup
   src/ros2/algorithms/control/romea_control_switcher:
     type: git
     url:  git@forge.inrae.fr:romea_ros2/algorithms/control/romea_control_switcher.git
