@@ -16,12 +16,17 @@ if [[ $(id -u) = 0 && "$ws_uid" != 0 && "$ws_user" != 'nobody' ]] ; then
     echo >&2 "Missing environment variable 'USER' or 'HOME'"
     exit 2
   fi
-  
+
   # create user if it does not exist
   if ! id -u "$USER" &>/dev/null ; then
     ws_gid=$(stat -c '%g' "$WORKSPACE")
     groupadd -g "$ws_gid" "$USER"
     useradd -u "$ws_uid" -g "$ws_gid" -s /bin/bash -d "$HOME" -G dialout "$USER"
+  fi
+
+  # allow user to create files in its HOME dir
+  if [[ $(stat -c '%u' "$HOME") = 0 ]] ; then
+    chown -- "$USER:" "$HOME"
   fi
 
   exec sudo -snEHu "$USER" -- /ros_setup.sh "$@"
