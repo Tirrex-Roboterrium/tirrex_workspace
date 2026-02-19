@@ -27,7 +27,7 @@ services:
 
   bash:
     <<: *x11
-    command: 'bash --rcfile /etc/bash.bashrc'
+    command: bash
 
   adap2e_test:
     <<: *x11
