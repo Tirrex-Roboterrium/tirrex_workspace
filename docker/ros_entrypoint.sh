@@ -15,7 +15,7 @@ detect_user_from_dir() {
 # try to detect the user ID based on one of the binded directory
 if findmnt -nr '/config' >/dev/null ; then
   detect_user_from_dir '/config'
-elif findmnt -nr "$XDG_RUNTIME_DIR" >/dev/null ; then
+elif [[ -n "$XDG_RUNTIME_DIR" ]] && findmnt -nr "$XDG_RUNTIME_DIR" >/dev/null ; then
   detect_user_from_dir "$XDG_RUNTIME_DIR"
 else
   detect_user_from_dir "$WORKSPACE"
