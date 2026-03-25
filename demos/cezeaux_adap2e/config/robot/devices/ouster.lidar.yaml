@@ -5,6 +5,16 @@ driver:
   parameters:  # you can directly give the parameters of the ouster params_file
     sensor_hostname: 192.168.0.25
     # proc_mask: IMU|PCL|SCAN|IMG|RAW|TLM  # if you want to enable all topics
+    
+    # timestamp_mode[optional]: method used to timestamp measurements; possible
+    # "values":
+    # - TIME_FROM_INTERNAL_OSC
+    # - TIME_FROM_SYNC_PULSE_IN
+    # - TIME_FROM_PTP_1588
+    # - "TIME_FROM_ROS_TIME": This option uses the time of reception of first
+    #                       packet of a LidarScan as the timestamp of the IMU,
+    #                       PointCloud2 and LaserScan messages.
+    timestamp_mode: TIME_FROM_ROS_TIME
 configuration:
   type: ouster
   model: os1_32

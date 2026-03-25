@@ -6,11 +6,23 @@ fi
 
 cd -- "$WORKSPACE"
 
-ws_uid=$(stat -c '%u' "$WORKSPACE")
-ws_user=$(stat -c '%U' "$WORKSPACE")
+detect_user_from_dir() {
+  detected_uid=$(stat -c '%u' "$1")
+  detected_user=$(stat -c '%U' "$1")
+  detected_gid=$(stat -c '%g' "$1")
+}
 
-# execute command as USER if it is the owner of $WORKSPACE
-if [[ $(id -u) = 0 && "$ws_uid" != 0 && "$ws_user" != 'nobody' ]] ; then
+# try to detect the user ID based on one of the binded directory
+if findmnt -nr '/config' >/dev/null ; then
+  detect_user_from_dir '/config'
+elif findmnt -nr "$XDG_RUNTIME_DIR" >/dev/null ; then
+  detect_user_from_dir "$XDG_RUNTIME_DIR"
+else
+  detect_user_from_dir "$WORKSPACE"
+fi
+
+# execute command as USER if it has been detected
+if [[ $(id -u) = 0 && "$detected_uid" -gt 0 && "$detected_user" != 'nobody' ]] ; then
   if [[ -z "$USER" && -z "$HOME" ]] ; then 
     echo >&2 "Missing environment variable 'USER' or 'HOME'"
     exit 2
@@ -18,9 +30,8 @@ if [[ $(id -u) = 0 && "$ws_uid" != 0 && "$ws_user" != 'nobody' ]] ; then
 
   # create user if it does not exist
   if ! id -u "$USER" &>/dev/null ; then
-    ws_gid=$(stat -c '%g' "$WORKSPACE")
-    groupadd -g "$ws_gid" "$USER"
-    useradd -u "$ws_uid" -g "$ws_gid" -s /bin/bash -d "$HOME" -G dialout "$USER"
+    groupadd -g "$detected_gid" "$USER"
+    useradd -u "$detected_uid" -g "$detected_gid" -s /bin/bash -d "$HOME" -G dialout "$USER"
 
     # if HOME is not mounted, chown it and install default skeleton
     if [[ $(stat -c '%u' "$HOME") = 0 ]] ; then
