@@ -82,6 +82,7 @@ COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete ros2)' >>/etc/bash.bashrc && \
     echo 'source <(register-python-argcomplete colcon)' >>/etc/bash.bashrc
+RUN userdel -r ubuntu
 
 
 # multi-stage for developing
