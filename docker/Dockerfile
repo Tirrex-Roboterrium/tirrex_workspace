@@ -12,7 +12,6 @@ COPY docker/$REPOS_FILE repos
 RUN --mount=type=ssh \
     mkdir -pm 700 ~/.ssh && \
     ssh-keyscan github.com >>~/.ssh/known_hosts && \
-    ssh-keyscan gitlab-ssh.irstea.fr >>~/.ssh/known_hosts && \
     ssh-keyscan forge.inrae.fr >>~/.ssh/known_hosts && \
     vcs import --recursive --shallow -w6 <repos
 
@@ -39,6 +38,20 @@ RUN git clone --depth 1 'https://github.com/Fields2Cover/Fields2Cover.git' /tmp/
     make -j && \
     make install && \
     ( find /opt/f2c ! -iregex '.*\(fields2cover\|matplot\|steering_functions\).*' -delete || true )
+
+
+# compile romea_path_editor
+FROM ${FROM_IMAGE} AS path_editor_builder
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libgdal-dev qtbase5-dev
+
+RUN git clone --depth 1 'https://forge.inrae.fr/cyrille.pierre/romea_path_editor.git' /tmp/rpe && \
+    mkdir /tmp/rpe/build && \
+    cd /tmp/rpe/build && \
+    cmake -DBUILD_PYTHON=ON -DBUILD_TEST=OFF -DBUILD_TUTORIALS=OFF -DBUILD_TESTING=OFF \
+        -DCMAKE_INSTALL_PREFIX=/opt/rpe .. && \
+    make -j && \
+    make install
 
 
 # multi-stage to install dependencies
@@ -70,6 +83,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
       ros-${ROS_DISTRO}-gz-ros2-control \
       ros-${ROS_DISTRO}-gz-cmake-vendor \
       ros-${ROS_DISTRO}-moveit \
+      libgdal34t64 \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
@@ -87,8 +101,9 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     rosdep install -iyr --from-paths src && \
     rm -rf /var/lib/apt/lists/*
 
-# install fields2cover
+# install compiled programs and libraries
 COPY --from=f2c_builder /opt/f2c/ /opt/ros/$ROS_DISTRO/
+COPY --from=path_editor_builder /opt/rpe/ /usr/local/
 
 COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
