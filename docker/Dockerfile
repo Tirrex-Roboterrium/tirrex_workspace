@@ -37,7 +37,7 @@ RUN git clone --depth 1 'https://github.com/Fields2Cover/Fields2Cover.git' /tmp/
         -DCMAKE_INSTALL_PREFIX=/opt/f2c .. && \
     make -j && \
     make install && \
-    ( find /opt/f2c ! -iregex '.*\(fields2cover\|matplot\|steering_functions\).*' -delete || true )
+    ( find /opt/f2c ! -iregex '.*\(fields2cover\|matplot\|steering_functions\|libortools\.so\).*' -delete || true )
 
 
 # compile romea_path_editor
@@ -51,7 +51,8 @@ RUN git clone --depth 1 'https://forge.inrae.fr/cyrille.pierre/romea_path_editor
     cmake -DBUILD_PYTHON=ON -DBUILD_TEST=OFF -DBUILD_TUTORIALS=OFF -DBUILD_TESTING=OFF \
         -DCMAKE_INSTALL_PREFIX=/opt/rpe .. && \
     make -j && \
-    make install
+    make install && \
+    ldconfig
 
 
 # multi-stage to install dependencies
@@ -109,11 +110,9 @@ COPY --from=path_editor_builder /opt/rpe/ /usr/local/
 COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete ros2)' >>/etc/bash.bashrc && \
-    echo 'source <(register-python-argcomplete colcon)' >>/etc/bash.bashrc
-
-# remove unused user of ubuntu docker image
-RUN userdel -r ubuntu
-
+    echo 'source <(register-python-argcomplete colcon)' >>/etc/bash.bashrc && \
+    userdel -r ubuntu && \
+    ldconfig
 
 # multi-stage for developing
 FROM installer AS dever
@@ -138,7 +137,7 @@ COPY --from=cacher ${WORKSPACE} ${WORKSPACE}
 
 WORKDIR $WORKSPACE
 RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
-    colcon build --event-handlers log- event_log- log_command- && \
+    colcon build --event-handlers log- event_log- log_command- --cmake-args -DBUILD_TESTING=OFF && \
     rm -rf build log
 
 COPY demos $WORKSPACE/demos

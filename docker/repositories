@@ -250,10 +250,6 @@ repositories:
     type: git
     url: https://github.com/Romea-Third-Party/nmea_navsat_driver.git
     version: jazzy
-  src/third_party/ouster_ros:
-    type: git
-    url: https://github.com/ouster-lidar/ouster-ros.git
-    version: ros2
   src/third_party/serial:
     type: git
     url: https://github.com/Romea-Third-Party/serial-ros2.git

@@ -158,7 +158,7 @@ repositories:
     type: git
     url: git@forge.inrae.fr:romea_ros2/interfaces/vehicles/adap2e.git
     version: jazzy
-  src/ros2/interfaces/vehicles/alpo:
+  src/ros2/interfaces/vehicles/pom:
     type: git
     url: git@forge.inrae.fr:romea_ros2/interfaces/vehicles/alpo.git
     version: jazzy
@@ -250,10 +250,6 @@ repositories:
     type: git
     url: git@forge.inrae.fr:romea_ros2/third_party/nmea_navsat_driver.git
     version: romea
-  src/third_party/ouster_ros:
-    type: git
-    url: https://github.com/ouster-lidar/ouster-ros.git
-    version: ros2
   src/third_party/serial:
     type: git
     url: git@forge.inrae.fr:romea_ros2/third_party/serial.git
