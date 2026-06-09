@@ -23,6 +23,24 @@ RUN mkdir -p /tmp/opt && \
     find . -name "COLCON_IGNORE" | xargs cp --parents -t /tmp/opt 2>/dev/null || true
 
 
+# compile fields2cover library with python interface
+FROM ${FROM_IMAGE} AS f2c_builder
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl build-essential ca-certificates cmake \
+        doxygen g++ git libeigen3-dev libgdal-dev libpython3-dev python3 python3-pip \
+        python3-matplotlib python3-tk lcov libgtest-dev libtbb-dev swig libgeos-dev \
+        gnuplot libtinyxml2-dev nlohmann-json3-dev libfftw3-dev
+
+RUN git clone --depth 1 'https://github.com/Fields2Cover/Fields2Cover.git' /tmp/f2c && \
+    mkdir /tmp/f2c/build && \
+    cd /tmp/f2c/build && \
+    cmake -DBUILD_PYTHON=ON -DBUILD_TEST=OFF -DBUILD_TUTORIALS=OFF -DBUILD_TESTING=OFF \
+        -DCMAKE_INSTALL_PREFIX=/opt/f2c .. && \
+    make -j && \
+    make install && \
+    ( find /opt/f2c ! -iregex '.*\(fields2cover\|matplot\|steering_functions\).*' -delete || true )
+
+
 # multi-stage to install dependencies
 FROM $FROM_IMAGE AS installer
 
@@ -46,21 +64,12 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
       ros-${ROS_DISTRO}-rosbag2-storage-mcap \
       ros-${ROS_DISTRO}-plotjuggler-ros \
       zenoh-bridge-ros2dds \
-      # libgz-cmake4-dev \
       ros-${ROS_DISTRO}-ros-gz \
       ros-${ROS_DISTRO}-ros2-control \
       ros-${ROS_DISTRO}-ros2-control-cmake \
       ros-${ROS_DISTRO}-gz-ros2-control \
       ros-${ROS_DISTRO}-gz-cmake-vendor \
-      # ros-${ROS_DISTRO}-clearpath-description \
-      # ros-${ROS_DISTRO}-clearpath-common \
-      # ros-${ROS_DISTRO}-clearpath-config \
-      # ros-${ROS_DISTRO}-clearpath-msgs \
       ros-${ROS_DISTRO}-moveit \
-      # ros-${ROS_DISTRO}-gz-sim \
-      # ros-${ROS_DISTRO}-gz-plugin \
-      # ros-${ROS_DISTRO}-gz-sensors \
-      # ros-${ROS_DISTRO}-gz-tools-vendor \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
@@ -78,10 +87,15 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     rosdep install -iyr --from-paths src && \
     rm -rf /var/lib/apt/lists/*
 
+# install fields2cover
+COPY --from=f2c_builder /opt/f2c/ /opt/ros/$ROS_DISTRO/
+
 COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
 RUN echo 'source <(register-python-argcomplete ros2)' >>/etc/bash.bashrc && \
     echo 'source <(register-python-argcomplete colcon)' >>/etc/bash.bashrc
+
+# remove unused user of ubuntu docker image
 RUN userdel -r ubuntu
 
 
