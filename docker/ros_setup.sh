@@ -28,5 +28,7 @@ export GAZEBO_RESOURCE_PATH="$WORKSPACE/gazebo:$GAZEBO_RESOURCE_PATH"
 export GAZEBO_MODEL_PATH="$WORKSPACE/gazebo/models:$GAZEBO_MODEL_PATH"
 export GZ_SIM_RESOURCE_PATH="$TIRREX_WORKSPACE/gazebo/models:$GZ_SIM_RESOURCE_PATH"
 
-# use 'bash -c' to interpret variables in the given command line
-exec bash -c "exec $*"
+# use 'bash -c' to interpret variables in the given command l
+if [[ -n "$1" ]] ; then
+  exec bash -c "exec $*"
+fi
