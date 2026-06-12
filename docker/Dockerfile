@@ -84,7 +84,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
       ros-${ROS_DISTRO}-gz-ros2-control \
       ros-${ROS_DISTRO}-gz-cmake-vendor \
       ros-${ROS_DISTRO}-moveit \
-      gnome-terminal \
+      xterm \
       libgdal34t64 \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
