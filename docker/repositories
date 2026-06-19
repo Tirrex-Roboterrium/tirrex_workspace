@@ -249,7 +249,7 @@ repositories:
   src/third_party/nmea_navsat_driver:
     type: git
     url: https://github.com/Romea-Third-Party/nmea_navsat_driver.git
-    version: jazzy
+    version: romea
   src/third_party/serial:
     type: git
     url: https://github.com/Romea-Third-Party/serial-ros2.git
@@ -257,7 +257,7 @@ repositories:
   src/third_party/ugv_sdk:
     type: git
     url: https://github.com/Romea-Third-Party/ugv_sdk.git
-    version: jazzy
+    version: main
   src/third_party/xsens_driver:
     type: git
     url: https://github.com/Romea-Third-Party/xsens_driver.git
