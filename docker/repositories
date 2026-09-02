@@ -262,3 +262,7 @@ repositories:
     type: git
     url: https://github.com/Romea-Third-Party/xsens_driver.git
     version: romea
+  src/third_party/ur_simulation_gz:
+    type: git
+    url: https://github.com/UniversalRobots/Universal_Robots_ROS2_GZ_Simulation
+    version: jazzy

@@ -86,6 +86,7 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
       ros-${ROS_DISTRO}-moveit \
       xterm \
       libgdal34t64 \
+      jq \
       python3-pip && \
     rm -rf /var/lib/apt/lists/*
 

@@ -16,7 +16,7 @@ services:
     <<: *base
     environment:  # remove annoying warning of setuptools
       - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
-    command: 'colcon --log-base /dev/null build --symlink-install --event-handlers event_log- log-'
+    command: 'colcon --log-base /dev/null build --symlink-install --event-handlers event_log- log- --continue-on-error'
 
   compile_with_log:
     <<: *base
