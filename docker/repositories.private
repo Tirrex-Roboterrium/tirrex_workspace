@@ -202,6 +202,10 @@ repositories:
     type: git
     url: git@forge.inrae.fr:romea_ros2/interfaces/vehicles/scout.git
     version: jazzy
+  src/ros2/interfaces/vehicles/trektor:
+    type: git
+    url: git@forge.inrae.fr:romea_ros2/interfaces/vehicles/trektor.git
+    version: jazzy
 
   # Tools
   src/ros2/tools/romea_cmd_mux:
