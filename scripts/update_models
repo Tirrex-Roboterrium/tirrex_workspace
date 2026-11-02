@@ -1,21 +1,20 @@
 #!/bin/bash
-MODELS_ARCHIVE='tirrex.tar.xz'
-
 set -e
 cd "$(dirname -- "${BASH_SOURCE[0]}")/.."
 
 import_gazebo_models() {
-    echo 'Import gazebo models'
-    mkdir -p gazebo
-    
-    nextcloud_download='https://nextcloud.inrae.fr/public.php/dav/files/4PRo8ebgiLyf788'
-    archive_hash="${MODELS_ARCHIVE}.sha1"
+    model_archive="$1"
+    echo "Import ${model_archive}"
+    mkdir -p gazebo/hashes
+
+    nextcloud_download='https://nextcloud.inrae.fr/public.php/dav/files/NPjwMMeFbRPgmEA'
+    archive_hash="${model_archive}.sha1"
     remote_hash="/tmp/${archive_hash}"
-    local_hash="gazebo/${archive_hash}"
-    archive="/tmp/${MODELS_ARCHIVE}"
+    local_hash="gazebo/hashes/${archive_hash}"
+    archive="/tmp/${model_archive}"
 
     echo "  download hash (${archive_hash})"
-    curl -so "${remote_hash}" "${nextcloud_download}/${archive_hash}"
+    curl -sLo "${remote_hash}" "${nextcloud_download}/${archive_hash}"
 
     # check if the hash file is in the correct format
     if grep -qvE '^[0-9a-f]{40}\s+\S+$' "${remote_hash}" ; then
@@ -26,7 +25,8 @@ import_gazebo_models() {
 
     # download archive only if the remote hash differs from the local one
     if [[ ! -r "${local_hash}" ]] || ! cmp -s "${remote_hash}" "${local_hash}" ; then
-        curl -so "${archive}" "${nextcloud_download}/${MODELS_ARCHIVE}"
+        echo "  download ${model_archive}"
+        curl -Lo "${archive}" "${nextcloud_download}/${model_archive}"
         if tar -C gazebo -xvf "${archive}" ; then
             mv -f "${remote_hash}" "${local_hash}"
         else
@@ -39,4 +39,6 @@ import_gazebo_models() {
     fi
 }
 
-import_gazebo_models
+import_gazebo_models farm.tar.xz
+import_gazebo_models rosconfr26.tar.xz
+import_gazebo_models vineyard.tar.xz
