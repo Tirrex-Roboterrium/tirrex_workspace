@@ -45,11 +45,10 @@ FROM ${FROM_IMAGE} AS path_editor_builder
 RUN apt-get update && \
     apt-get install -y --no-install-recommends libgdal-dev qtbase5-dev
 
-RUN git clone --depth 1 'https://forge.inrae.fr/cyrille.pierre/romea_path_editor.git' /tmp/rpe && \
+RUN git clone --depth 1 'https://forge.inrae.fr/tscf/projects/romea_path_editor.git' /tmp/rpe && \
     mkdir /tmp/rpe/build && \
     cd /tmp/rpe/build && \
-    cmake -DBUILD_PYTHON=ON -DBUILD_TEST=OFF -DBUILD_TUTORIALS=OFF -DBUILD_TESTING=OFF \
-        -DCMAKE_INSTALL_PREFIX=/opt/rpe .. && \
+    cmake -DCMAKE_INSTALL_PREFIX=/opt/rpe .. && \
     make -j && \
     make install && \
     ldconfig
@@ -105,8 +104,8 @@ RUN --mount=type=cache,target=/var/lib/apt/lists \
     rm -rf /var/lib/apt/lists/*
 
 # install compiled programs and libraries
-COPY --from=f2c_builder /opt/f2c/ /opt/ros/$ROS_DISTRO/
 COPY --from=path_editor_builder /opt/rpe/ /usr/local/
+COPY --from=f2c_builder /opt/f2c/ /opt/ros/$ROS_DISTRO/
 
 COPY --chmod=755 docker/ros_entrypoint.sh docker/ros_setup.sh /
 
