@@ -57,8 +57,8 @@ services:
     environment:
       - DISPLAY
       - XDG_RUNTIME_DIR
-      - GAZEBO_RESOURCE_PATH
-      - GAZEBO_MODEL_PATH
+      - GZ_SIM_RESOURCE_PATH=${WORKSPACE}/gazebo/worlds:${WORKSPACE}/gazebo/models
+      - GZ_GUI_RESOURCE_PATH=${WORKSPACE}/gazebo/gui
   
   x11_gpu:  # used by services which requires GPU (and GUI)
     extends:
