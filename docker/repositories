@@ -1,4 +1,9 @@
 repositories:
+  demos/examples:
+    type: git
+    url: https://forge.inrae.fr/tirrex/config_examples.git
+    version: jazzy
+
   # Core
   src/core/romea_common:
     type: git
@@ -266,3 +271,5 @@ repositories:
     type: git
     url: https://github.com/UniversalRobots/Universal_Robots_ROS2_GZ_Simulation
     version: jazzy
+
+# vim: ft=yaml
