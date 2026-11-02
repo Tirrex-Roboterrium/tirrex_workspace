@@ -14,20 +14,23 @@ x-extends:
 services:
   compile:
     <<: *base
-    environment:  # remove annoying warning of setuptools
-      - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
     command: 'colcon --log-base /dev/null build --symlink-install --event-handlers event_log- log- --continue-on-error'
 
   compile_with_log:
     <<: *base
     profiles: [optional]
-    environment:  # remove annoying warning of setuptools
-      - PYTHONWARNINGS=ignore:::setuptools.command.easy_install
     command: 'colcon build --symlink-install'
 
   bash:
     <<: *x11
+    profiles: [optional]
     command: bash
+
+  dev:  # start a container used by IDEs like VS-code
+    extends:
+      file: docker/common.yaml
+      service: x11_base
+    command: sleep infinity
 
   adap2e_test:
     <<: *x11
@@ -64,9 +67,3 @@ services:
   robufast_test:
     <<: *x11
     command: 'ros2 launch robucar_bringup robucar_test.launch.py'
-
-  path_following:
-    <<: *x11
-    command: >-
-      ros2 launch tirrex_path_following path_following.launch.py
-        robot:=adap2e path:=field.txt
