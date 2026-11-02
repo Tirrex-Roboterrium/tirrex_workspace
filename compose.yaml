@@ -14,12 +14,7 @@ x-extends:
 services:
   compile:
     <<: *base
-    command: 'colcon --log-base /dev/null build --symlink-install --event-handlers event_log- log- --continue-on-error'
-
-  compile_with_log:
-    <<: *base
-    profiles: [optional]
-    command: 'colcon build --symlink-install'
+    command: colcon build
 
   bash:
     <<: *x11

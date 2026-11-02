@@ -1,0 +1,12 @@
+# Configure default colcon behavior for this workspace
+# Avoid creating unused log/ directory
+"":
+  log-base: "/dev/null"
+
+build:
+  symlink-install: true
+  continue-on-error: true
+  event-handlers:
+    - event_log-
+    - log-
+    - compile_commands+
