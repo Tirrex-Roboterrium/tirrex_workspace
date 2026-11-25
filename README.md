@@ -26,8 +26,8 @@ The tirrex workspace provides a full installation of the ros2 packages included 
 [Tirrex-Roboterrium](https://github.com/orgs/Tirrex-Roboterrium/repositories) and 
 [Romea](https://github.com/orgs/Romea/repositories).
 If you want to use this workspace to make your own development, it is recommended to install
-[template_ws](https://github.com/Tirrex-Roboterrium/template_ws) instead of this one, because the
-template version provides a pre-build version of the tirrex workspace.
+[tirrex_overlay](https://github.com/Tirrex-Roboterrium/tirrex_overlay) instead of this one, because
+the template version provides a pre-build version of the tirrex workspace.
 This allows you to avoid recompiling all the packages (there are more that 150).
 
 If you are more interested in an overview of all the work that has been done, you can continue to
